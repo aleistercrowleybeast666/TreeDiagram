@@ -391,7 +391,7 @@ class Workbench:
         motor=self.design.motor
         dialog=QDialog(self.window);dialog.setWindowTitle("推力曲线与只读来源");dialog.resize(700,560)
         layout=QVBoxLayout(dialog);tabs=QTabWidget();layout.addWidget(tabs)
-        plot=SignalView();plot.units="推力 N / 点火相对时间 s"
+        plot=SignalView();plot.units="N"
         def series(label,x,y):
             step=max(1,int(np.ceil(len(x)/4096)))
             indices=sorted(set(range(0,len(x),step))|{len(x)-1})
