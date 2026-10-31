@@ -11,9 +11,14 @@
 | 81349fc文字排版后的完整workbench测试文件 | pytest-motor-label.log | 5 passed，2.83s |
 | 81349fc wheel构建、独立目录安装、`python -I`真实C运行 | wheel-*-81349fc.log、packaging-81349fc.json | 全部0；66个源码资源逐字节一致 |
 | 三组最终真实run → SCG Preview/Apply/保存重开/正常生成/精确decoder/真实C消费者 | cross-repository/scg-v3-outcomes.json、scg-v3-run-identities.json | **143/143标量一致**；三个真实分析编译和执行均0；不宣称此批重新做过ARM |
+| 最后冻结09c057a6接收端重新执行上述三条链，另核验实际tdrun与源码前后稳定 | cross-repository/silverstar/treediagram_algorithms_20261101/v4/ | **143/143一致，exit 0**；三个C分析编译与执行0；没有重跑ARM |
 | `tools/preview_gui.py --output ... --run .qa/20261101/final-runs-v2/underline-pid.tdrun.json` | final-gui/、final-gui-label/ | 100/125/150%，明暗与紧凑布局；来源查看、算法模态实际渲染 |
 
 最终wheel SHA256：`48741d0d8d5a2f1b60f9fb668a7837ebccf9d6ac1169ce97147344a3db1ba2ac`。完整测试113、GUI专项5、场景15属于不同范围，不相加成一个虚构的全套计数。运行包、参数包与模型摘要分别保留；Underlineside200Ns示例在18秒尚未落地。
+
+最终SilverStar本地证据提交`8b028f280ba01dce0efc697479ef99ec143f7456`；Underlineside本地HEAD为`c1f8ac76f9bbcde1076ef9e48624c920ad161960`。两仓均未推送。[公开交付副本](cross-repository/README.md)包含精确来源hash、最终资源/协议/GUI与H7结论；旧原始记录完整保留在其正式本地提交。
+
+2026-11-01首次正常推送后，远端main核对为`d21c5f77637c0ff38116f1c5b1aa401bb5728949`。[GitHub Actions](https://github.com/aleistercrowleybeast666/TreeDiagram/actions/runs/41229254520)在Ubuntu干净checkout、Python3.13.17下完成algorithms/physics/imports/storage四完整文件：**104 passed in 7.35s**。完整日志与步骤为`github-actions-d21c5f7.log/.json`。runner有Actions Node20弃用提示，实际由Node24执行且所有步骤成功；不是产品源码编译告警。未执行Linux GUI。
 
 轮饱和修复前的实际Plant产生0.00273667N·m·s虚假角动量；修复后按到界时间一致交换。冷气耗尽四个边界用例验证实际力积分为0.004903325N·s，解析变质量火箭方程速度误差最大2.03×10⁻¹¹m/s，耗尽后无额外推力。这里没有把末态质量乘速度近似当作精确冲量。
 
@@ -58,5 +63,7 @@ Qt自动交互测试另覆盖工程保存/打开失败保持、取消草稿、�
 - 首个wheel包含最后ORK修复前的importers.py；逐文件比对发现后重建final-wheel，保留两次构建日志。最终wheel源完全一致。
 - Underline schema工作目录CRLF与提交LF曾导致副本hash不一致；统一固定字节与.gitattributes，现21项import回归包含独立hashgate，最终提交字节核验。
 - 更换已锁定的Python/NumPy版本会改变算法实现身份，旧run参数导出被拒绝是预期；SCG v2保留这次环境差异拒绝记录。
+- 最后增加的上游Git原字节一致性探测未全通过：32项SDK均匹配SilverStar工作字节，但25项与上游Git blob仅有CRLF/LF差异。`cross-repository/final-sdk-source-identity.json`保留原始false结果，后续`-analysis.json`核实全部32项上游blob自4f701b4至09c057a6未改，25项差异仅为换行。固定SDK、manifest、C实现身份没有变化；不把规范化后的比较冒充原始字节完全一致。
+- 最终文档提交的完整`git diff --cached --check`退出1：两份原始H7拒绝日志含一行尾随空格，GitHub Actions原始日志也有尾随空格/末尾空行。原件和hash保持不变，未清理或隐藏这些诊断；排除不可改写的`.log`后单独检查其余新增内容。此差异检查不替代任何固件安全门禁。
 
 没有硬件/飞行试验、导航准确性资格或全程序栈证明。无控制回收伞模型，示例结束不等于可部署飞行器。所需软件依赖安装成功，本子任务没有遇到授权拒绝；没有推送SilverStar/Underline。

@@ -1,0 +1,12 @@
+{
+  "supplements": "generated-task-inventory.json",
+  "owner": "TreeDiagram 20261101 implementation task",
+  "purpose": "Final reviewed cross-repository evidence copy and byte verification",
+  "path": ".qa/20261101/collect_final_evidence.py",
+  "bytes": 3981,
+  "sha256": "806a5124018af0f0aa4382f343f458f1e7db3200ed1a5398d54bce13b148c6eb",
+  "command": ".venv\\Scripts\\python.exe .qa/20261101/collect_final_evidence.py",
+  "exit_code": 0,
+  "retained_evidence": "docs/evidence/20261101/cross-repository/copy-manifest.json",
+  "cleanup_performed": false
+}

@@ -1,0 +1,330 @@
+{
+  "source_commit": "09c057a67acfc10e3ff387a4a8821c8ee0e83b0c",
+  "sdk_pinned_commit": "4f701b4a7822302dc0f4ac858549f7cc7fa4ba0e",
+  "note": "The SDK intentionally pins working bytes, not upstream git blob bytes. The initial stricter equality probe failed because SilverStar checkout uses CRLF for some files. No source/SDK bytes, manifest or runtime identity were changed. All frozen upstream git blobs equal the pinned source commit; any SDK-vs-upstream-git difference is CRLF-to-LF only. TreeDiagram committed SDK bytes are separately checked against the exact manifest. This check is provenance only, not a new mathematical or hardware test.",
+  "all_source_git_blobs_unchanged": true,
+  "all_sdk_source_differences_explained": true,
+  "crlf_only_files": 25,
+  "files": [
+    {
+      "sdk_path": "silverstar_algorithm_common/attitude_frame.c",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_common/payload/Algorithm/Common/Src/attitude_frame.c",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "407ae1bc41a066ca7c3525c989ab970d662cf460876a0847a0295b7b7dd068db",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 629
+    },
+    {
+      "sdk_path": "silverstar_algorithm_common/attitude_frame.h",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_common/payload/Algorithm/Common/Inc/attitude_frame.h",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "35b9747126686a19dab2a7e08237ecd874aae86b13bf233cf102d5e25a172567",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 70
+    },
+    {
+      "sdk_path": "silverstar_algorithm_common/plugin.json",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_common/plugin.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "d7a9b2456ca606515ab55e1fc7ef017bd73ee0b6c71a812aab1b9c63571d303f",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 54
+    },
+    {
+      "sdk_path": "silverstar_algorithm_ins_coning2_sculling2/ins_mechanization.c",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_ins_coning2_sculling2/payload/Algorithm/INS/Coning2Sculling2/Src/ins_mechanization.c",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "8ef0c64721c02de63f747754744f8144754d6202fb571819e6d158e1d4e7ca9c",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 516
+    },
+    {
+      "sdk_path": "silverstar_algorithm_ins_coning2_sculling2/ins_mechanization.h",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_ins_coning2_sculling2/payload/Algorithm/INS/Coning2Sculling2/Inc/ins_mechanization.h",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "2a4fee215e350587e3c6a7bbb41034415331891677f6212bf62c7b8abebdbcee",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 119
+    },
+    {
+      "sdk_path": "silverstar_algorithm_ins_coning2_sculling2/plugin.json",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_ins_coning2_sculling2/plugin.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "453b71c0b83ce6c7c22517d3c080bffdae66df5f9d02a3b8106b494dfab30267",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 115
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_kf6/navigation_kf.c",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_kf6/payload/Algorithm/Estimator/KF6/Src/navigation_kf.c",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "245001c071d53a537c292b466befbbf24a3a70ca464f0609f193b46bdecd9e6f",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 2357
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_kf6/navigation_kf.h",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_kf6/payload/Algorithm/Estimator/KF6/Inc/navigation_kf.h",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "4d3d5b93f4439d763199ca4f970c2d7bd436cc09cc3a92842ad291b7cdc5e6ca",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 202
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_kf6/plugin.json",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_kf6/plugin.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "dae7a46cf7b4e5d7b1fb03db8b63128c8de6401dc8a6fd36a79eb0ca86a68ddc",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 1124
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_sf6/navigation_sf6.c",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_sf6/payload/Algorithm/Estimator/SF6/Src/navigation_sf6.c",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "7f0fd56ea6c9b4b43432ef70d4762234a730328a724ba4c3f8db3e996e5ced12",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 160
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_sf6/navigation_sf6.h",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_sf6/payload/Algorithm/Estimator/SF6/Inc/navigation_sf6.h",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "6bd1b7e848fddf43f3ad5d81628c02ad7c182636d3f5b9fe7e12268e3984b95f",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 64
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_sf6/plugin.json",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_sf6/plugin.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "18dcc4472eb6a03fc3aeee2eb03abc6500df4e3281e44adfcc3622f422d2219d",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 268
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_eskf15/navigation_eskf.c",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_eskf15/payload/Algorithm/Estimator/ESKF15/Src/navigation_eskf.c",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "57d3ec3ff092a9b0f9455aecf52a2dde238b74b23463733450e391763a840c6b",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 785
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_eskf15/navigation_eskf.h",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_eskf15/payload/Algorithm/Estimator/ESKF15/Inc/navigation_eskf.h",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "62f8330a69150520578dda46067113a52e522a4ab12f22b484dc05742660025d",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 155
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_eskf15/plugin.json",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_eskf15/plugin.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "fa80aa3ef0ad120a87f52512937cf4976c245632927fcfe59ae1416af4c249a2",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 1679
+    },
+    {
+      "sdk_path": "silverstar_algorithm_augmented_common/navigation_bounded.c",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_augmented_common/payload/Algorithm/Estimator/Augmented/Src/navigation_bounded.c",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": true,
+      "only_crlf_lf_difference": false,
+      "source_git_sha256": "7d5591c3a87ce301099f10088ea8a20b5dee3092142821e6f58c1e97751f44b7",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 0
+    },
+    {
+      "sdk_path": "silverstar_algorithm_augmented_common/navigation_bounded.h",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_augmented_common/payload/Algorithm/Estimator/Augmented/Inc/navigation_bounded.h",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": true,
+      "only_crlf_lf_difference": false,
+      "source_git_sha256": "194ea399e852ed3593ae9cc10b39accb4caa9500fdc3a9188764a40caeaf07ee",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 0
+    },
+    {
+      "sdk_path": "silverstar_algorithm_augmented_common/plugin.json",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_augmented_common/plugin.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "33a6713db2bd5fcd34d09c3cff1bf2bd6a326a4d33674d3ab17261cc023542e4",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 60
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_eskf20/plugin.json",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_eskf20/plugin.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "d1de6f4341774331639e50d943deee04548b76a9bc58dba27126756074a19795",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 1665
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_inekf15/plugin.json",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_inekf15/plugin.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "b7f36b2a7068421d8b56b592373da65d1765e644150850ec26a73f3af3ac7fee",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 1013
+    },
+    {
+      "sdk_path": "silverstar_algorithm_estimator_inekf20/plugin.json",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_estimator_inekf20/plugin.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "135dc37fa2b0268c47cc7e957dcdc1e185b6f2302eacb3023e56962c28a9627a",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 1665
+    },
+    {
+      "sdk_path": "silverstar_algorithm_control_pid/control_pid.c",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_control_pid/payload/Algorithm/Control/PID/Src/control_pid.c",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": true,
+      "only_crlf_lf_difference": false,
+      "source_git_sha256": "a4f98b5c938022acca859567e72cd9d9e5f13b128f96aec2e43b8ff95156c37c",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 0
+    },
+    {
+      "sdk_path": "silverstar_algorithm_control_pid/control_pid.h",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_control_pid/payload/Algorithm/Control/PID/Inc/control_pid.h",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": true,
+      "only_crlf_lf_difference": false,
+      "source_git_sha256": "ccfb93c3d3482f6d7412ccb8c496822f6e23249e3dce4de1dcef37fd7c5ae0e5",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 0
+    },
+    {
+      "sdk_path": "silverstar_algorithm_control_pid/plugin.json",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_control_pid/plugin.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "36996674952f40cae73b827d11c238009b678dc369c54559ee4c4b45e1c6b597",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 205
+    },
+    {
+      "sdk_path": "silverstar_algorithm_control_lqr/control_lqr.c",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_control_lqr/payload/Algorithm/Control/LQR/Src/control_lqr.c",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": true,
+      "only_crlf_lf_difference": false,
+      "source_git_sha256": "93bed3be6176df9672cbf42c3f99831c164625978296dca1aa3f86f29a7c32c5",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 0
+    },
+    {
+      "sdk_path": "silverstar_algorithm_control_lqr/control_lqr.h",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_control_lqr/payload/Algorithm/Control/LQR/Inc/control_lqr.h",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": true,
+      "only_crlf_lf_difference": false,
+      "source_git_sha256": "31216be5da05329e2bd40fa3ba99d6308595aff1f44aecab71bccbbf691b55c4",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 0
+    },
+    {
+      "sdk_path": "silverstar_algorithm_control_lqr/plugin.json",
+      "source": "apps/SCG/plugins/builtin/silverstar_algorithm_control_lqr/plugin.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "dbc4058c6d9d9062b4746ce85fc6e0d930b4eb60744a29ed9e7174299c8c2a7c",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 117
+    },
+    {
+      "sdk_path": "LICENSE",
+      "source": "LICENSE",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": true,
+      "only_crlf_lf_difference": false,
+      "source_git_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 0
+    },
+    {
+      "sdk_path": "tuning_bundle_v1.schema.json",
+      "source": "contracts/tuning_bundle_v1.schema.json",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "a3be546d21e89a13e4bc6045c6b08b56a5f348f89f03f57af7555b9f4055f121",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 363
+    },
+    {
+      "sdk_path": "reference_config.h",
+      "source": "apps/SCG/tests/fixtures/navigation_perf_config/system_user_config.h",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "8d633e287b8c57eed85388b2c8447196b578bbc8abbfbc91a51d652d13098edd",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 54
+    },
+    {
+      "sdk_path": "silverstar_assert.h",
+      "source": "apps/SCG/plugins/builtin/silverstar_core_0_1_0/payload/Common/Inc/silverstar_assert.h",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "e7dbcb7168f71bb13b5bb3c05b596d8388ba50884507f40ae764920525d47615",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 77
+    },
+    {
+      "sdk_path": "silverstar_compiler.h",
+      "source": "apps/SCG/plugins/builtin/silverstar_core_0_1_0/payload/Common/Inc/silverstar_compiler.h",
+      "git_source_unchanged_since_pinned_commit": true,
+      "sdk_matches_source_git_bytes": false,
+      "only_crlf_lf_difference": true,
+      "source_git_sha256": "d9176d94ca250f5dbf257520163c51e773ad3345ce01705842b15349458d5f32",
+      "source_git_crlf_count": 0,
+      "sdk_crlf_count": 12
+    }
+  ]
+}

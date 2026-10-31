@@ -4,6 +4,10 @@
 
 当前为单级刚体、小攻角亚声速工程近似。6DoF plant 具有三维平动与转动；演示控制只请求 Body Y 单轴力矩，不提供全包线控制或硬件资格。原 GUI 外壳与工程安全保存功能保留，新增可操作的模型、任务与算法、结果工作区。
 
+![实际工作台：合成试车样例的结果与估计曲线](docs/evidence/20261101/final-gui-label/scale-1/offscreen-dark-results.png)
+
+上图是实际Qt窗口渲染，使用已完成的合成试车仿真结果，不是设计稿或硬件验证。
+
 ## 安装和启动
 
 Python 3.11+，推荐本轮验证的 Python 3.14；本地 GCC 用于实际 C 算法。首次安装需要取得 Python 依赖，安装后示例、仿真和 C 构建均不访问网络。启动时不下载 SilverStar main。
@@ -58,4 +62,6 @@ Underline 保持原 GUI，从原导出对话框选择 TreeDiagram motor-test 格
 .\.venv\Scripts\python.exe tools/preview_gui.py
 ```
 
-本轮 Windows 桌面与 offscreen 的实际测试、失败历史、源身份和原始输出见 `docs/evidence/20261101/`。未执行的 Linux/macOS、真实硬件、全程序栈证明和全包线准确性不会从 Host 测试推定为通过。原创代码 Apache-2.0；固定上游来源保留原许可。
+本轮 Windows 桌面与 offscreen 的实际测试、失败历史、源身份和原始输出见 `docs/evidence/20261101/`。未执行的 Linux/macOS 桌面、真实硬件、全程序栈证明和全包线准确性不会从 Host 测试推定为通过。原创代码 Apache-2.0；固定上游来源保留原许可。
+
+Windows完整测试113项通过；后续图例文字改动的GUI组5项通过。首次推送的[Ubuntu核心/合同CI](https://github.com/aleistercrowleybeast666/TreeDiagram/actions/runs/41229254520)实际104项通过，使用干净Git checkout和Python3.13.17；这不代表Linux桌面也已验收。15个真实运行样例与跨仓库143项参数对照见验证索引。

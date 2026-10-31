@@ -1,0 +1,346 @@
+﻿2026-10-31T18:24:25.6645886Z Current runner version: '2.338.2'
+2026-10-31T18:24:25.6660556Z ##[group]Runner Image Provisioner
+2026-10-31T18:24:25.6661058Z Hosted Compute Agent
+2026-10-31T18:24:25.6661488Z Version: 20261021.618
+2026-10-31T18:24:25.6661889Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-31T18:24:25.6662327Z Build Date: 2026-10-21T00:45:21Z
+2026-10-31T18:24:25.6662770Z Worker ID: {6cbe5195-4d1e-451c-90c7-50aacb570e4b}
+2026-10-31T18:24:25.6663187Z Region: southcentralus
+2026-10-31T18:24:25.6663564Z Cloud: Azure
+2026-10-31T18:24:25.6663888Z ##[endgroup]
+2026-10-31T18:24:25.6664576Z ##[group]Operating System
+2026-10-31T18:24:25.6665007Z Ubuntu
+2026-10-31T18:24:25.6665317Z 24.04.5
+2026-10-31T18:24:25.6665947Z LTS
+2026-10-31T18:24:25.6666252Z ##[endgroup]
+2026-10-31T18:24:25.6666562Z ##[group]Runner Image
+2026-10-31T18:24:25.6667022Z Image: ubuntu-24.04
+2026-10-31T18:24:25.6667358Z Version: 20261025.353.1
+2026-10-31T18:24:25.6668359Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-31T18:24:25.6669200Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+2026-10-31T18:24:25.6669809Z ##[endgroup]
+2026-10-31T18:24:25.6670457Z ##[group]GITHUB_TOKEN Permissions
+2026-10-31T18:24:25.6671633Z Contents: read
+2026-10-31T18:24:25.6671999Z Metadata: read
+2026-10-31T18:24:25.6672407Z ##[endgroup]
+2026-10-31T18:24:25.6673604Z Secret source: Actions
+2026-10-31T18:24:25.6674152Z Cache mode: write
+2026-10-31T18:24:25.6674563Z Prepare workflow directory
+2026-10-31T18:24:25.6906034Z Prepare all required actions
+2026-10-31T18:24:25.6936424Z Getting action download info
+2026-10-31T18:24:25.9081016Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-31T18:24:25.9709789Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-31T18:24:26.1141463Z Complete job name: host
+2026-10-31T18:24:26.1678522Z ##[group]Run actions/checkout@v4
+2026-10-31T18:24:26.1678964Z with:
+2026-10-31T18:24:26.1679227Z   repository: aleistercrowleybeast666/TreeDiagram
+2026-10-31T18:24:26.1681274Z   token: ***
+2026-10-31T18:24:26.1681494Z   ssh-strict: true
+2026-10-31T18:24:26.1681719Z   ssh-user: git
+2026-10-31T18:24:26.1681951Z   persist-credentials: true
+2026-10-31T18:24:26.1682203Z   clean: true
+2026-10-31T18:24:26.1682436Z   sparse-checkout-cone-mode: true
+2026-10-31T18:24:26.1682706Z   fetch-depth: 1
+2026-10-31T18:24:26.1682931Z   fetch-tags: false
+2026-10-31T18:24:26.1683161Z   show-progress: true
+2026-10-31T18:24:26.1683393Z   lfs: false
+2026-10-31T18:24:26.1683607Z   submodules: false
+2026-10-31T18:24:26.1683843Z   set-safe-directory: true
+2026-10-31T18:24:26.1684103Z   allow-unsafe-pr-checkout: false
+2026-10-31T18:24:26.1684431Z env:
+2026-10-31T18:24:26.1684652Z   QT_QPA_PLATFORM: offscreen
+2026-10-31T18:24:26.1684907Z ##[endgroup]
+2026-10-31T18:24:26.3371952Z Syncing repository: aleistercrowleybeast666/TreeDiagram
+2026-10-31T18:24:26.3373429Z ##[group]Getting Git version info
+2026-10-31T18:24:26.3373808Z Working directory is '/home/runner/work/TreeDiagram/TreeDiagram'
+2026-10-31T18:24:26.3374327Z [command]/usr/bin/git version
+2026-10-31T18:24:26.3439290Z git version 2.56.0
+2026-10-31T18:24:26.3450540Z ##[endgroup]
+2026-10-31T18:24:26.3459101Z Temporarily overriding HOME='/home/runner/work/_temp/48c96c7f-4892-4952-b1eb-abbcd3e45507' before making global git config changes
+2026-10-31T18:24:26.3460333Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-31T18:24:26.3462288Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TreeDiagram/TreeDiagram
+2026-10-31T18:24:26.3499461Z Deleting the contents of '/home/runner/work/TreeDiagram/TreeDiagram'
+2026-10-31T18:24:26.3502204Z ##[group]Initializing the repository
+2026-10-31T18:24:26.3504425Z [command]/usr/bin/git init /home/runner/work/TreeDiagram/TreeDiagram
+2026-10-31T18:24:26.3572219Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-31T18:24:26.3573479Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-31T18:24:26.3574538Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-31T18:24:26.3575146Z hint: call:
+2026-10-31T18:24:26.3575464Z hint:
+2026-10-31T18:24:26.3575873Z hint: 	git config --global init.defaultBranch <name>
+2026-10-31T18:24:26.3576369Z hint:
+2026-10-31T18:24:26.3576833Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-31T18:24:26.3577596Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-31T18:24:26.3578335Z hint:
+2026-10-31T18:24:26.3578660Z hint: 	git branch -m <name>
+2026-10-31T18:24:26.3579038Z hint:
+2026-10-31T18:24:26.3579542Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-31T18:24:26.3580401Z Initialized empty Git repository in /home/runner/work/TreeDiagram/TreeDiagram/.git/
+2026-10-31T18:24:26.3587242Z [command]/usr/bin/git remote add origin https://github.com/aleistercrowleybeast666/TreeDiagram
+2026-10-31T18:24:26.3623260Z ##[endgroup]
+2026-10-31T18:24:26.3623879Z ##[group]Disabling automatic garbage collection
+2026-10-31T18:24:26.3625899Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-31T18:24:26.3651500Z ##[endgroup]
+2026-10-31T18:24:26.3652078Z ##[group]Setting up auth
+2026-10-31T18:24:26.3656543Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-31T18:24:26.3684276Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-31T18:24:26.3988799Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-31T18:24:26.4022839Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-31T18:24:26.4199878Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-31T18:24:26.4232997Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-31T18:24:26.4409126Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-31T18:24:26.4448048Z ##[endgroup]
+2026-10-31T18:24:26.4448543Z ##[group]Fetching the repository
+2026-10-31T18:24:26.4455651Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d21c5f77637c0ff38116f1c5b1aa401bb5728949:refs/remotes/origin/main
+2026-10-31T18:24:27.0298329Z From https://github.com/aleistercrowleybeast666/TreeDiagram
+2026-10-31T18:24:27.0299176Z  * [new ref]         d21c5f77637c0ff38116f1c5b1aa401bb5728949 -> origin/main
+2026-10-31T18:24:27.0308980Z ##[endgroup]
+2026-10-31T18:24:27.0309809Z ##[group]Determining the checkout info
+2026-10-31T18:24:27.0310595Z ##[endgroup]
+2026-10-31T18:24:27.0311060Z [command]/usr/bin/git sparse-checkout disable
+2026-10-31T18:24:27.0355688Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-31T18:24:27.0387344Z ##[group]Checking out the ref
+2026-10-31T18:24:27.0390003Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-31T18:24:27.1153364Z Switched to a new branch 'main'
+2026-10-31T18:24:27.1156407Z branch 'main' set up to track 'origin/main'.
+2026-10-31T18:24:27.1163652Z ##[endgroup]
+2026-10-31T18:24:27.1559172Z [command]/usr/bin/git log -1 --format=%H
+2026-10-31T18:24:27.1588661Z d21c5f77637c0ff38116f1c5b1aa401bb5728949
+2026-10-31T18:24:27.1834284Z ##[group]Run actions/setup-python@v5
+2026-10-31T18:24:27.1834941Z with:
+2026-10-31T18:24:27.1835404Z   python-version: 3.13
+2026-10-31T18:24:27.1835943Z   check-latest: false
+2026-10-31T18:24:27.1841487Z   token: ***
+2026-10-31T18:24:27.1842112Z   update-environment: true
+2026-10-31T18:24:27.1842681Z   allow-prereleases: false
+2026-10-31T18:24:27.1843239Z   freethreaded: false
+2026-10-31T18:24:27.1843743Z env:
+2026-10-31T18:24:27.1844200Z   QT_QPA_PLATFORM: offscreen
+2026-10-31T18:24:27.1844763Z ##[endgroup]
+2026-10-31T18:24:27.2663536Z ##[group]Installed versions
+2026-10-31T18:24:27.2715768Z (node:2069) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-31T18:24:27.2718090Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-31T18:24:27.2719459Z Successfully set up CPython (3.13.17)
+2026-10-31T18:24:27.2720818Z ##[endgroup]
+2026-10-31T18:24:27.2970242Z ##[group]Run sudo apt-get update && sudo apt-get install -y gcc libegl1 libopengl0
+2026-10-31T18:24:27.2971572Z [36;1msudo apt-get update && sudo apt-get install -y gcc libegl1 libopengl0[0m
+2026-10-31T18:24:27.3007581Z shell: /usr/bin/bash -e {0}
+2026-10-31T18:24:27.3008821Z env:
+2026-10-31T18:24:27.3009597Z   QT_QPA_PLATFORM: offscreen
+2026-10-31T18:24:27.3010550Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:27.3011779Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.17/x64/lib/pkgconfig
+2026-10-31T18:24:27.3013327Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:27.3015116Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:27.3016631Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:27.3018094Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.17/x64/lib
+2026-10-31T18:24:27.3019172Z ##[endgroup]
+2026-10-31T18:24:27.3561575Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-31T18:24:27.3886134Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-31T18:24:27.3953135Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-31T18:24:27.3971678Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-31T18:24:27.4029388Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-31T18:24:27.4049242Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-31T18:24:27.4425569Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [682 kB]
+2026-10-31T18:24:27.4579450Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [617 kB]
+2026-10-31T18:24:27.5128459Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1408 kB]
+2026-10-31T18:24:27.5182087Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [311 kB]
+2026-10-31T18:24:27.5206327Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1707 kB]
+2026-10-31T18:24:27.5269475Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [343 kB]
+2026-10-31T18:24:27.5321006Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1813 kB]
+2026-10-31T18:24:27.5359447Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [412 kB]
+2026-10-31T18:24:27.5377358Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [14.3 kB]
+2026-10-31T18:24:27.5920212Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1146 kB]
+2026-10-31T18:24:27.5935754Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [231 kB]
+2026-10-31T18:24:27.5957495Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1223 kB]
+2026-10-31T18:24:27.6446161Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [246 kB]
+2026-10-31T18:24:29.9379082Z Fetched 10.5 MB in 1s (13.6 MB/s)
+2026-10-31T18:24:30.5432447Z Reading package lists...
+2026-10-31T18:24:30.5731836Z Reading package lists...
+2026-10-31T18:24:30.7147660Z Building dependency tree...
+2026-10-31T18:24:30.7152474Z Reading state information...
+2026-10-31T18:24:30.8270099Z gcc is already the newest version (4:13.2.0-7ubuntu1).
+2026-10-31T18:24:30.8270663Z The following NEW packages will be installed:
+2026-10-31T18:24:30.8271297Z   libegl-mesa0 libegl1 libopengl0
+2026-10-31T18:24:30.8423446Z 0 upgraded, 3 newly installed, 0 to remove and 6 not upgraded.
+2026-10-31T18:24:30.8423933Z Need to get 179 kB of archives.
+2026-10-31T18:24:30.8424322Z After this operation, 726 kB of additional disk space will be used.
+2026-10-31T18:24:30.8424748Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-31T18:24:31.0022056Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libegl-mesa0 amd64 25.2.8-0ubuntu0.24.04.4 [117 kB]
+2026-10-31T18:24:31.0325574Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libegl1 amd64 1.7.0-1build1 [28.7 kB]
+2026-10-31T18:24:31.0610574Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libopengl0 amd64 1.7.0-1build1 [32.8 kB]
+2026-10-31T18:24:31.2392034Z Fetched 179 kB in 0s (781 kB/s)
+2026-10-31T18:24:31.2553862Z Selecting previously unselected package libegl-mesa0:amd64.
+2026-10-31T18:24:31.2727940Z (Reading database ... 
+2026-10-31T18:24:31.2728237Z (Reading database ... 5%
+2026-10-31T18:24:31.2728449Z (Reading database ... 10%
+2026-10-31T18:24:31.2728669Z (Reading database ... 15%
+2026-10-31T18:24:31.2728867Z (Reading database ... 20%
+2026-10-31T18:24:31.2729067Z (Reading database ... 25%
+2026-10-31T18:24:31.2729255Z (Reading database ... 30%
+2026-10-31T18:24:31.2729550Z (Reading database ... 35%
+2026-10-31T18:24:31.2729756Z (Reading database ... 40%
+2026-10-31T18:24:31.2729945Z (Reading database ... 45%
+2026-10-31T18:24:31.2730205Z (Reading database ... 50%
+2026-10-31T18:24:31.2755071Z (Reading database ... 55%
+2026-10-31T18:24:31.4268295Z (Reading database ... 60%
+2026-10-31T18:24:31.6303580Z (Reading database ... 65%
+2026-10-31T18:24:31.8220230Z (Reading database ... 70%
+2026-10-31T18:24:32.0320326Z (Reading database ... 75%
+2026-10-31T18:24:32.2262752Z (Reading database ... 80%
+2026-10-31T18:24:32.3514556Z (Reading database ... 85%
+2026-10-31T18:24:32.4735016Z (Reading database ... 90%
+2026-10-31T18:24:32.6747246Z (Reading database ... 95%
+2026-10-31T18:24:32.6747440Z (Reading database ... 100%
+2026-10-31T18:24:32.6747630Z (Reading database ... 215504 files and directories currently installed.)
+2026-10-31T18:24:32.6781818Z Preparing to unpack .../libegl-mesa0_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+2026-10-31T18:24:32.8053976Z Unpacking libegl-mesa0:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-31T18:24:33.0563167Z Selecting previously unselected package libegl1:amd64.
+2026-10-31T18:24:33.0668197Z Preparing to unpack .../libegl1_1.7.0-1build1_amd64.deb ...
+2026-10-31T18:24:33.0675938Z Unpacking libegl1:amd64 (1.7.0-1build1) ...
+2026-10-31T18:24:33.0881771Z Selecting previously unselected package libopengl0:amd64.
+2026-10-31T18:24:33.0985302Z Preparing to unpack .../libopengl0_1.7.0-1build1_amd64.deb ...
+2026-10-31T18:24:33.0991607Z Unpacking libopengl0:amd64 (1.7.0-1build1) ...
+2026-10-31T18:24:33.1294936Z Setting up libopengl0:amd64 (1.7.0-1build1) ...
+2026-10-31T18:24:33.1313530Z Setting up libegl-mesa0:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-31T18:24:33.1327516Z Setting up libegl1:amd64 (1.7.0-1build1) ...
+2026-10-31T18:24:33.1343454Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+2026-10-31T18:24:33.6975927Z 
+2026-10-31T18:24:33.6976416Z Running kernel seems to be up-to-date.
+2026-10-31T18:24:33.6976649Z 
+2026-10-31T18:24:33.6976742Z No services need to be restarted.
+2026-10-31T18:24:33.6976888Z 
+2026-10-31T18:24:33.6976980Z No containers need to be restarted.
+2026-10-31T18:24:33.6977122Z 
+2026-10-31T18:24:33.6977258Z No user sessions are running outdated binaries.
+2026-10-31T18:24:33.6977425Z 
+2026-10-31T18:24:33.6977588Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-31T18:24:34.2919525Z ##[group]Run python -m pip install -e '.[test]'
+2026-10-31T18:24:34.2919748Z [36;1mpython -m pip install -e '.[test]'[0m
+2026-10-31T18:24:34.2936566Z shell: /usr/bin/bash -e {0}
+2026-10-31T18:24:34.2936699Z env:
+2026-10-31T18:24:34.2936811Z   QT_QPA_PLATFORM: offscreen
+2026-10-31T18:24:34.2936976Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:34.2937203Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.17/x64/lib/pkgconfig
+2026-10-31T18:24:34.2937429Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:34.2937632Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:34.2938085Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:34.2938290Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.17/x64/lib
+2026-10-31T18:24:34.2938464Z ##[endgroup]
+2026-10-31T18:24:34.8442485Z Obtaining file:///home/runner/work/TreeDiagram/TreeDiagram
+2026-10-31T18:24:34.8452675Z   Installing build dependencies: started
+2026-10-31T18:24:35.3543701Z   Installing build dependencies: finished with status 'done'
+2026-10-31T18:24:35.3547450Z   Checking if build backend supports build_editable: started
+2026-10-31T18:24:35.5882149Z   Checking if build backend supports build_editable: finished with status 'done'
+2026-10-31T18:24:35.5887868Z   Getting requirements to build editable: started
+2026-10-31T18:24:35.7980326Z   Getting requirements to build editable: finished with status 'done'
+2026-10-31T18:24:35.7986248Z   Preparing editable metadata (pyproject.toml): started
+2026-10-31T18:24:35.9192743Z   Preparing editable metadata (pyproject.toml): finished with status 'done'
+2026-10-31T18:24:36.0069083Z Collecting PySide6<7,>=6.8 (from treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.0719419Z   Downloading pyside6-6.12.0-cp310-abi3-manylinux_2_34_x86_64.whl.metadata (5.5 kB)
+2026-10-31T18:24:36.1893874Z Collecting numpy<3,>=2.4.1 (from treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.2011455Z   Downloading numpy-2.5.4-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-10-31T18:24:36.2648719Z Collecting scipy<2,>=1.16.3 (from treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.2761818Z   Downloading scipy-1.18.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+2026-10-31T18:24:36.3133695Z Collecting jsonschema<5,>=4.23 (from treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.3248985Z   Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+2026-10-31T18:24:36.3466464Z Collecting defusedxml<1,>=0.7 (from treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.3578651Z   Downloading defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+2026-10-31T18:24:36.3820996Z Collecting pytest<10,>=8 (from treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.3934519Z   Downloading pytest-9.2.0-py3-none-any.whl.metadata (7.9 kB)
+2026-10-31T18:24:36.4098599Z Collecting attrs>=22.2.0 (from jsonschema<5,>=4.23->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.4212428Z   Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+2026-10-31T18:24:36.4363601Z Collecting jsonschema-specifications>=2023.03.6 (from jsonschema<5,>=4.23->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.4478062Z   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+2026-10-31T18:24:36.4661914Z Collecting referencing>=0.28.4 (from jsonschema<5,>=4.23->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.4773736Z   Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+2026-10-31T18:24:36.6016716Z Collecting rpds-py>=0.25.0 (from jsonschema<5,>=4.23->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.6136093Z   Downloading rpds_py-2026.9.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+2026-10-31T18:24:36.6342916Z Collecting PySide6_Essentials==6.12.0 (from PySide6<7,>=6.8->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.6457880Z   Downloading pyside6_essentials-6.12.0-cp310-abi3-manylinux_2_34_x86_64.whl.metadata (3.7 kB)
+2026-10-31T18:24:36.6646870Z Collecting PySide6_Addons==6.12.0 (from PySide6<7,>=6.8->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.6762244Z   Downloading pyside6_addons-6.12.0-cp310-abi3-manylinux_2_34_x86_64.whl.metadata (4.3 kB)
+2026-10-31T18:24:36.7060397Z Collecting PySide6_WebEngine==6.12.0.140 (from PySide6<7,>=6.8->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.7173011Z   Downloading pyside6_webengine-6.12.0.140-cp310-abi3-manylinux_2_34_x86_64.whl.metadata (3.5 kB)
+2026-10-31T18:24:36.7318998Z Collecting PySide6_Pdf==6.12.0.140 (from PySide6<7,>=6.8->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.7444471Z   Downloading pyside6_pdf-6.12.0.140-cp310-abi3-manylinux_2_34_x86_64.whl.metadata (3.4 kB)
+2026-10-31T18:24:36.7656462Z Collecting shiboken6==6.12.0 (from PySide6_Essentials==6.12.0->PySide6<7,>=6.8->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.7828058Z   Downloading shiboken6-6.12.0-cp310-abi3-manylinux_2_34_x86_64.whl.metadata (2.5 kB)
+2026-10-31T18:24:36.7978353Z Collecting iniconfig>=2 (from pytest<10,>=8->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.8090817Z   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+2026-10-31T18:24:36.8252913Z Collecting packaging>=24 (from pytest<10,>=8->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.8364365Z   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-10-31T18:24:36.8541738Z Collecting pluggy<2,>=1.6 (from pytest<10,>=8->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.8652855Z   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+2026-10-31T18:24:36.8979064Z Collecting pygments>=2.15 (from pytest<10,>=8->treediagram-workbench==0.1.0)
+2026-10-31T18:24:36.9091197Z   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-10-31T18:24:36.9265988Z Downloading defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+2026-10-31T18:24:36.9395793Z Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+2026-10-31T18:24:36.9564941Z Downloading numpy-2.5.4-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-10-31T18:24:37.1276138Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 103.4 MB/s  0:00:00
+2026-10-31T18:24:37.1389897Z Downloading pyside6-6.12.0-cp310-abi3-manylinux_2_34_x86_64.whl (577 kB)
+2026-10-31T18:24:37.1439977Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 577.7/577.7 kB 141.9 MB/s  0:00:00
+2026-10-31T18:24:37.1561703Z Downloading pyside6_addons-6.12.0-cp310-abi3-manylinux_2_34_x86_64.whl (59.2 MB)
+2026-10-31T18:24:37.7267235Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.2/59.2 MB 103.7 MB/s  0:00:00
+2026-10-31T18:24:37.7386490Z Downloading pyside6_essentials-6.12.0-cp310-abi3-manylinux_2_34_x86_64.whl (84.3 MB)
+2026-10-31T18:24:38.5719006Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 84.3/84.3 MB 101.2 MB/s  0:00:00
+2026-10-31T18:24:38.5862200Z Downloading pyside6_pdf-6.12.0.140-cp310-abi3-manylinux_2_34_x86_64.whl (2.8 MB)
+2026-10-31T18:24:38.6046541Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.8/2.8 MB 150.2 MB/s  0:00:00
+2026-10-31T18:24:38.6161737Z Downloading pyside6_webengine-6.12.0.140-cp310-abi3-manylinux_2_34_x86_64.whl (116.7 MB)
+2026-10-31T18:24:40.1602077Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 116.7/116.7 MB 75.6 MB/s  0:00:01
+2026-10-31T18:24:40.1721514Z Downloading shiboken6-6.12.0-cp310-abi3-manylinux_2_34_x86_64.whl (279 kB)
+2026-10-31T18:24:40.1867172Z Downloading pytest-9.2.0-py3-none-any.whl (411 kB)
+2026-10-31T18:24:40.2002212Z Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+2026-10-31T18:24:40.2128181Z Downloading scipy-1.18.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+2026-10-31T18:24:40.4926333Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 125.9 MB/s  0:00:00
+2026-10-31T18:24:40.5042562Z Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+2026-10-31T18:24:40.5174732Z Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+2026-10-31T18:24:40.5302666Z Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+2026-10-31T18:24:40.5428557Z Downloading packaging-26.3-py3-none-any.whl (129 kB)
+2026-10-31T18:24:40.5579207Z Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-10-31T18:24:40.5633309Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 283.1 MB/s  0:00:00
+2026-10-31T18:24:40.5745498Z Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+2026-10-31T18:24:40.5876098Z Downloading rpds_py-2026.9.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (370 kB)
+2026-10-31T18:24:40.7854091Z Building wheels for collected packages: treediagram-workbench
+2026-10-31T18:24:40.7859504Z   Building editable for treediagram-workbench (pyproject.toml): started
+2026-10-31T18:24:40.9208721Z   Building editable for treediagram-workbench (pyproject.toml): finished with status 'done'
+2026-10-31T18:24:40.9212593Z   Created wheel for treediagram-workbench: filename=treediagram_workbench-0.1.0-0.editable-py3-none-any.whl size=10871 sha256=647332f05a54d0319841dc33c28d01f82d7e5367c57f38c6f75a07dd1866f833
+2026-10-31T18:24:40.9213552Z   Stored in directory: /tmp/pip-ephem-wheel-cache-ibz6f1bq/wheels/49/19/72/6e51824774f0e7a271fe5e3b9f5ff5e07fc950cbc2785ec85c
+2026-10-31T18:24:40.9224026Z Successfully built treediagram-workbench
+2026-10-31T18:24:40.9615720Z Installing collected packages: shiboken6, rpds-py, pygments, pluggy, packaging, numpy, iniconfig, defusedxml, attrs, scipy, referencing, pytest, PySide6_Essentials, PySide6_Pdf, PySide6_Addons, jsonschema-specifications, PySide6_WebEngine, jsonschema, PySide6, treediagram-workbench
+2026-10-31T18:24:47.5282289Z 
+2026-10-31T18:24:47.5298556Z Successfully installed PySide6-6.12.0 PySide6_Addons-6.12.0 PySide6_Essentials-6.12.0 PySide6_Pdf-6.12.0.140 PySide6_WebEngine-6.12.0.140 attrs-26.1.0 defusedxml-0.7.1 iniconfig-2.3.1 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 numpy-2.5.4 packaging-26.3 pluggy-1.7.0 pygments-2.21.0 pytest-9.2.0 referencing-0.37.0 rpds-py-2026.9.1 scipy-1.18.1 shiboken6-6.12.0 treediagram-workbench-0.1.0
+2026-10-31T18:24:47.6120243Z ##[group]Run python -m pytest tests/test_algorithms.py tests/test_physics.py tests/test_imports.py tests/test_storage.py -q
+2026-10-31T18:24:47.6120709Z [36;1mpython -m pytest tests/test_algorithms.py tests/test_physics.py tests/test_imports.py tests/test_storage.py -q[0m
+2026-10-31T18:24:47.6136602Z shell: /usr/bin/bash -e {0}
+2026-10-31T18:24:47.6136731Z env:
+2026-10-31T18:24:47.6136842Z   QT_QPA_PLATFORM: offscreen
+2026-10-31T18:24:47.6137003Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:47.6137230Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.17/x64/lib/pkgconfig
+2026-10-31T18:24:47.6137451Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:47.6137651Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:47.6137995Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.17/x64
+2026-10-31T18:24:47.6138197Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.17/x64/lib
+2026-10-31T18:24:47.6138394Z ##[endgroup]
+2026-10-31T18:24:55.5795136Z ........................................................................ [ 69%]
+2026-10-31T18:24:55.8600043Z ................................                                         [100%]
+2026-10-31T18:24:55.8600391Z 104 passed in 7.35s
+2026-10-31T18:24:55.9167610Z Post job cleanup.
+2026-10-31T18:24:55.9908892Z (node:2699) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-31T18:24:55.9909289Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-31T18:24:56.0051023Z Post job cleanup.
+2026-10-31T18:24:56.0619199Z [command]/usr/bin/git version
+2026-10-31T18:24:56.0681139Z git version 2.56.0
+2026-10-31T18:24:56.0702843Z Temporarily overriding HOME='/home/runner/work/_temp/77432c33-a405-4b38-bf4c-c6b4af9fd840' before making global git config changes
+2026-10-31T18:24:56.0703566Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-31T18:24:56.0705668Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TreeDiagram/TreeDiagram
+2026-10-31T18:24:56.0743223Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-31T18:24:56.0770758Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-31T18:24:56.0974751Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-31T18:24:56.0999341Z http.https://github.com/.extraheader
+2026-10-31T18:24:56.1016387Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-31T18:24:56.1048689Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-31T18:24:56.1239289Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-31T18:24:56.1275981Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-31T18:24:56.1576049Z Cleaning up orphan processes
+2026-10-31T18:24:56.1824468Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

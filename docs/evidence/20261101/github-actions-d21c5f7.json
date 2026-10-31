@@ -1,0 +1,75 @@
+{
+  "commit": "d21c5f77637c0ff38116f1c5b1aa401bb5728949",
+  "remote_ref_verified": true,
+  "run_id": 41229254520,
+  "url": "https://github.com/aleistercrowleybeast666/TreeDiagram/actions/runs/41229254520",
+  "jobs": {
+    "jobs": [
+      {
+        "id": 124619783378,
+        "name": "host",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41229254520,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run sudo apt-get update && sudo apt-get install -y gcc libegl1 libopengl0",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run python -m pip install -e '.[test]'",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run python -m pytest tests/test_algorithms.py tests/test_physics.py tests/test_imports.py tests/test_storage.py -q",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          }
+        ]
+      }
+    ]
+  },
+  "scope": "Ubuntu clean Git checkout; Python 3.13.17; algorithms/physics/imports/storage four complete files; 104 passed in 7.35s. Not a Linux desktop test."
+}
