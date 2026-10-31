@@ -16,7 +16,7 @@ def test_roundtrip_has_version_no_machine_paths_and_backup(tmp_path):
     assert saved.result == ProjectIoResult.Success
     raw = path.read_bytes()
     document = json.loads(raw)
-    assert document["schema_version"] == 1
+    assert document["schema_version"] == 2
     assert document["project"]["dataset"]["values"] == []
     assert str(tmp_path) not in raw.decode("utf-8")
     assert Project_Load(path).project == project
@@ -43,7 +43,7 @@ def test_bad_open_preserves_current_session(tmp_path, damage):
         data["project"]["future_data"] = [1, 2]
         content = json.dumps(data)
     elif damage == "duplicate":
-        content = path.read_text(encoding="utf-8").replace('"schema_version": 1', '"schema_version": 1, "schema_version": 1')
+        content = path.read_text(encoding="utf-8").replace('"schema_version": 2', '"schema_version": 2, "schema_version": 2')
     else:
         data["project"]["dataset"]["values"] = [float("nan")]
         content = json.dumps(data)

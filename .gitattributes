@@ -1,0 +1,5 @@
+* text=auto
+contracts/motor-test-package/v1/schema.json text eol=lf
+src/treediagram/vendor_motor/contract.py text eol=lf
+tests/fixtures/motor/** -text whitespace=cr-at-eol
+src/treediagram/algorithms/sdk/** -text whitespace=cr-at-eol

@@ -68,6 +68,8 @@ class Project:
     dataset: Dataset
     config: RunConfig
     runs: tuple[RunRecord, ...] = ()
+    design: dict | None = None
+    flight_runs: tuple[dict, ...] = ()
 
 
 def Dataset_CreateUniform(count: int = 97, start: float = 0.0, end: float = math.tau) -> Dataset:

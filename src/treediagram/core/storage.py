@@ -12,6 +12,8 @@ from enum import Enum
 from pathlib import Path
 
 from .model import Curve, Dataset, JobState, Project, RunConfig, RunRecord
+from ..io import Json_Decode, MAX_BYTES
+from ..design import Design_Decode
 
 
 class ProjectIoResult(str, Enum):
@@ -78,15 +80,27 @@ def _Json_ReadPairs(pairs):
 
 
 def _Project_Decode(raw: bytes) -> Project:
-    if len(raw) > 4 * 1024 * 1024:
-        raise _Invalid("项目超过 4 MiB 上限；请拆分项目。")
-    document = json.loads(raw.decode("utf-8"), object_pairs_hook=_Json_ReadPairs)
+    if len(raw) > MAX_BYTES:
+        raise _Invalid("项目超过 32 MiB 上限；请导出结果并拆分项目。")
+    document = Json_Decode(raw)
     if not isinstance(document, dict) or document.get("format") != "TreeDiagramProject":
         raise _Invalid("不是 TreeDiagram 项目。")
-    if type(document.get("schema_version")) is not int or document["schema_version"] != 1:
+    if type(document.get("schema_version")) is not int or document["schema_version"] not in (1, 2):
         raise _Version("不支持此 schema 版本；文件未修改，请使用兼容版本打开。")
     _Object_Check(document, {"format", "schema_version", "project"})
-    data = _Object_Check(document["project"], {"project_id", "name", "description", "dataset", "config", "runs"})
+    keys = {"project_id", "name", "description", "dataset", "config", "runs"}
+    if document["schema_version"] == 2:
+        keys |= {"design", "flight_runs"}
+    data = _Object_Check(document["project"], keys)
+    design = data.get("design")
+    if design is not None:
+        Design_Decode(design)
+    flight_runs = data.get("flight_runs", [])
+    if not isinstance(flight_runs, list) or len(flight_runs) > 10:
+        raise _Invalid("最多保留10次六自由度运行；可先导出旧结果。")
+    from ..results import Run_Validate
+    for flight_run in flight_runs:
+        Run_Validate(flight_run)
     dataset = _Object_Check(data["dataset"], {"name", "values"})
     config = _Object_Check(data["config"], {"plugin_id", "parameters"})
     if not isinstance(data["runs"], list) or len(data["runs"]) > 100:
@@ -131,13 +145,13 @@ def _Project_Decode(raw: bytes) -> Project:
         _Text_Check(data["description"], 5000, True),
         Dataset(_Text_Check(dataset["name"]), _Numbers_Check(dataset["values"], minimum=0)),
         RunConfig(_Text_Check(config["plugin_id"], 80, True), _Parameters_Check(config["parameters"])),
-        tuple(records),
+        tuple(records), design, tuple(flight_runs),
     )
 
 
 def _File_Read(path: Path) -> bytes:
     with path.open("rb") as stream:
-        return stream.read(4 * 1024 * 1024 + 1)
+        return stream.read(MAX_BYTES + 1)
 
 
 def Project_Load(path: Path) -> ProjectIoOutcome:
@@ -172,7 +186,7 @@ def Project_Save(project: Project, path: Path, expected_digest: str | None = Non
     locked = False
     try:
         raw = (json.dumps(
-            {"format": "TreeDiagramProject", "schema_version": 1, "project": asdict(project)},
+            {"format": "TreeDiagramProject", "schema_version": 2, "project": asdict(project)},
             ensure_ascii=False, allow_nan=False, indent=2,
         ) + "\n").encode("utf-8")
         _Project_Decode(raw)

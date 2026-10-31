@@ -1,0 +1,12 @@
+TreeDiagram
+Copyright 2026 TreeDiagram contributors
+
+Original work is licensed under Apache License 2.0 (LICENSE).
+The small pinned SilverStar algorithm SDK retains its own LICENSE, source
+provenance and per-file hashes in src/treediagram/algorithms/sdk/manifest.json.
+The motor-test contract and portable validator originate in Underline_RETLDC;
+see contracts/motor-test-package/v1/PROVENANCE.json. Their original license is
+retained as LICENSE-UNDERLINE. They are not independent contract authorities.
+No RocketPy, MAPLEAF, OpenRocket, AeroVECTOR, ActiveRocketPy, RocketSerializer
+or JSBSim source code is incorporated into the physics backend.
+Python and binary runtime dependencies retain their upstream licenses.

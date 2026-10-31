@@ -1,0 +1,19 @@
+{
+  "scope": "Exact inputs of frozen kf6-pid/lqr bundle fixture generation; 1 s stationary simulated IMU, explicit launch prior",
+  "sdk_manifest_sha256": "be346b62b727608864e5e2c389a4852adc9c24edb04ed755ddd06faeffa13967",
+  "native_files": {
+    "host_assert.c": "c00602f9d23e53691fa4b3c39b1959fbd549a55fe0c482d02eebf271a89921e6",
+    "host_navigation.c": "bc6bf52a0fcdba23f68066581cd2c50ee7079e979f7144be1f194fedb313b661",
+    "system_user_config.h": "00cfc14bb65737d978a72a71b0be6f135ca15e3364acc68ed27aeec8b5697ea4"
+  },
+  "compiler": "gcc (Rev5, Built by MSYS2 project) 16.1.0\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "flags": [
+    "-std=c11",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-shared",
+    "-static-libgcc"
+  ]
+}

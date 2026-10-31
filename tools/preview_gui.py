@@ -10,22 +10,32 @@ sys.path.insert(0, str(root / "src"))
 
 from PySide6.QtWidgets import QApplication
 from treediagram.ui import MainWindow
+from treediagram.design import Design_CreateExample
+from treediagram.results import Run_Load
+from dataclasses import replace
 
 app = QApplication([])
 window = MainWindow()
-output = root / ".qa"
-output.mkdir(exist_ok=True)
+output = root / "docs/evidence/20261101" / ("scale-"+os.environ.get("QT_SCALE_FACTOR","1"))
+output.mkdir(exist_ok=True,parents=True)
 window.show()
+window.workbench.Design_Commit(Design_CreateExample("pid"))
+result_path=root/".qa/20261101/pid.tdrun.json"
+if result_path.exists():
+    run=Run_Load(result_path)
+    window.session.Project_Set(replace(window.session.project,design=run["design"],flight_runs=(run,)))
+    window.workbench.Refresh()
 for theme, index in (("light", 0), ("dark", 1)):
     window.theme_combo.setCurrentIndex(index)
     for page, width, height, name in (
-        (0, 1180, 780, "overview"), (2, 1180, 780, "placeholder"), (0, 920, 620, "compact"),
+        (1, 1180, 780, "model"), (2, 1180, 780, "task"), (3,1180,780,"results"), (1, 920, 620, "compact"),
     ):
         window.resize(width, height)
         window.navigation.setCurrentRow(page)
         app.processEvents()
-        target = output / f"{theme}-{name}.png"
+        target = output / f"offscreen-{theme}-{name}.png"
         assert window.grab().save(str(target)), target
         print(target)
+window.session.dirty=False
 window.close()
 

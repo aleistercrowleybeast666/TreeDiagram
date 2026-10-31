@@ -11,7 +11,8 @@ def test_shell_navigation_resize_theme_and_font(window, app):
     assert window.windowTitle() == "TreeDiagram"
     assert window.version_label.text() == f"v{__version__}"
     assert [action.text() for action in window.file_actions] == ["新建工程", "打开工程…", "保存工程", "工程另存为…"]
-    assert not any("运行" in button.text() or "计算" in button.text() for button in window.findChildren(QPushButton))
+    assert window.workbench.run_button.text() == "运行六自由度仿真"
+    assert not window.workbench.run_button.isEnabled()  # empty project has no physics input
     for width, height in ((920, 620), (1180, 780), (1440, 900)):
         window.resize(width, height)
         app.processEvents()
@@ -23,7 +24,9 @@ def test_shell_navigation_resize_theme_and_font(window, app):
             rectangle = window.navigation.visualItemRect(window.navigation.item(index))
             QTest.mouseClick(window.navigation.viewport(), Qt.MouseButton.LeftButton, pos=rectangle.center())
             assert window.pages.currentIndex() == index
-            assert window.pages.currentWidget().horizontalScrollBar().maximum() == 0
+            page = window.pages.currentWidget()
+            if hasattr(page, "horizontalScrollBar"):
+                assert page.horizontalScrollBar().maximum() == 0
     for index, background in ((1, "#0f172a"), (0, "#f4f6fa")):
         window.theme_combo.setCurrentIndex(index)
         app.processEvents()

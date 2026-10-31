@@ -47,7 +47,7 @@ class MainWindow(QMainWindow):
         self.title_label.setObjectName("headerTitle")
         self.version_label = QLabel(f"v{__version__}")
         self.version_label.setObjectName("headerVersion")
-        stage = QLabel("GUI 外壳预览")
+        stage = QLabel("六自由度工程工作台")
         stage.setObjectName("headerStage")
         self.project_label = QLabel()
         self.project_label.setTextFormat(Qt.TextFormat.PlainText)
@@ -82,23 +82,21 @@ class MainWindow(QMainWindow):
         self.navigation = QListWidget()
         self.navigation.setObjectName("navigation")
         self.navigation.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.navigation.addItems(["工程概览", "数据", "运行配置", "结果"])
+        self.navigation.addItems(["工程概览", "模型与装配", "任务与算法", "结果"])
         self.navigation.currentRowChanged.connect(self._Page_Select)
         sidebar_layout.addWidget(self.navigation)
         body_layout.addWidget(sidebar)
         self.pages = QStackedWidget()
         self.pages.addWidget(self._Page_CreateOverview())
-        for title, description, items in (
-            ("数据", "数据类型与导入方式尚未确定。此页仅预留工作区。", [("数据定义", "待确定"), ("导入 / 编辑", "未启用")]),
-            ("运行配置", "具体业务与运行流程由您确定后再实现。当前没有计算入口。", [("业务模型", "待确定"), ("运行参数", "未定义"), ("运行任务", "未启用")]),
-            ("结果", "结果格式与展示内容尚未确定。当前没有仿真结果。", [("结果格式", "待确定"), ("图表 / 导出", "未启用")]),
-        ):
-            self.pages.addWidget(self._Page_CreatePlaceholder(title, description, items))
+        from .workbench import Workbench
+        self.workbench = Workbench(self)
+        for page in (self.workbench.model_page, self.workbench.task_page, self.workbench.result_page):
+            self.pages.addWidget(page)
         body_layout.addWidget(self.pages, 1)
         root.addWidget(body, 1)
         self.setCentralWidget(shell)
         self._Menu_Build()
-        self.stage_status = QLabel("GUI 外壳  ·  业务定位待定")
+        self.stage_status = QLabel("离线仿真  ·  实机资格独立验证")
         self.statusBar().addPermanentWidget(self.stage_status)
 
     def _Page_Wrap(self, page: QWidget) -> QScrollArea:
@@ -116,7 +114,7 @@ class MainWindow(QMainWindow):
         heading = QLabel("工程概览")
         heading.setObjectName("pageTitle")
         layout.addWidget(heading)
-        note = QLabel("本轮先搭建与 FLP 一致的界面外壳；TreeDiagram 的具体定位与功能待确定。")
+        note = QLabel("从试车曲线与装配开始，运行真实六自由度模型，比较估计和控制结果。首次体验无需硬件或联网。")
         note.setObjectName("muted")
         note.setWordWrap(True)
         layout.addWidget(note)
@@ -129,7 +127,7 @@ class MainWindow(QMainWindow):
         self.description = QPlainTextEdit()
         self.description.setMinimumHeight(100)
         self.description.setMaximumHeight(140)
-        self.description.setPlaceholderText("可以先记下想法，稍后再确定具体方向。")
+        self.description.setPlaceholderText("记录模型目的、假设与适用范围。")
         self.path_label = QLabel()
         self.path_label.setTextFormat(Qt.TextFormat.PlainText)
         self.path_label.setWordWrap(True)
@@ -144,9 +142,9 @@ class MainWindow(QMainWindow):
         modules_layout = QVBoxLayout(modules)
         self.module_table = self._Table_Create([
             ("工程概览", "可用", "编辑名称、备注；新建、打开、保存工程"),
-            ("数据", "占位", "数据类型与导入方式待确定"),
-            ("运行配置", "占位", "业务模型与运行流程待确定"),
-            ("结果", "占位", "结果格式与展示方式待确定"),
+            ("模型与装配", "可用", "离线示例、试车包、OpenRocket 几何子集；逐对象编辑"),
+            ("任务与算法", "可用", "RK4 六自由度、模拟传感器、真实 C 估计 / PID / LQR"),
+            ("结果", "可用", "轨迹、姿态、误差、执行器响应与独立运行快照"),
         ], ["工作区", "状态", "当前范围"])
         self.module_table.setFixedHeight(170)
         modules_layout.addWidget(self.module_table)
@@ -211,7 +209,7 @@ class MainWindow(QMainWindow):
         help_menu.addAction("关于 TreeDiagram", self._About_Show)
 
     def _About_Show(self) -> None:
-        QMessageBox.about(self, "关于 TreeDiagram", f"TreeDiagram v{__version__}\n\nGUI 外壳预览\n布局与主题参照 SilverStar FLP。\n业务定位与具体功能待确定。")
+        QMessageBox.about(self, "关于 TreeDiagram", f"TreeDiagram v{__version__}\n\n离线六自由度工程工作台\n真实 C 算法、声明式文件、可追溯结果。\n工程近似与实机验证范围请参阅 README。")
 
     def _Theme_Select(self) -> None:
         dark = self.theme_combo.currentIndex() == 1
@@ -229,6 +227,7 @@ class MainWindow(QMainWindow):
         self._loading = False
         self.navigation.setCurrentRow(0)
         self._View_RefreshStatus()
+        self.workbench.Refresh()
 
     def _View_RefreshStatus(self) -> None:
         name = self.session.project.name or "未命名工程"
@@ -315,6 +314,11 @@ class MainWindow(QMainWindow):
         return True
 
     def closeEvent(self, event):
+        if self.workbench.busy:
+            self.workbench.Run_Cancel()
+            self.statusBar().showMessage("正在安全取消运行，请结束后再次关闭。")
+            event.ignore()
+            return
         if self._Changes_ConfirmDiscard():
             event.accept()
         else:

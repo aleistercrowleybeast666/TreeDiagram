@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original synthetic fixture following the public OpenRocket 1.10 format. -->
+<openrocket version="1.10" creator="TreeDiagram synthetic fixture">
+<rocket><name>单级格式演示</name><subcomponents><stage><name>Sustainer</name><subcomponents>
+<nosecone><id>nose</id><name>Conical nose</name><shape>conical</shape><length>0.2</length><aftradius>0.04</aftradius><overridemass>0.15</overridemass></nosecone>
+<bodytube><id>body</id><name>Body</name><length>1.0</length><radius>0.04</radius><thickness>0.003</thickness><material type="bulk" density="600">Synthetic wood</material><subcomponents>
+<trapezoidfinset><id>fins</id><name>Fins</name><position type="bottom">0</position><rootchord>0.15</rootchord><tipchord>0.06</tipchord><height>0.08</height><sweeplength>0.05</sweeplength><fincount>4</fincount><thickness>0.003</thickness><material type="bulk" density="500">Synthetic wood</material></trapezoidfinset>
+<masscomponent><id>electronics</id><name>Electronics</name><position type="top">0.2</position><packedlength>0.08</packedlength><packedradius>0.02</packedradius><mass>0.2</mass></masscomponent>
+</subcomponents></bodytube>
+<transition><id>tail</id><name>Tail transition</name><length>0.1</length><foreradius>0.04</foreradius><aftradius>0.03</aftradius><overridemass>0.05</overridemass></transition>
+</subcomponents></stage></subcomponents></rocket></openrocket>

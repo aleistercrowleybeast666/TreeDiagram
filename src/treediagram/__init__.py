@@ -1,4 +1,4 @@
-"""TreeDiagram：GUI 外壳预览，业务定位待定。"""
+"""TreeDiagram: offline 6DoF engineering and real-core algorithm workbench."""
 
 __version__ = "0.1.0"
 

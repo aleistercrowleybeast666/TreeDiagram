@@ -1,0 +1,4 @@
+<openrocket version="1.10"><rocket><name>Blocked unknown</name><subcomponents><stage><subcomponents>
+<bodytube><id>body</id><length>1</length><radius>0.04</radius><overridemass>1</overridemass></bodytube>
+<unknownSeparationMechanism><id>separation</id><mass>1.2</mass></unknownSeparationMechanism>
+</subcomponents></stage></subcomponents></rocket></openrocket>
