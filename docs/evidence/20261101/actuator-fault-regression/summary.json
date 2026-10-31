@@ -1,0 +1,32 @@
+[
+  {
+    "mode": "before",
+    "tests": 5,
+    "failures": 5,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 1,
+    "test_cases": [
+      "test_plant_wheel_saturation_and_reversal_conserve_inertial_momentum",
+      "test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.005-1.0]",
+      "test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.05-1.0]",
+      "test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.005-0.0]",
+      "test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.05-0.0]"
+    ]
+  },
+  {
+    "mode": "after",
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "test_cases": [
+      "test_plant_wheel_saturation_and_reversal_conserve_inertial_momentum",
+      "test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.005-1.0]",
+      "test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.05-1.0]",
+      "test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.005-0.0]",
+      "test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.05-0.0]"
+    ]
+  }
+]

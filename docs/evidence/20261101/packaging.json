@@ -1,0 +1,6 @@
+{
+  "wheel_sha256": "f6073ba1105cf4e50a3e8fd0f9cec4a3271a5f16411c06a283f6dd3b977507e2",
+  "source_match": true,
+  "smoke_exit": 0,
+  "scope": "installed wheel, isolated Python, bundled SDK actual C run; not a fresh OS or dependency offline installation"
+}

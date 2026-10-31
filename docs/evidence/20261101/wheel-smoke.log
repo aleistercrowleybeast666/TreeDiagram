@@ -1,0 +1,19 @@
+{
+  "package": "D:\\python_software\\TreeDiagram\\.qa\\20261101\\wheel-install\\treediagram\\__init__.py",
+  "sdk": "D:\\python_software\\TreeDiagram\\.qa\\20261101\\wheel-install\\treediagram\\algorithms\\sdk",
+  "source_commit": "4f701b4a7822302dc0f4ac858549f7cc7fa4ba0e",
+  "summary": {
+    "maximum_altitude_m": 0.6714926363805259,
+    "duration_s": 0.3,
+    "landed": false,
+    "total_impulse_ns": 109.875,
+    "hardware_validation": "not performed"
+  },
+  "algorithm_results": {
+    "imu_Waiting": 16,
+    "barometer_Ok": 3,
+    "magnetometer_Unsupported": 3,
+    "imu_Ok": 15,
+    "gnss_Ok": 2
+  }
+}

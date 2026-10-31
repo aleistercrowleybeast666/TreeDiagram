@@ -1,0 +1,32 @@
+{
+  "before_commit": "1983911f419190e80241a4ed851462516a1de737",
+  "fix_commit": "440db630ac12c5e3ad128623870ef00771c49e25",
+  "head": "81349fc27690374b617d18c3a52690807010c1cb",
+  "extraction_commands": [
+    [
+      "git",
+      "show",
+      "1983911f419190e80241a4ed851462516a1de737:src/treediagram/physics.py"
+    ],
+    [
+      "git",
+      "show",
+      "440db630ac12c5e3ad128623870ef00771c49e25^:src/treediagram/physics.py"
+    ]
+  ],
+  "before_git_blob_sha256": "eaf980b8de2cdf8b53668d4cfe2b2587c83af509bc90a0e1a9bcaec274fa9783",
+  "before_extracted_source_sha256": "eaf980b8de2cdf8b53668d4cfe2b2587c83af509bc90a0e1a9bcaec274fa9783",
+  "after_git_blob_sha256": "9812fd0c4f63677cbf42d0066b83ec9350dad9ff25a2423e2a5d56cf05a76669",
+  "after_runtime_source_sha256": "9812fd0c4f63677cbf42d0066b83ec9350dad9ff25a2423e2a5d56cf05a76669",
+  "tests_path": "tests/test_physics.py",
+  "unchanged_final_tests_sha256": "caa779bc860217dbf504cbf233abeda1a500d540a16bc8d9e1eb2a6df1a2275e",
+  "selected_tests": [
+    "tests/test_physics.py::test_plant_wheel_saturation_and_reversal_conserve_inertial_momentum",
+    "tests/test_physics.py::test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation"
+  ],
+  "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "scope": "historical physics module with final unchanged model/test environment, not a historical full-suite run",
+  "compatibility_adapter": "before only: accept rcs_active=None and call the old method unchanged; reject non-None overrides",
+  "hardware_validation": "not performed"
+}

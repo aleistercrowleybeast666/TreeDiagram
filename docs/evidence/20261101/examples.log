@@ -1,0 +1,19 @@
+none {'maximum_altitude_m': 117.12440560346042, 'duration_s': 10.860796, 'landed': True, 'total_impulse_ns': 109.875, 'hardware_validation': 'not performed'}
+pid {'maximum_altitude_m': 117.17769575511667, 'duration_s': 10.865561, 'landed': True, 'total_impulse_ns': 109.875, 'hardware_validation': 'not performed'}
+lqr {'maximum_altitude_m': 117.24944905593019, 'duration_s': 10.866709, 'landed': True, 'total_impulse_ns': 109.875, 'hardware_validation': 'not performed'}
+gimbal 0.08105345570645514
+fin 0.0780247715038521
+wheel 0.07868023961782455
+rcs 0.0897083431304302
+ins 0.0013820865784786192
+sf6 0.14542068968455862
+kf6 0.3395893881618847
+eskf15 0.3285128979980043
+Traceback (most recent call last):
+  File "D:\python_software\TreeDiagram\tools\verify_examples.py", line 65, in <module>
+    if __name__=="__main__":Main()
+                            ~~~~^^
+  File "D:\python_software\TreeDiagram\tools\verify_examples.py", line 49, in Main
+    if not valid:raise AssertionError(kind+": no actual C output")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: eskf20: no actual C output

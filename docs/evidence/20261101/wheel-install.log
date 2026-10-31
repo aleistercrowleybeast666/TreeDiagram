@@ -1,0 +1,7 @@
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Processing d:\python_software\treediagram\.qa\20261101\wheels\treediagram_workbench-0.1.0-py3-none-any.whl
+Installing collected packages: treediagram-workbench
+Successfully installed treediagram-workbench-0.1.0
+
+[notice] A new release of pip is available: 25.2 -> 26.2.2
+[notice] To update, run: D:\python_software\TreeDiagram\.venv\Scripts\python.exe -m pip install --upgrade pip

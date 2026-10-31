@@ -1,0 +1,32 @@
+[
+  {
+    "mode": "before",
+    "command": [
+      "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+      "-u",
+      "D:\\python_software\\TreeDiagram\\docs\\evidence\\20261101\\actuator-fault-regression\\run_regression.py",
+      "--mode",
+      "before"
+    ],
+    "cwd": "D:\\python_software\\TreeDiagram",
+    "exit_code": 1,
+    "expected_exit_code": 1,
+    "seconds": 5.1334160000042175,
+    "log_sha256": "d2948aea0709789327cd76dcbfc1ce075a19909cb0008c9c7b8363c8a37372a6"
+  },
+  {
+    "mode": "after",
+    "command": [
+      "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+      "-u",
+      "D:\\python_software\\TreeDiagram\\docs\\evidence\\20261101\\actuator-fault-regression\\run_regression.py",
+      "--mode",
+      "after"
+    ],
+    "cwd": "D:\\python_software\\TreeDiagram",
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "seconds": 4.926883699998143,
+    "log_sha256": "097d6d15e06b88b31b843d676c7e3eb2199d40b522d040b8c25103405e594933"
+  }
+]

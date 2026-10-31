@@ -1,0 +1,35 @@
+........................................................................ [ 96%]
+F..                                                                      [100%]
+================================== FAILURES ===================================
+_________ test_real_background_publish_staleness_cancel_and_roundtrip _________
+
+window = <treediagram.ui.MainWindow(0x278d0f69c70) at 0x00000278E7A41900>
+app = <PySide6.QtWidgets.QApplication(0x278b75d2ad0) at 0x00000278E79D0940>
+tmp_path = WindowsPath('D:/python_software/TreeDiagram/.test-tmp/full-20261101/test_real_background_publish_s0')
+
+    def test_real_background_publish_staleness_cancel_and_roundtrip(window,app,tmp_path):
+        design=Design_CreateExample()
+        design=replace(design,scenario=replace(design.scenario,duration_s=.25))
+        window.workbench.Design_Commit(design)
+        window.workbench.Run_Start()
+>       finish(window,app)
+
+tests\test_workbench.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+window = <treediagram.ui.MainWindow(0x278d0f69c70) at 0x00000278E7A41900>
+app = <PySide6.QtWidgets.QApplication(0x278b75d2ad0) at 0x00000278E79D0940>
+limit = 1000
+
+    def finish(window,app,limit=1000):
+        for _ in range(limit):
+            app.processEvents()
+            if not window.workbench.busy:return
+            QTest.qWait(10)
+>       raise AssertionError("background job did not finish in bounded test wait")
+E       AssertionError: background job did not finish in bounded test wait
+
+tests\test_workbench.py:18: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_workbench.py::test_real_background_publish_staleness_cancel_and_roundtrip
+1 failed, 74 passed in 61.87s (0:01:01)

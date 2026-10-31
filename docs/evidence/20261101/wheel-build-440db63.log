@@ -1,0 +1,13 @@
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Processing d:\python_software\treediagram
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: treediagram-workbench
+  Building wheel for treediagram-workbench (pyproject.toml): started
+  Building wheel for treediagram-workbench (pyproject.toml): finished with status 'done'
+  Created wheel for treediagram-workbench: filename=treediagram_workbench-0.1.0-py3-none-any.whl size=186561 sha256=b09594e2145060d29ddc4737331c99ea8fb57612e5c10df288f8120b8eb8affb
+  Stored in directory: C:\Users\chdxm\AppData\Local\Temp\pip-ephem-wheel-cache-1xpjh23z\wheels\d7\8d\1d\98ed61f5d6216990d9c7202fbf01288078e46b1459d56e8edd
+Successfully built treediagram-workbench
+
+[notice] A new release of pip is available: 25.2 -> 26.2.2
+[notice] To update, run: D:\python_software\TreeDiagram\.venv\Scripts\python.exe -m pip install --upgrade pip

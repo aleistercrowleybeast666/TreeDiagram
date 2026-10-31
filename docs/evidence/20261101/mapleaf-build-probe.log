@@ -1,0 +1,46 @@
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting https://github.com/henrystoldt/MAPLEAF/archive/af970d3e8200832f5e70d537b15ad38dd74fa551.zip
+  Downloading https://github.com/henrystoldt/MAPLEAF/archive/af970d3e8200832f5e70d537b15ad38dd74fa551.zip
+     \ 42.7 MB 974.7 kB/s 0:00:42
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  Preparing metadata (pyproject.toml) did not run successfully.
+  exit code: 1
+  
+  [20 lines of output]
+  Traceback (most recent call last):
+    File "D:\python_software\TreeDiagram\.venv\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 389, in <module>
+      main()
+      ~~~~^^
+    File "D:\python_software\TreeDiagram\.venv\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 373, in main
+      json_out["return_val"] = hook(**hook_input["kwargs"])
+                               ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+    File "D:\python_software\TreeDiagram\.venv\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 175, in prepare_metadata_for_build_wheel
+      return hook(metadata_directory, config_settings)
+    File "C:\Users\chdxm\AppData\Local\Programs\Python\Python314\Lib\site-packages\setuptools\build_meta.py", line 374, in prepare_metadata_for_build_wheel
+      self.run_setup()
+      ~~~~~~~~~~~~~~^^
+    File "C:\Users\chdxm\AppData\Local\Programs\Python\Python314\Lib\site-packages\setuptools\build_meta.py", line 512, in run_setup
+      super().run_setup(setup_script=setup_script)
+      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\chdxm\AppData\Local\Programs\Python\Python314\Lib\site-packages\setuptools\build_meta.py", line 317, in run_setup
+      exec(code, locals())
+      ~~~~^^^^^^^^^^^^^^^^
+    File "<string>", line 2, in <module>
+  ModuleNotFoundError: No module named 'Cython'
+  [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+
+[notice] A new release of pip is available: 25.2 -> 26.2.2
+[notice] To update, run: D:\python_software\TreeDiagram\.venv\Scripts\python.exe -m pip install --upgrade pip
+error: metadata-generation-failed
+
+Encountered error while generating package metadata.
+
+See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.

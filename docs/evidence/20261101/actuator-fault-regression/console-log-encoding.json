@@ -1,0 +1,20 @@
+{
+  "scope": "Derived readable views; original stdout/stderr bytes are retained unchanged",
+  "logs": [
+    {
+      "original": "before.log",
+      "original_encoding": "CP936/GBK",
+      "original_sha256": "d2948aea0709789327cd76dcbfc1ce075a19909cb0008c9c7b8363c8a37372a6",
+      "utf8_view": "before.utf8.log",
+      "utf8_sha256": "c051b87e5f455325e18a5a00c1ea1347fc6f6484f8b99f8c1377761c1182afa1"
+    },
+    {
+      "original": "after.log",
+      "original_encoding": "CP936/GBK",
+      "original_sha256": "097d6d15e06b88b31b843d676c7e3eb2199d40b522d040b8c25103405e594933",
+      "utf8_view": "after.utf8.log",
+      "utf8_sha256": "097d6d15e06b88b31b843d676c7e3eb2199d40b522d040b8c25103405e594933"
+    }
+  ],
+  "runner_sha256": "794109a972d22d87a4736582d0d19b3444b6184e93513e17ab41ac7e5e86421e"
+}

@@ -1,0 +1,4 @@
+*.log -text whitespace=cr-at-eol
+*.junit.xml -text whitespace=cr-at-eol
+*.json text eol=lf
+run_regression.py text eol=lf

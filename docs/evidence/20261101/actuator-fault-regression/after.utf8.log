@@ -1,0 +1,15 @@
+CURRENT PHYSICS: D:\python_software\TreeDiagram\src\treediagram\physics.py SHA256 9812fd0c4f63677cbf42d0066b83ec9350dad9ff25a2423e2a5d56cf05a76669
+============================= test session starts =============================
+platform win32 -- Python 3.14.0, pytest-9.1.1, pluggy-1.6.0 -- D:\python_software\TreeDiagram\.venv\Scripts\python.exe
+rootdir: D:\python_software\TreeDiagram
+configfile: pyproject.toml
+collecting ... collected 5 items
+
+tests/test_physics.py::test_plant_wheel_saturation_and_reversal_conserve_inertial_momentum PASSED [ 20%]
+tests/test_physics.py::test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.005-1.0] PASSED [ 40%]
+tests/test_physics.py::test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.05-1.0] PASSED [ 60%]
+tests/test_physics.py::test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.005-0.0] PASSED [ 80%]
+tests/test_physics.py::test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation[0.05-0.0] PASSED [100%]
+
+- generated xml file: D:\python_software\TreeDiagram\docs\evidence\20261101\actuator-fault-regression\after.junit.xml -
+============================== 5 passed in 1.86s ==============================

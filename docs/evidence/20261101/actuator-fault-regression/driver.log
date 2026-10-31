@@ -1,0 +1,2 @@
+before {'tests': 5, 'failures': 5, 'errors': 0, 'skipped': 0} exit 1
+after {'tests': 5, 'failures': 0, 'errors': 0, 'skipped': 0} exit 0

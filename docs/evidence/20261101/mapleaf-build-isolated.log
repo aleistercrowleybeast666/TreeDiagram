@@ -1,0 +1,51 @@
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting https://github.com/henrystoldt/MAPLEAF/archive/af970d3e8200832f5e70d537b15ad38dd74fa551.zip
+  Downloading https://github.com/henrystoldt/MAPLEAF/archive/af970d3e8200832f5e70d537b15ad38dd74fa551.zip
+     / 42.7 MB 964.2 kB/s 0:00:42
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  Getting requirements to build wheel did not run successfully.
+  exit code: 1
+  
+  [23 lines of output]
+  Traceback (most recent call last):
+    File "D:\python_software\TreeDiagram\.venv\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 389, in <module>
+      main()
+      ~~~~^^
+    File "D:\python_software\TreeDiagram\.venv\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 373, in main
+      json_out["return_val"] = hook(**hook_input["kwargs"])
+                               ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+    File "D:\python_software\TreeDiagram\.venv\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 143, in get_requires_for_build_wheel
+      return hook(config_settings)
+    File "C:\Users\chdxm\AppData\Local\Temp\pip-build-env-zkyreuvq\overlay\Lib\site-packages\setuptools\build_meta.py", line 333, in get_requires_for_build_wheel
+      return self._get_build_requires(config_settings, requirements=[])
+             ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\chdxm\AppData\Local\Temp\pip-build-env-zkyreuvq\overlay\Lib\site-packages\setuptools\build_meta.py", line 301, in _get_build_requires
+      self.run_setup()
+      ~~~~~~~~~~~~~~^^
+    File "C:\Users\chdxm\AppData\Local\Temp\pip-build-env-zkyreuvq\overlay\Lib\site-packages\setuptools\build_meta.py", line 520, in run_setup
+      super().run_setup(setup_script=setup_script)
+      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\chdxm\AppData\Local\Temp\pip-build-env-zkyreuvq\overlay\Lib\site-packages\setuptools\build_meta.py", line 317, in run_setup
+      exec(code, locals())  # noqa: S102 # exec is intentional here
+      ~~~~^^^^^^^^^^^^^^^^
+    File "<string>", line 3, in <module>
+  ModuleNotFoundError: No module named 'pkg_resources'
+  [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+
+[notice] A new release of pip is available: 25.2 -> 26.2.2
+[notice] To update, run: D:\python_software\TreeDiagram\.venv\Scripts\python.exe -m pip install --upgrade pip
+error: subprocess-exited-with-error
+
+Getting requirements to build wheel did not run successfully.
+exit code: 1
+
+See above for output.
+
+note: This error originates from a subprocess, and is likely not a problem with pip.
