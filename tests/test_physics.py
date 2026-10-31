@@ -95,6 +95,117 @@ def test_reaction_wheel_total_angular_momentum():
     assert inertia@y[10:13]+[0,y[14],0]==pytest.approx([0,0,0],abs=1e-12)
 
 
+def test_plant_wheel_saturation_and_reversal_conserve_inertial_momentum():
+    design=Design_CreateExample("none","wheel")
+    design=replace(design,motor=replace(design.motor,ignition_s=100.),
+                   scenario=replace(design.scenario,rail_length_m=0.,gravity_mps2=0.,
+                                    wind_enu_mps=(0.,0.,0.),drag_coefficient=0.,
+                                    normal_slope_per_rad=0.,damping_coefficient=0.))
+    plant=Plant(design);y=plant.State_Create()
+    initial_mass,_,inertia=plant.Mass_Evaluate(0.)
+    initial_h=Quaternion_Matrix(y[6:10])@(inertia@y[10:13]+[0.,y[14],0.])
+    limit=design.control.wheel_inertia_kg_m2*design.control.wheel_speed_limit_radps
+    history=[];momenta=[];step=.017
+    for tick in range(80):
+        plant.Control_Set(.37 if tick<40 else -.37,tick*step)
+        y=plant.Step(tick*step,y,step)
+        assert plant.Motor_Evaluate((tick+1)*step)[0]==0.
+        assert plant.Mass_Evaluate((tick+1)*step)[0]==initial_mass
+        momenta.append(Quaternion_Matrix(y[6:10])@(inertia@y[10:13]+[0.,y[14],0.]))
+        history.append(y[14])
+    assert min(history)==pytest.approx(-limit,abs=1e-14)
+    assert max(history)==pytest.approx(limit,abs=1e-14)
+    assert history[40]>history[39]  # Reversing the request unloads the saturated wheel.
+    assert np.asarray(momenta)==pytest.approx(np.tile(initial_h,(80,1)),abs=1e-10)
+
+
+def test_plant_wheel_three_axis_momentum_converges_through_saturation():
+    design=Design_CreateExample("none","wheel")
+    design=replace(design,motor=replace(design.motor,ignition_s=100.),
+                   scenario=replace(design.scenario,rail_length_m=0.,gravity_mps2=0.,
+                                    wind_enu_mps=(0.,0.,0.),drag_coefficient=0.,
+                                    normal_slope_per_rad=0.,damping_coefficient=0.))
+    errors=[]
+    for step in (.017,.00425):
+        plant=Plant(design);y=plant.State_Create();y[10:13]=[.3,.4,.2]
+        inertia=plant.Mass_Evaluate(0.)[2]
+        original=Quaternion_Matrix(y[6:10])@(inertia@y[10:13])
+        maximum=0.;ticks=round(1.36/step)
+        for tick in range(ticks):
+            plant.Control_Set(.37 if tick<ticks//2 else -.37,tick*step)
+            y=plant.Step(tick*step,y,step)
+            h=Quaternion_Matrix(y[6:10])@(inertia@y[10:13]+[0.,y[14],0.])
+            maximum=max(maximum,float(np.linalg.norm(h-original)))
+        errors.append(maximum)
+    # Finite RK4 gyroscopic error must converge, rather than being projected away.
+    assert errors[0]<2e-6 and errors[1]<1e-8
+    assert errors[0]/errors[1]>200
+
+
+def test_plant_wheel_exact_boundary_and_invalid_stored_momentum():
+    design=Design_CreateExample("none","wheel")
+    design=replace(design,motor=replace(design.motor,ignition_s=100.),
+                   scenario=replace(design.scenario,rail_length_m=0.,gravity_mps2=0.,
+                                    wind_enu_mps=(0.,0.,0.)))
+    plant=Plant(design);y=plant.State_Create()
+    limit=design.control.wheel_inertia_kg_m2*design.control.wheel_speed_limit_radps
+    plant.Control_Set(.2,0.)
+    y=plant.Step(0.,y,limit/.2)
+    assert y[14]==-limit
+    at_limit=y.copy();y=plant.Step(limit/.2,y,.1)
+    assert y[14]==at_limit[14] and y[10:13]==pytest.approx(at_limit[10:13],abs=1e-12)
+    corrupt=y.copy();corrupt[14]=-limit-.001
+    with pytest.raises(ValueError,match="stored momentum"):
+        plant.Step(1.,corrupt,.01)
+
+
+@pytest.mark.parametrize("step,initial_throttle",[(.005,1.),(.05,1.),(.005,0.),(.05,0.)])
+def test_plant_rcs_exhaustion_respects_impulse_budget_and_rocket_equation(step,initial_throttle):
+    class ImpulsePlant(Plant):
+        def Derivative(self,time_s,state,**options):
+            result=super().Derivative(time_s,state,**options)
+            cg=self.Mass_Evaluate(time_s,state[15])[1]
+            # An extra observable integrates actual produced force, not a
+            # clipped fuel counter. No production state derivative is replaced.
+            force=self.Actuator_Evaluate(time_s,state,0.,0.,cg,rcs_active=options.get("rcs_active"))[0]
+            result[17]=np.linalg.norm(force)
+            return result
+    design=Design_CreateExample("none","rcs")
+    design=replace(design,parts=(Part("b","body","mass",mass_kg=1.),),
+                   motor=replace(design.motor,ignition_s=100.,position_m=(0.,0.,0.)),
+                   control=replace(design.control,actuator_position_m=(0.,0.,0.),rcs_propellant_kg=1e-5),
+                   scenario=replace(design.scenario,launch_tilt_deg=0.,rail_length_m=0.,gravity_mps2=0.,
+                                    wind_enu_mps=(0.,0.,0.),drag_coefficient=0.,
+                                    normal_slope_per_rad=0.,damping_coefficient=0.))
+    Design_Validate(design)
+    plant=ImpulsePlant(design);y=np.r_[plant.State_Create(),0.];y[16]=initial_throttle
+    initial_mass=plant.Mass_Evaluate(0.)[0]
+    plant.Control_Set(.2,0.)
+    for tick in range(round(.2/step)):
+        y=plant.Step(tick*step,y,step)
+    final_mass=plant.Mass_Evaluate(.2,y[15])[0]
+    exhaust_speed=design.control.rcs_isp_s*9.80665
+    assert y[15]==design.control.rcs_propellant_kg
+    assert y[17]==pytest.approx(design.control.rcs_propellant_kg*exhaust_speed,abs=1e-12)
+    assert y[3]==pytest.approx(exhaust_speed*math.log(initial_mass/final_mass),abs=1e-10)
+    assert y[4:6]==pytest.approx([0.,0.],abs=1e-14)
+    coast=plant.Step(.2,y,.05)
+    assert coast[3:6]==pytest.approx(y[3:6],abs=1e-14)
+    assert coast[15]==y[15] and coast[17]==y[17]
+
+
+def test_plant_rcs_rejects_corrupt_resource_state_and_unbounded_valve_work():
+    design=Design_CreateExample("none","rcs")
+    plant=Plant(design);y=plant.State_Create()
+    y[15]=design.control.rcs_propellant_kg+.001
+    with pytest.raises(ValueError,match="stored propellant"):
+        plant.Step(0.,y,.005)
+    stiff=replace(design,control=replace(design.control,response_s=1e-6))
+    plant=Plant(stiff)
+    with pytest.raises(ValueError,match="256 substeps"):
+        plant.Step(0.,plant.State_Create(),.005)
+
+
 def test_design_rejects_cycles_boolean_mass_and_missing_motor():
     design=Design_CreateExample()
     with pytest.raises(ValueError,match="cycle"):

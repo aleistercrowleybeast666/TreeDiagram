@@ -14,7 +14,7 @@ from PySide6.QtWidgets import (QCheckBox, QComboBox, QDialog, QDialogButtonBox, 
     QFileDialog, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QListWidget, QPlainTextEdit,
     QProgressBar, QPushButton, QScrollArea, QSlider, QSplitter, QTableWidget,
     QTableWidgetItem, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget, QLineEdit,
-    QMessageBox, QInputDialog, QHeaderView, QMenu)
+    QMessageBox, QInputDialog, QHeaderView, QMenu, QTabWidget)
 
 from .design import (ACTUATORS, PART_KINDS, Assembly_Aggregate, Design_CreateExample,
                      Design_Decode, Design_Digest, Design_Validate, Part)
@@ -115,6 +115,7 @@ class Workbench:
         self.assembly_info.setWordWrap(True)
         detail_layout.addWidget(self.assembly_info)
         _Button("发动机 / 质量模型…", self.Motor_Edit, detail_layout)
+        _Button("推力曲线与来源…", self.Motor_SourceShow, detail_layout)
         _Button("审核导入缺项…", self.Issues_Review, detail_layout)
         detail_layout.addStretch()
         splitter.addWidget(details)
@@ -374,10 +375,45 @@ class Workbench:
             return
         try:
             candidate,changes=Motor_Import(Path(path),self.design)
-            if QMessageBox.question(self.window,"导入预览","改变来源字段："+", ".join(changes)+"\n安装位置和偏转能力保留。\n\n"+"\n".join(Design_Validate(candidate,False))+"\n应用？") == QMessageBox.StandardButton.Yes:
+            labels={"time_s":"时间轴","thrust_n":"推力曲线","propellant_mass_kg":"推进剂质量",
+                    "dry_mass_kg":"发动机干质量","length_m":"长度","radius_m":"半径","source":"来源记录"}
+            motor=candidate.motor
+            summary=f"{len(motor.time_s)} 个运行样本 · 总冲 {np.trapezoid(motor.thrust_n,motor.time_s):.6g} N·s\n"
+            summary+="改变："+"、".join(labels.get(key,key) for key in changes)+"\n安装、点火与偏转能力保留。\n"
+            summary+="标定资格："+motor.source["package"]["calibration"]["status"]+"（不独立证明原始试车真实性）\n"
+            if QMessageBox.question(self.window,"导入预览",summary+"\n"+"\n".join(Design_Validate(candidate,False))+"\n应用？") == QMessageBox.StandardButton.Yes:
                 self.Design_Commit(candidate)
         except (ValueError,OSError,KeyError) as exc:
             self.window._Error_Show(str(exc))
+
+    def Motor_SourceShow(self):
+        if not self.design or not self.design.motor:return
+        motor=self.design.motor
+        dialog=QDialog(self.window);dialog.setWindowTitle("推力曲线与只读来源");dialog.resize(700,560)
+        layout=QVBoxLayout(dialog);tabs=QTabWidget();layout.addWidget(tabs)
+        plot=SignalView();plot.units="推力 N / 点火相对时间 s"
+        def series(label,x,y):
+            step=max(1,int(np.ceil(len(x)/4096)))
+            indices=sorted(set(range(0,len(x),step))|{len(x)-1})
+            return label+("（显示抽样）" if step>1 else ""),[x[i] for i in indices],[y[i] for i in indices]
+        plot.series=[series("当前仿真曲线",motor.time_s,motor.thrust_n)]
+        metadata=copy.deepcopy(motor.source)
+        package=metadata.get("package")
+        if package:
+            evidence=package["evidence_curve"]
+            plot.series.append(series("原始导出证据",evidence["time_s"],evidence["thrust_n"]))
+            for key in ("evidence_curve","simulation_curve"):
+                curve=package.get(key)
+                if curve:
+                    package[key]={"sample_count":len(curve["time_s"]),"time_range_s":[curve["time_s"][0],curve["time_s"][-1]],
+                                  "note":"完整数组保留于工程；此详情只显示摘要"}
+        tabs.addTab(plot,"实际推力样本")
+        text=QPlainTextEdit();text.setReadOnly(True);text.setPlainText(json.dumps(metadata,ensure_ascii=False,indent=2))
+        tabs.addTab(text,"来源与处理详情")
+        note=QLabel(f"运行曲线 {len(motor.time_s)} 点 · 实际时间积分 {np.trapezoid(motor.thrust_n,motor.time_s):.6g} N·s\n来源只读；显示抽样不修改科学数据。当前质量/安装近似由工程单独拥有。")
+        note.setWordWrap(True);layout.addWidget(note)
+        buttons=QDialogButtonBox(QDialogButtonBox.StandardButton.Close);buttons.rejected.connect(dialog.reject);layout.addWidget(buttons)
+        dialog.exec()
 
     def Motor_Edit(self):
         if not self.design or not self.design.motor:
@@ -449,7 +485,9 @@ class Workbench:
     def Task_Edit(self):
         if not self.design:return
         dialog=QDialog(self.window);dialog.setWindowTitle("算法与连续范围")
-        form=QFormLayout(dialog);combos={}
+        dialog.resize(560,620)
+        layout=QVBoxLayout(dialog);scroll=QScrollArea();scroll.setWidgetResizable(True)
+        content=QWidget();form=QFormLayout(content);scroll.setWidget(content);layout.addWidget(scroll);combos={}
         c=self.design.control
         for key,label,choices in (("estimator","状态估计",("none","ins","sf6","kf6","eskf15","eskf20","inekf15","inekf20")),
                 ("controller","控制器",("none","pid","lqr")),("actuator","执行机构",ACTUATORS),
@@ -464,7 +502,7 @@ class Workbench:
             widget=_Number(getattr(c,key));form.addRow(label,widget);numbers[key]=widget
         note=QLabel("控制仅绕 Body Y；输入为真实C估计姿态+陀螺。\nKF6姿态来自INS，不是KF6自身输出。增强核要求同时间GNSS；迟到量测会拒绝。\n执行机构仅为仿真模型；未接实物驱动。")
         note.setWordWrap(True);form.addRow(note)
-        buttons=QDialogButtonBox(QDialogButtonBox.StandardButton.Apply|QDialogButtonBox.StandardButton.Cancel);form.addRow(buttons)
+        buttons=QDialogButtonBox(QDialogButtonBox.StandardButton.Apply|QDialogButtonBox.StandardButton.Cancel);layout.addWidget(buttons)
         buttons.rejected.connect(dialog.reject)
         def apply():
             try:

@@ -148,7 +148,7 @@ class Plant:
                    *s.reference_length_m**2*s.damping_coefficient*state[10:13])
         return force, torque, dynamic, atmosphere
 
-    def Actuator_Evaluate(self, time_s, state, thrust, dynamic, cg):
+    def Actuator_Evaluate(self, time_s, state, thrust, dynamic, cg, *, rcs_active=None):
         c, motor = self.design.control, self.design.motor
         motor_rotation=Quaternion_Matrix(motor.rotation_bm_wxyz)
         force = motor_rotation@np.array([0.,0.,thrust])
@@ -185,13 +185,14 @@ class Plant:
             actual = -hdot
         elif c.actuator == "rcs":
             # Explicit paired +/- X thrusters at the same aft station; one axis only.
+            has_fuel = state[15] < c.rcs_propellant_kg if rcs_active is None else rcs_active
             demand = min(1., abs(request)/(c.rcs_force_n*max(abs(effective_lever), 1e-8)))
-            if state[15] >= c.rcs_propellant_kg:
+            if not has_fuel:
                 demand = 0.
-            if time_s < self.rcs_hold_until_s and state[15] < c.rcs_propellant_kg:
+            if time_s < self.rcs_hold_until_s and has_fuel:
                 demand = max(demand, .2)
             derivative[3] = (demand-state[16])/c.response_s
-            throttle = np.clip(state[16], 0., 1.) if state[15] < c.rcs_propellant_kg else 0.
+            throttle = np.clip(state[16], 0., 1.) if has_fuel else 0.
             rcs_force = np.array([self.rcs_sign*c.rcs_force_n*throttle, 0., 0.])
             force += rcs_force
             torque += np.cross(lever, rcs_force)
@@ -209,11 +210,18 @@ class Plant:
             self.rcs_sign = math.copysign(1., request_nm*lever_z)
             self.rcs_hold_until_s = max(self.rcs_hold_until_s, time_s+self.design.control.minimum_pulse_s)
 
-    def Derivative(self, time_s, state):
+    def Derivative(self, time_s, state, *, wheel_h_dot=None, rcs_active=None):
         mass, cg, inertia = self.Mass_Evaluate(time_s, state[15])
         thrust, _ = self.Motor_Evaluate(time_s)
         aero_force, aero_torque, dynamic, _ = self.Aero_Evaluate(time_s, state, cg)
-        prop_force, prop_torque, actuators, _ = self.Actuator_Evaluate(time_s, state, thrust, dynamic, cg)
+        prop_force, prop_torque, actuators, _ = self.Actuator_Evaluate(
+            time_s, state, thrust, dynamic, cg, rcs_active=rcs_active
+        )
+        if wheel_h_dot is not None:
+            # A wheel substep has one fixed internal motor torque, including
+            # the left limit at its saturation endpoint. All RK stages must
+            # use that same exchange for wheel momentum and body reaction.
+            actuators[1] = wheel_h_dot
         rotation = Quaternion_Matrix(state[6:10])
         output = RigidBody_Derivative(state, mass, inertia, rotation@(aero_force+prop_force),
                                      aero_torque+prop_torque, self.design.scenario.gravity_mps2,
@@ -228,14 +236,93 @@ class Plant:
             output[6:13] = 0.
         return output
 
+    def _Wheel_Step(self, time_s, state, dt_s):
+        c = self.design.control
+        limit = c.wheel_inertia_kg_m2*c.wheel_speed_limit_radps
+        if not math.isfinite(dt_s) or dt_s <= 0 or abs(state[14]) > limit:
+            raise ValueError("wheel: invalid time interval or stored momentum exceeds limit")
+        rate = -float(np.clip(self.request_nm, -c.torque_limit_nm, c.torque_limit_nm))
+        target = math.copysign(limit, rate)
+        boundary_s = (target-state[14])/rate if rate else math.inf
+        if boundary_s <= 0:
+            rate, boundary_s = 0., math.inf
+        active_s = min(dt_s, boundary_s)
+        updated = Integrator_Step(
+            lambda t, x: self.Derivative(t, x, wheel_h_dot=rate), time_s, state, active_s
+        )
+        if boundary_s <= dt_s:
+            # The crossing time is analytic because the bounded command is
+            # constant within this Step. Only roundoff may differ from target;
+            # a material discrepancy is a failed run, never a clipping repair.
+            if abs(updated[14]-target) > 64*np.finfo(float).eps*max(1., limit):
+                raise ValueError("wheel: saturation event disagrees with integrated momentum")
+            updated[14] = target
+            remaining_s = dt_s-boundary_s
+            if remaining_s > 0:
+                updated = Integrator_Step(
+                    lambda t, x: self.Derivative(t, x, wheel_h_dot=0.),
+                    time_s+boundary_s, updated, remaining_s,
+                )
+        return updated
+
+    def _Rcs_Substep(self, time_s, state, dt_s):
+        limit = self.design.control.rcs_propellant_kg
+        active = state[15] < limit
+        derivative = lambda t, x: self.Derivative(t, x, rcs_active=active)
+        updated = Integrator_Step(derivative, time_s, state, dt_s)
+        if not active or updated[15] < limit:
+            return updated
+        # Solve the exhaustion boundary using the same active force/mass-flow
+        # equations as the body dynamics. Never switch only selected RK stages
+        # off and then clip away fuel that already produced an angular impulse.
+        low, high = 0., dt_s
+        for _ in range(48):
+            middle = (low+high)/2
+            candidate = Integrator_Step(derivative, time_s, state, middle)
+            if candidate[15] < limit:
+                low = middle
+            else:
+                high, updated = middle, candidate
+        if abs(updated[15]-limit) > 64*np.finfo(float).eps*max(1., limit):
+            raise ValueError("RCS: exhaustion event failed to converge; reduce physics step")
+        updated[15] = limit  # Only the verified root's floating roundoff is normalized.
+        if dt_s > high:
+            updated = Integrator_Step(
+                lambda t, x: self.Derivative(t, x, rcs_active=False),
+                time_s+high, updated, dt_s-high,
+            )
+        return updated
+
+    def _Rcs_Step(self, time_s, state, dt_s):
+        c = self.design.control
+        if (not math.isfinite(dt_s) or dt_s <= 0
+                or not 0 <= state[15] <= c.rcs_propellant_kg):
+            raise ValueError("RCS: invalid time interval or stored propellant consumption")
+        # Resolve the existing first-order valve without unstable giant RK
+        # stages. Work is statically capped, including a minimum-pulse boundary.
+        count = max(1, math.ceil(dt_s/(.25*c.response_s)))
+        if count > 256:
+            raise ValueError("RCS: valve needs more than 256 substeps; reduce physics step")
+        boundaries = [time_s+dt_s*i/count for i in range(count+1)]
+        if time_s < self.rcs_hold_until_s < time_s+dt_s:
+            boundaries.append(self.rcs_hold_until_s)
+            boundaries = sorted(set(boundaries))
+        updated = state
+        for left, right in zip(boundaries[:-1], boundaries[1:], strict=True):
+            updated = self._Rcs_Substep(left, updated, right-left)
+        return updated
+
     def Step(self, time_s, state, dt_s):
-        updated = Integrator_Step(self.Derivative, time_s, state, dt_s)
-        # Enforce physical bounds; commands are already bounded, this only absorbs RK crossing.
+        if self.design.control.actuator == "wheel":
+            updated = self._Wheel_Step(time_s, state, dt_s)
+        elif self.design.control.actuator == "rcs":
+            updated = self._Rcs_Step(time_s, state, dt_s)
+        else:
+            updated = Integrator_Step(self.Derivative, time_s, state, dt_s)
+        # Wheel momentum is solved at its physical boundary, never clipped
+        # independently of the equal-and-opposite angular impulse on the body.
         c = self.design.control
         updated[13] = np.clip(updated[13], -c.angle_limit_rad, c.angle_limit_rad)
-        updated[14] = np.clip(updated[14], -c.wheel_inertia_kg_m2*c.wheel_speed_limit_radps,
-                               c.wheel_inertia_kg_m2*c.wheel_speed_limit_radps)
-        updated[15] = np.clip(updated[15], 0., c.rcs_propellant_kg)
         updated[16] = np.clip(updated[16], 0., 1.)
         return updated
 

@@ -224,6 +224,11 @@ def Design_Validate(design: Design, runnable: bool = True) -> tuple[str, ...]:
         if any(p.kind == "motor" for p in design.parts):
             issues.append("motor: 主发动机干质量由推进模型计入；不能再用motor零件重复计质量")
         m = design.motor
+        if not isinstance(m.source,dict):
+            raise ValueError("motor.source: expected declarative object")
+        if "package" in m.source:
+            from .vendor_motor.contract import MotorPackage_Validate
+            MotorPackage_Validate(m.source["package"])
         if not 2 <= len(m.time_s) <= 200000 or len(m.time_s) != len(m.thrust_n):
             raise ValueError("motor: invalid array lengths")
         t = Vector_Check(m.time_s, len(m.time_s), "motor.time_s")
@@ -373,5 +378,5 @@ def Design_CreateExample(controller="none", actuator="gimbal") -> Design:
         Motor((0., .05, .25, 1., 1.8, 2.), (0., 50., 70., 65., 40., 0.), .3, .2,
               gimbal_capable=True, source={"origin": "synthetic", "calibration": "not applicable"}),
         control=ControlConfig(controller=controller, estimator="kf6" if controller != "none" else "none", actuator=actuator),
-        assumptions=("合成推力，用于软件流程而非发动机精度验证。", "推进剂按冲量比例消耗，均匀圆柱分布。",
+        assumptions=("示例装配与气动系数为软件参考；发动机证据与工程近似分别保留。", "推进剂按冲量比例消耗，均匀圆柱分布。",
                      "小攻角亚声速工程气动，超出适用域记录诊断。", "刚体、局部平地；无回收伞、级间分离和流体晃动。"))

@@ -5,10 +5,27 @@ from pathlib import Path
 
 from PySide6.QtCore import QTimer, Qt
 from PySide6.QtTest import QTest
-from PySide6.QtWidgets import QApplication, QComboBox, QDialogButtonBox, QDoubleSpinBox
+from PySide6.QtWidgets import QApplication, QComboBox, QDialogButtonBox, QDoubleSpinBox, QPlainTextEdit
 
 from treediagram.design import Design_CreateExample, Design_Digest
 from treediagram.core.storage import Project_Save, Project_Load, ProjectIoResult
+
+
+def test_motor_evidence_inspection_is_read_only_and_keeps_negative_samples(window,app):
+    from treediagram.importers import Motor_Import
+    from treediagram.views import SignalView
+    design,_=Motor_Import(Path(__file__).parent/"fixtures/motor/valid_synthetic.tdmotor.json",Design_CreateExample())
+    window.workbench.Design_Commit(design)
+    before=window.session.project
+    def inspect():
+        dialog=QApplication.activeModalWidget()
+        plot=dialog.findChild(SignalView)
+        assert len(plot.series)==2 and min(plot.series[1][2])<0
+        assert dialog.findChild(QPlainTextEdit).isReadOnly()
+        QTest.keyClick(dialog,Qt.Key.Key_Escape)
+    QTimer.singleShot(30,inspect)
+    window.workbench.Motor_SourceShow()
+    assert window.session.project==before
 
 
 def finish(window,app,limit=1000):
