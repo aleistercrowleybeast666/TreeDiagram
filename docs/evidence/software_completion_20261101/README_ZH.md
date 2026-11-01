@@ -26,7 +26,7 @@ SDK manifest 保留原始工作字节摘要；源 Git blob 与 Windows CRLF 的�
 
 运行环境：Python 3.14.0 / Windows 11，NumPy 2.4.1，SciPy 1.16.3；完整命令、退出码、
 source hash 与 SDK 对照在本目录保留。全部输入为合成 fixture，无台架或飞行精度结论。
-Underline 普通完整 suite 的 GUI 堆损坏问题在其仓库单独跟踪，motor 导出链路通过不能替代它。
+Underline 的 Qt 生命周期缺陷已修复并独立验证：普通完整 383 passed，原失败集合与顺序的 381 项复跑也通过；实际推送提交为 [351ab0b](https://github.com/aleistercrowleybeast666/Underline_RETLDC/commit/351ab0b0167eb37bd6312c2bde79181d6225e97f)。motor 链路验证与该 GUI 回归分别记账，不互相替代。
 
 ```powershell
 # TreeDiagram 仓库，已安装 requirements-tested.txt 与本项目
@@ -47,3 +47,5 @@ SCG 接收端用 `python -m silverstar_fccg.project.tuning_bundle preview/apply`
 原模型边界继续有效：单级刚体、小攻角工程近似，非任意 SCG mission 等价；尚无六轴自动
 控制分配、电气驱动、完整 ORK 等价、分离/柔性/回收伞或硬件资格。完整历史延期清单见
 [首次交付报告](../../DELIVERY_20261101_ZH.md)。
+
+功能提交 [997d112](https://github.com/aleistercrowleybeast666/TreeDiagram/commit/997d112c190ef1549ba5950f5e4f97c0a7c5ad8c) 已正常推送；[该提交的实际 push CI](https://github.com/aleistercrowleybeast666/TreeDiagram/actions/runs/41279773014) 通过。原始公开 API 收据见 [push-ci-v1.json](push-ci-v1.json)。
