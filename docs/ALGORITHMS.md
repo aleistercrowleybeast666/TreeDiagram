@@ -79,15 +79,28 @@ TreeDiagram 携带固定 schema 副本，旧 `silverstar.function-parameters/1` 
 SCG 的显式 `--include-control-core` 可把独立研究控制参数映射到新插件 owner：
 正常生成源图包含 `control_pid/lqr.c` 和 `control_*_project.c`，
 `ControlPid_ProjectConfigGet` / `ControlLqr_ProjectConfigGet` 真实消费当次生成的 float32 参数。
-这是可测试的构建接口，尚未注册目标 mission dispatcher 或执行器驱动；`deployable=false` 保持不变。
+这是只包含数学核心的构建接口，不会自动启用任务调度。
+本次软件收尾的 SCG 另提供显式 `--include-control-task`：把一个 PID/LQR 实例接入既有
+FlightTask 的固定 10 ms 研究调度，并沿真实阶段范围保持状态、在停止或故障后撤销输出。
+GUI 在参数预览中提供同一可选项，默认不选；周期不匹配时不能启用，原数学核心导入仍可用。
+此接口读取有来源、采集轮次和标定版本的有效导航/IMU 数据，输出是有界研究快照，
+没有连接执行器电气驱动；`deployable=false` 保持不变。TreeDiagram 的四类执行器模型仍是仿真模型。
+目标适配器目前限定 Body Y 小角度平面运动，明确采用每个数学核心输出单位对应 1 Nm 的参考映射；
+研究快照的 `requested_body_y_torque_nm` 表示请求力矩，当前限幅不超过 ±1 Nm。
+这与 TreeDiagram 仿真中的力矩单位一致，不能当作任何实际舵机或发动机的标定。
 普通导入只应用匹配且已选择的 INS/KF6 profile，不能凭导入授予 READY。
 
 ```powershell
 # TreeDiagram checkout, no GUI required
 python -m pytest tests/test_algorithms.py --basetemp=.test-tmp/algorithm-tests -q
+python -m treediagram example research-pid.json --controller pid --control-period-us 10000
+python -m treediagram run research-pid.json research-pid.tdrun.json
+python -m treediagram export-parameters research-pid.tdrun.json research-pid.sstuning.json
 # SilverStar checkout
 python -m silverstar_fccg.project.tuning_bundle preview project.ssproject run.sstuning.json
 python -m silverstar_fccg.project.tuning_bundle apply project.ssproject run.sstuning.json --output tuned.ssproject --include-control-core
+# Explicit research task opt-in; requires a compatible 10 ms control record
+python -m silverstar_fccg.project.tuning_bundle apply project.ssproject run.sstuning.json --output research-task.ssproject --include-control-task
 ```
 
 SilverStar 普通 GUI 也提供 bundle Preview/Apply。`tests/fixtures/algorithms/` 保存实际 C 轨迹导出的

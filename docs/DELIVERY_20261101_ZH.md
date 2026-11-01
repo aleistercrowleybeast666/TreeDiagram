@@ -107,6 +107,8 @@ GUI截图与失败历史：[TD验证索引](evidence/20261101/README.md)。Under
 
 ## 准确未完成项和延期
 
+以下是首次交付时的历史状态。本次继续任务的更新见[软件收尾记录](evidence/software_completion_20261101/README_ZH.md)：已增加显式 10 ms 研究任务调度，重新执行完整 118 项测试、全部 15 个示例和三产品实际 CLI 回导。保留本节原始失败与范围，不将新的通过结果倒填到旧构型。
+
 - **安全验收未完成**：全程序调用图/间接调用、所有任务及MSP/ISR嵌套/动态帧/栈余量与WCET完整证明；严格stack拒绝过期callback依赖hash。Power10文本工具通过也明确critical-contract NOT PROVEN。没有扩大允许表。
 - **H743软件修复已验证，但安全验收未闭合**：H7 owning plugin提供有界DMA存储替换，保留10份导入源的原字节，Make/IDE源图明确替换。最终v6的ARM链接、architecture、原样生成Power10、真实全first-party静态分析、artifact均退出0；H743和F407完整存储Host runner及51项相关回归通过。Power10实际覆盖138个H7 first-party C，包括两个新owner；删除归属文件或active owner均在扫描前拒绝。严格stack仍退出2，critical-contract仍NOT PROVEN。未宣称v6重新执行了整个`make host-tests`，旧导入glue的失败没有抹去。
 - **硬件/外部资格缺失**：实际安装标定全链上板、生产IMU/MAG资格、GNSS Airborne配置读回、无线TX_DONE/最长空窗压力、USB枚举/断连压力、完整栈high-water与MCU WCET、真实飞行/台架准确性。合成fixture不是硬件证据。

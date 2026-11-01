@@ -1,0 +1,260 @@
+[
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\commands.json",
+    "retained": "actual-runs/commands.json",
+    "sha256": "9e3bf49d881dc223e66609dd654cee38869c7076473ae5fbe456c6beb2245a80",
+    "bytes": 7049
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\lqr-check.log",
+    "retained": "actual-runs/lqr-check.log",
+    "sha256": "dd94c4454a363bdef82b7e17b22b932f8237fc7af185caefb70605847ab145f7",
+    "bytes": 74
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\lqr-design.json",
+    "retained": "actual-runs/lqr-design.json",
+    "sha256": "2ca6747512cccc94192856dda5e5d67377507857b546930f828155713f60956a",
+    "bytes": 5099
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\lqr-example.log",
+    "retained": "actual-runs/lqr-example.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\lqr-export.log",
+    "retained": "actual-runs/lqr-export.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\lqr-run.log",
+    "retained": "actual-runs/lqr-run.log",
+    "sha256": "67fe522a153cc612765c4b9aea5f9fcba979a46217b2eedc7f06d083928f2c59",
+    "bytes": 172
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\lqr.sstuning.json",
+    "retained": "actual-runs/lqr.sstuning.json",
+    "sha256": "d7d67b19e29329a1a9f8eda9d160a7f89f85239cb9bb8725a237a064a4c88052",
+    "bytes": 11037
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\pid-check.log",
+    "retained": "actual-runs/pid-check.log",
+    "sha256": "dd94c4454a363bdef82b7e17b22b932f8237fc7af185caefb70605847ab145f7",
+    "bytes": 74
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\pid-design.json",
+    "retained": "actual-runs/pid-design.json",
+    "sha256": "acc4963461d537b5b9055041cb51239f3cab84d29e80ea72324a99ef252d5e61",
+    "bytes": 5099
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\pid-example.log",
+    "retained": "actual-runs/pid-example.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\pid-export.log",
+    "retained": "actual-runs/pid-export.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\pid-run.log",
+    "retained": "actual-runs/pid-run.log",
+    "sha256": "54c1039222d141e998d1174cd5ebf3db258b0053da6273676b80575e009dfea7",
+    "bytes": 172
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\pid.sstuning.json",
+    "retained": "actual-runs/pid.sstuning.json",
+    "sha256": "bb0132a1ab7ce2251f0f01fed17337605fd1c5c9f4aa71c122dfee1aaab70655",
+    "bytes": 10253
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\results.json",
+    "retained": "actual-runs/results.json",
+    "sha256": "0904935691fa605fc781450acb71e8437ecea44d11d44a0a858003deae5db077",
+    "bytes": 4152
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\underline-export.log",
+    "retained": "actual-runs/underline-export.log",
+    "sha256": "7619885f767b15ee7390a58ff2a58275c92d42de0c4dd98c6aa2918785546207",
+    "bytes": 258
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\underline-pid-check.log",
+    "retained": "actual-runs/underline-pid-check.log",
+    "sha256": "dd94c4454a363bdef82b7e17b22b932f8237fc7af185caefb70605847ab145f7",
+    "bytes": 74
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\underline-pid-design.json",
+    "retained": "actual-runs/underline-pid-design.json",
+    "sha256": "030d343712a0f07758c7bf1291dbc2b36b534de35dcb9d84c0488dc8fc6f3078",
+    "bytes": 15766
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\underline-pid-example.log",
+    "retained": "actual-runs/underline-pid-example.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\underline-pid-export.log",
+    "retained": "actual-runs/underline-pid-export.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\underline-pid-import.log",
+    "retained": "actual-runs/underline-pid-import.log",
+    "sha256": "e80da3eaefc68d8cf2cfe65b43e65e9557fdc392abc3491fccfa687b609d1d45",
+    "bytes": 68
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\underline-pid-run.log",
+    "retained": "actual-runs/underline-pid-run.log",
+    "sha256": "8f6074fa3ffc34270c04fee1de06f7e9526744d9ddb9f95dd7423c437bcbcd60",
+    "bytes": 179
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\actual-runs-v1\\underline-pid.sstuning.json",
+    "retained": "actual-runs/underline-pid.sstuning.json",
+    "sha256": "f9fd841fecd19447fca19a3bd21faf8d435151b75b32d5825dd9071d7dfaaa7b",
+    "bytes": 10253
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\commands.json",
+    "retained": "consumer/commands.json",
+    "sha256": "2e62290a3d60aaa0a326e71d2f9a532d3314734a1acbd818fd5769bd5b65566a",
+    "bytes": 11331
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\lqr-apply.log",
+    "retained": "consumer/lqr-apply.log",
+    "sha256": "678c9aa6ea646648072890caef2a5d498a3b50688f13c74a653a065163289f93",
+    "bytes": 3763
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\lqr-consumer-compile.log",
+    "retained": "consumer/lqr-consumer-compile.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\lqr-consumer-run.log",
+    "retained": "consumer/lqr-consumer-run.log",
+    "sha256": "9898b443aca74b3a67903e11c8bbfcecfbb74011e51f4b358db1ea2db2f8f4dc",
+    "bytes": 2237
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\lqr-model.json",
+    "retained": "consumer/lqr-model.json",
+    "sha256": "d1587fe9b579fb5b31a2f0563affd1a3caec6d5036c9e1f627c3dda3acaee758",
+    "bytes": 49827
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\lqr-preview.log",
+    "retained": "consumer/lqr-preview.log",
+    "sha256": "906ce3d4f8691f3a12c2058d662153730738574f054ca4938cf130ad5cc27bae",
+    "bytes": 3634
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\pid-apply.log",
+    "retained": "consumer/pid-apply.log",
+    "sha256": "ee58902aaf3ed4e73d7f81b318b44631279b6f4c27be12f590387bf57919363a",
+    "bytes": 3763
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\pid-consumer-compile.log",
+    "retained": "consumer/pid-consumer-compile.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\pid-consumer-run.log",
+    "retained": "consumer/pid-consumer-run.log",
+    "sha256": "0834a8dfe8a334349e1716eaec23cbb5766b5cb9fa7ba44e10711a93d6787377",
+    "bytes": 2404
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\pid-model.json",
+    "retained": "consumer/pid-model.json",
+    "sha256": "0aa30b6ab7e0f247cd20dc33385405d309a84e53b18d01a3341f554303ad660f",
+    "bytes": 49980
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\pid-preview.log",
+    "retained": "consumer/pid-preview.log",
+    "sha256": "2900fbb354aaeb69dc2a2eeeb1e6b2a2725dd2c5f49b47dbc3ba8147dac1c37d",
+    "bytes": 3634
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\results.json",
+    "retained": "consumer/results.json",
+    "sha256": "c41a24d36a64f763bed0bdefe666f55c301eeaee284e4154ef063acbee3f3e55",
+    "bytes": 96878
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\retained-inputs.json",
+    "retained": "consumer/retained-inputs.json",
+    "sha256": "12bdd6263ad4accd38fbbbff499020de0ce8da337e82c0f34039935b91eeb7cf",
+    "bytes": 10583
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\scope.json",
+    "retained": "consumer/scope.json",
+    "sha256": "fb868327902e4685bf9ff1086f0c05754d7f27810f6e82f3a9d3c442bcab80bb",
+    "bytes": 336
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\underline-pid-apply.log",
+    "retained": "consumer/underline-pid-apply.log",
+    "sha256": "af12044cdb97baeed02a7ca8a47b7852d48c0eea6e336809500e8e6714755c8c",
+    "bytes": 3773
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\underline-pid-consumer-compile.log",
+    "retained": "consumer/underline-pid-consumer-compile.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\underline-pid-consumer-run.log",
+    "retained": "consumer/underline-pid-consumer-run.log",
+    "sha256": "0834a8dfe8a334349e1716eaec23cbb5766b5cb9fa7ba44e10711a93d6787377",
+    "bytes": 2404
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\underline-pid-model.json",
+    "retained": "consumer/underline-pid-model.json",
+    "sha256": "0aa30b6ab7e0f247cd20dc33385405d309a84e53b18d01a3341f554303ad660f",
+    "bytes": 49980
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\consumer-v1\\underline-pid-preview.log",
+    "retained": "consumer/underline-pid-preview.log",
+    "sha256": "2900fbb354aaeb69dc2a2eeeb1e6b2a2725dd2c5f49b47dbc3ba8147dac1c37d",
+    "bytes": 3634
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\sdk-export.json",
+    "retained": "sdk-export.json",
+    "sha256": "82c2bd7a41350aadae5311134d4fc5c97ce5c1960d638670ff72851ee3e21f4a",
+    "bytes": 9530
+  },
+  {
+    "source": "D:\\python_software\\SilverStar\\docs\\evidence\\software_completion_20261101\\delivery\\sdk-source-verification.json",
+    "retained": "sdk-source-verification.json",
+    "sha256": "d49e5a01df94a92643427c0679358dfc422a11975566bdf8521a49eef2500c12",
+    "bytes": 10238
+  }
+]

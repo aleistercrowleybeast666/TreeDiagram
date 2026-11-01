@@ -20,6 +20,8 @@ def Cli_Main(argv=None) -> int:
     example.add_argument("output",type=Path)
     example.add_argument("--controller",choices=("none","pid","lqr"),default="none")
     example.add_argument("--actuator",choices=("gimbal","fin","wheel","rcs"),default="gimbal")
+    example.add_argument("--control-period-us", type=int,
+                         help="explicit control period; 10000 for the SCG research task adapter")
     run=sub.add_parser("run",help="simulate a validated model")
     run.add_argument("design",type=Path);run.add_argument("output",type=Path)
     check=sub.add_parser("check",help="validate structure and show missing simulation inputs")
@@ -34,7 +36,12 @@ def Cli_Main(argv=None) -> int:
     args=parser.parse_args(argv)
     try:
         if args.command=="example":
-            Json_Write(args.output,asdict(Design_CreateExample(args.controller,args.actuator)))
+            design = Design_CreateExample(args.controller, args.actuator)
+            if args.control_period_us is not None:
+                design = replace(design, control=replace(design.control,
+                                                        period_us=args.control_period_us))
+            Design_Validate(design)
+            Json_Write(args.output, asdict(design))
         elif args.command=="check":
             design=Design_Decode(Json_Read(args.design));issues=Design_Validate(design,False)
             print(json.dumps({"structurally_valid":True,"runnable":not issues,"issues":issues},ensure_ascii=False,indent=2))

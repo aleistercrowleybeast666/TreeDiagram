@@ -42,7 +42,7 @@ ORK 导入是结构子集；缺失的发动机、气动或惯量必须明确补�
 
 四种执行机构示例在 `examples/actuators/`；七种估计器示例在 `examples/estimators/`。后者用同时刻量测满足增强核约束；默认 KF6 示范保留 GNSS 延迟。`tools/verify_examples.py OUTPUT_DIRECTORY` 实际运行全部组合、写出概要和参数包。合成试车不是实物精度依据。
 
-Underline 保持原 GUI，从原导出对话框选择 TreeDiagram motor-test 格式；其 CLI 为 `python -m underline_retldc.cli export PROJECT OUTPUT`。SCG 在任务设计页导入 `.sstuning.json`、预览后一次 Apply。控制参数明确为研究用途；已有生成 C 消费者与目标 ARM 构建不等于物理驱动、任务调度及电气闭环已接通。
+Underline 保持原 GUI，从原导出对话框选择 TreeDiagram motor-test 格式；其 CLI 为 `python -m underline_retldc.cli export PROJECT OUTPUT`。SCG 在任务设计页导入 `.sstuning.json`、预览后一次 Apply。匹配的 10 ms 参数可显式接入 SCG 研究任务调度，默认关闭；输出为有界的请求 Body Y 力矩快照，没有连接电气驱动。用 `example OUTPUT --controller pid --control-period-us 10000` 创建匹配场景，详见[实际算法](docs/ALGORITHMS.md)。
 
 ## 数据和扩展
 
@@ -50,6 +50,7 @@ Underline 保持原 GUI，从原导出对话框选择 TreeDiagram motor-test 格
 - [唯一后端的决定与参考](docs/ADR-001-BACKEND.md)
 - [C 算法、调参和目标能力](docs/ALGORITHMS.md)
 - [完整中文交付报告与未完成项](docs/DELIVERY_20261101_ZH.md)
+- [本次软件收尾与最新验证](docs/evidence/software_completion_20261101/README_ZH.md)
 - [第三方许可](docs/THIRD_PARTY.md)
 
 `.tdproj` schema 2 保存配置和最多 10 次结果；schema 1 旧外壳工程仍可读取。原子替换、上一版本 `.bak`、外部修改摘要检查与 `.lock` 保留。文件上限 32 MiB；大运行请单独导出再分工程保存。输入只作数据处理，不执行脚本或安装插件。结果/参数导出使用已完成运行的快照；源码身份改变后旧结果不能冒充新内核导出。
@@ -64,4 +65,4 @@ Underline 保持原 GUI，从原导出对话框选择 TreeDiagram motor-test 格
 
 本轮 Windows 桌面与 offscreen 的实际测试、失败历史、源身份和原始输出见 `docs/evidence/20261101/`。未执行的 Linux/macOS 桌面、真实硬件、全程序栈证明和全包线准确性不会从 Host 测试推定为通过。原创代码 Apache-2.0；固定上游来源保留原许可。
 
-Windows完整测试113项通过；后续图例文字改动的GUI组5项通过。首次推送的[Ubuntu核心/合同CI](https://github.com/aleistercrowleybeast666/TreeDiagram/actions/runs/41229254520)实际104项通过，使用干净Git checkout和Python3.13.17；这不代表Linux桌面也已验收。15个真实运行样例与跨仓库143项参数对照见验证索引。
+本次 Windows 完整测试 **118 项通过**，15 个示例矩阵及三套新的 10 ms 参数实际 CLI 链路通过，见[最新验证](docs/evidence/software_completion_20261101/README_ZH.md)。历史 Windows 113 项、后续 GUI 5 项和首次推送的[Ubuntu核心/合同CI](https://github.com/aleistercrowleybeast666/TreeDiagram/actions/runs/41229254520)104 项保留其原始范围；不能把不同批次相加，或据此认定 Linux 桌面已验收。

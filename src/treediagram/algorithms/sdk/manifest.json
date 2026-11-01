@@ -1,7 +1,7 @@
 {
   "schema_id": "silverstar.algorithm-sdk/1",
   "repository": "https://github.com/aleistercrowleybeast666/SilverStar",
-  "source_commit": "4f701b4a7822302dc0f4ac858549f7cc7fa4ba0e",
+  "source_commit": "ad2da03c3b248d15d7cf8e1c3278781fb7cd3f79",
   "source_state": "content-addressed working tree snapshot; commit alone is insufficient",
   "files": {
     "silverstar_algorithm_common/attitude_frame.c": {
@@ -121,7 +121,7 @@
     },
     "silverstar_algorithm_control_pid/plugin.json": {
       "source": "apps/SCG/plugins/builtin/silverstar_algorithm_control_pid/plugin.json",
-      "sha256": "030bdcd54ea3e6fae3e6d99e3401af7b072fbf1de14122d1bda3de8ad9c4b5db",
+      "sha256": "b3b99ec45ca7aec8eafc6aaf8954d60ed50309a57a604383e6999de058f12d31",
       "modified": false
     },
     "silverstar_algorithm_control_lqr/control_lqr.c": {
@@ -136,7 +136,7 @@
     },
     "silverstar_algorithm_control_lqr/plugin.json": {
       "source": "apps/SCG/plugins/builtin/silverstar_algorithm_control_lqr/plugin.json",
-      "sha256": "597e9a3698c628a47c35ca648746ac1f9cdaaff4977b5765e520e9205dc6cae1",
+      "sha256": "8cd7344d27bc1c33c2fbcfdb905bc45a536d45c3a381e98653b058ca8a9e39d4",
       "modified": false
     },
     "LICENSE": {

@@ -78,7 +78,7 @@ def TuningBundle_Build(navigation: Navigation, controller: PidController | LqrCo
         "implementation_identity": navigation.implementation_identity, "profiles": profiles,
         "control_research": ControlResearch_Build(controller),
         "limitations": [
-            "Control cores are research-only: target mission dispatch and actuator drivers are not connected.",
+            "Control records are research-only: firmware scheduling requires explicit opt-in to a matching SCG adapter; electrical output and hardware qualification are not provided.",
             "Scalar profiles propose pinned target defaults plus the simulated gravity binding; they do not certify full backend parity.",
             "KF6 host adapter uses current-state updates on arrival; no delayed replay is claimed.",
             "Non-INS/KF6 tuning is retained as research; no unverified firmware scalar profile is exported.",
