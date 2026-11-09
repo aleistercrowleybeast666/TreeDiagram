@@ -1,0 +1,101 @@
+{
+  "reason": "pytest default basetemp .test-tmp is disposable; final results now protected under dist.",
+  "files": [
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\base.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\base.json",
+      "bytes": 5116,
+      "sha256": "b8a601ea7e39a5ffc7d3e8cfe9092726e9201d6a093504da17321312f36216cc"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\cli.sstuning.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\cli.sstuning.json",
+      "bytes": 10254,
+      "sha256": "ab27c43327d51c0c26988c26c3a2d5699c10ce7872592276d24750c95f6580b8"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\completed.tdrun.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\completed.tdrun.json",
+      "bytes": 2411809,
+      "sha256": "f160ec6fd60ae77557faf2bf52e4c0c0ce320cc4e798e55b91076da10a3170a8"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\CurrentAndHistorical.tdproj",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\CurrentAndHistorical.tdproj",
+      "bytes": 3107687,
+      "sha256": "13e898642383cc13e487bd6113ec5c2f60ceb5b6db66a758370055f55101e1ba"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\imported.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\imported.json",
+      "bytes": 20363,
+      "sha256": "48656176063b3f3f95996a788bc5ab9b70de2232de40790f1fa995e9dc6c15f1"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\invalid-digest.tdmotor.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\invalid-digest.tdmotor.json",
+      "bytes": 10507,
+      "sha256": "de06909fab54006aec1b2f3dbc31627de507e0255f71f00848fc85ad999bff93"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\invalid-version.tdmotor.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\invalid-version.tdmotor.json",
+      "bytes": 10509,
+      "sha256": "fbeafdb1a045851a90377bf8b62f7eddfcc64890e049937c5d19e9f3e7ecfa8a"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\missing-mass.tdmotor.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\missing-mass.tdmotor.json",
+      "bytes": 10507,
+      "sha256": "ec4eb4d5b8fe1a3b4e2ac06c6c4388539a9d804ffe742ca208d7b410a241f35c"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\missing-model.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\missing-model.json",
+      "bytes": 20363,
+      "sha256": "89762afba697fb0d4c2fa454a9d283f035507aef97d527caea576e31bfcdce88"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\native-run.sstuning.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\native-run.sstuning.json",
+      "bytes": 10254,
+      "sha256": "ab27c43327d51c0c26988c26c3a2d5699c10ce7872592276d24750c95f6580b8"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\receipt.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\receipt.json",
+      "bytes": 6667,
+      "sha256": "8e437d457fb33951a984f74ecb599813502de4510684418ab52a0e83f1c0a926"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\run.sstuning.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\run.sstuning.json",
+      "bytes": 10254,
+      "sha256": "ab27c43327d51c0c26988c26c3a2d5699c10ce7872592276d24750c95f6580b8"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\delivery\\synthetic-update.tdmotor.json",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\synthetic-update.tdmotor.json",
+      "bytes": 10507,
+      "sha256": "d29681e7d8a7b2ce48b2ae2f6686a25fa208f159b1b32b1efc367914177d8245"
+    },
+    {
+      "original": "D:\\python_software\\TreeDiagram\\.test-tmp\\gui-convergence-20261110\\wheel\\treediagram_workbench-0.1.0-py3-none-any.whl",
+      "durable": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\treediagram_workbench-0.1.0-py3-none-any.whl",
+      "bytes": 192473,
+      "sha256": "e85b75d15c3f6805e0937fe9a8b05ab4b03976783f0d8fba458cb0c18a3c666c"
+    }
+  ],
+  "post_cleanup_command": [
+    "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+    "-m",
+    "treediagram",
+    "export-parameters",
+    "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\completed.tdrun.json",
+    "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\after-cleanup.sstuning.json"
+  ],
+  "post_cleanup_exit": 0,
+  "post_cleanup_stderr": "",
+  "export_sha256": "ab27c43327d51c0c26988c26c3a2d5699c10ce7872592276d24750c95f6580b8",
+  "old_duplicates_retained_until_task_archive": true
+}

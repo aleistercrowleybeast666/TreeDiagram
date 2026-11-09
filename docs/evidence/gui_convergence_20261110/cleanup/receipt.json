@@ -1,0 +1,14 @@
+{
+  "result": "applied",
+  "removed_paths": 180,
+  "logical_bytes": 2425121,
+  "d_free_before": 30621179904,
+  "d_free_after": 30619930624,
+  "interval_free_delta": -1249280,
+  "physical_note": "Concurrent archives/builds: interval free bytes are not exclusively attributable.",
+  "protected_files_verified": 515,
+  "repeat_result": "applied",
+  "repeat_removed": 0,
+  "shared_cleanup_owner": "SilverStar/apps/FLP/tools/clean_workspace.py",
+  "owner_sha256": "35ebd3b83c3b89b98f6a1f2cec27e601caa9c1afec988d27e88926694ef5a321"
+}

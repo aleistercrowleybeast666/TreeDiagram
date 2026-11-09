@@ -81,17 +81,26 @@ GUI/CLI 同样拒绝、缺干质量可预览但两端同样阻止运行，以及
 运行后 GUI 改为 gravity 9.81，导出仍来自该完成 run 的 9.78；GUI/CLI 导出字节相同。
 参数包 SHA-256：`ab27c43327d51c0c26988c26c3a2d5699c10ce7872592276d24750c95f6580b8`。
 
-结果保存在 `.test-tmp/gui-convergence-20261110/delivery/`，包括
+结果已迁到受保护的 `dist/gui-convergence-20261110/delivery/`，包括
 `completed.tdrun.json`、`run.sstuning.json`、`CurrentAndHistorical.tdproj`。
 正式精简证据见 [validation.json](evidence/gui_convergence_20261110/validation.json)、
 [新链路 receipt](evidence/gui_convergence_20261110/motor-delivery.json)、
 [重导入前后](evidence/gui_convergence_20261110/reimport-before-after.json)、
 [安装包身份](evidence/gui_convergence_20261110/packaging.json)。
-主负责人归档/清理前需保留这套完整 run、工程与最终 wheel，避免把唯一结果当缓存删除。
+最终 wheel 位于 `dist/gui-convergence-20261110/`。迁移的14个文件共5,837,270字节，
+逐件SHA-256完全一致；从迁移后的完成run重新执行CLI导出仍得到上面的同一摘要。
+详见 [持久交付位置与复验](evidence/gui_convergence_20261110/durable-delivery.json)。
+这些文件不再依赖pytest默认会清除的 `.test-tmp`；该交付目录有明确保护标记。
+
+清理实际使用SilverStar已修复的同一清理API，预览、哈希清单、Apply后再重复执行：
+移除180个缓存路径，逻辑内容2,425,121字节，重复执行移除0；515份源码、契约及交付输入
+前后散列一致。D盘区间空闲量变化为-1,249,280字节，期间其他仓库归档写入，因此不把逻辑
+删除量宣称为独占的物理回收量。详见 [清理回执](evidence/gui_convergence_20261110/cleanup/receipt.json)。
+本轮没有删除仍有用途的SDK、validator、许可、Golden或用户工程。
 
 ## 范围与剩余项
 
 本仓没有扩展任意任务图、气动理论、目标电气执行器或自动部署；研究记录保持
 `deployable=false`。SCG Preview/Apply、生成消费者、目标资源/栈与硬件证据由其 owner
 分别记录，不能用本轮仿真、参数导出或宿主 C 编译代替。
-旧大证据归档、工作区清理与正常推送由三仓主负责人统筹，本报告不将它们提前标为完成。
+跨仓旧大证据归档及正常推送由主负责人统筹；三仓最终提交及推送状态见总交付报告。
