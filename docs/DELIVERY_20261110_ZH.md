@@ -39,7 +39,15 @@ pytest 9.1.1、GCC 16.1.0。最终源码一次完整执行 **136 passed / 31.92 
 
 Qt offscreen 在 920×620 逻辑尺寸、150% 深色检查了任务页和属性窗口；
 主运行按钮位于窗口内，属性底部 Apply/Cancel 固定可达。不是原生桌面验收。
-原生窗口、125% 和跨应用代表场景由三仓主负责人统一补充；本应用仍仅有中文，未虚构英文支持。
+三仓主负责人另完成原生桌面验证：Windows 125% 下设置 `QT_SCALE_FACTOR=1.2`，
+实测 DPR **1.5**，窗口 980×640 逻辑尺寸。实际打开 `CurrentAndHistorical.tdproj`、
+点击结果页并导出参数，界面明确显示历史配置、18 s 达到时长、461.48 m 和当前消费范围。
+原生导出的字节与下述 run 参数包完全相同，正常关闭没有未保存提示。
+较早设置 `QT_SCALE_FACTOR=1.25` 的运行叠加系统缩放后实为 DPR 1.5625，不能称为 125%。
+本应用仍仅有中文，未虚构英文支持；本轮没有另外证明实际 125% 桌面场景。
+原生代表图由 SilverStar 正式证据唯一保存：
+[历史结果截图](https://github.com/aleistercrowleybeast666/SilverStar/blob/18058cae6fbd2f861fc05081b9fed8a8b101d7be/docs/evidence/gui_convergence_20261110/gui_native/treediagram-result-150.png)，
+[原生操作与范围](https://github.com/aleistercrowleybeast666/SilverStar/blob/18058cae6fbd2f861fc05081b9fed8a8b101d7be/docs/evidence/gui_convergence_20261110/GUI_NATIVE.md)。
 
 实际构建 wheel，安装到独立包目录后用 `python -I` 验证导入来自该目录，
 启动其 Qt GUI 并以新缓存执行真实 GCC 宿主编译。包内 **67 个源码/SDK 文件**
@@ -86,4 +94,4 @@ GUI/CLI 同样拒绝、缺干质量可预览但两端同样阻止运行，以及
 本仓没有扩展任意任务图、气动理论、目标电气执行器或自动部署；研究记录保持
 `deployable=false`。SCG Preview/Apply、生成消费者、目标资源/栈与硬件证据由其 owner
 分别记录，不能用本轮仿真、参数导出或宿主 C 编译代替。
-旧大证据归档、工作区清理、原生 GUI 和正常推送由三仓主负责人统筹，本报告不将它们提前标为完成。
+旧大证据归档、工作区清理与正常推送由三仓主负责人统筹，本报告不将它们提前标为完成。
