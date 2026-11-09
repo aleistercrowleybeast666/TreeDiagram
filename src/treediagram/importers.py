@@ -14,7 +14,7 @@ from defusedxml.common import DefusedXmlException
 from xml.etree.ElementTree import ParseError
 
 from .design import Design, Design_Validate, Motor, Part, Scenario
-from .io import Json_Read, Json_Decode
+from .io import Json_Read, Json_Decode, Json_Digest
 
 
 def Motor_DeriveRoundoff(design: Design, tolerance_n: float) -> Design:
@@ -70,8 +70,12 @@ def Motor_Import(path: Path, design: Design) -> tuple[Design, tuple[str, ...]]:
     warnings = []
     if package["simulation_curve"] is None:
         warnings.append("motor: 缺少符合边界/缺口策略的仿真曲线；仅导入证据预览")
+    # Persistence decodes JSON arrays as lists; the importer constructs tuples.
+    # Compare their declared JSON content, not their transient Python container.
+    previous_values = asdict(previous) if previous is not None else {}
     changes = tuple(key for key, value in asdict(candidate).items()
-                    if previous is None or asdict(previous).get(key) != value)
+                    if key not in previous_values
+                    or Json_Digest(previous_values[key]) != Json_Digest(value))
     result = replace(design, motor=candidate,
                      import_issues=tuple(issue for issue in design.import_issues if not issue.startswith("motor:"))+tuple(warnings))
     Design_Validate(result, runnable=False)

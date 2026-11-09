@@ -7,7 +7,7 @@ import zipfile
 import numpy as np
 import pytest
 
-from treediagram.design import Design_CreateExample, Design_Validate
+from treediagram.design import Design_CreateExample, Design_Validate, Design_Decode, Design_Digest
 from treediagram.importers import Motor_Import, Motor_DeriveRoundoff, Ork_Import
 from treediagram.io import Json_Decode
 from treediagram.vendor_motor.contract import MotorPackage_Load, MotorPackage_Digest
@@ -43,6 +43,19 @@ def test_motor_roundtrip_preserves_origin_units_integral_and_installation():
     again,changes=Motor_Import(FIXTURES/"motor/valid_positive.tdmotor.json",candidate)
     assert again==candidate and changes==()
     Design_Validate(candidate)
+
+
+def test_motor_reimport_after_real_json_roundtrip_reports_no_curve_change(tmp_path):
+    from dataclasses import asdict
+    from treediagram.io import Json_Write, Json_Read
+    candidate, _ = Motor_Import(FIXTURES/"motor/valid_positive.tdmotor.json", Design_CreateExample())
+    path = tmp_path / "imported.json"
+    Json_Write(path, asdict(candidate))
+    reopened = Design_Decode(Json_Read(path))
+    repeated, changes = Motor_Import(FIXTURES/"motor/valid_positive.tdmotor.json", reopened)
+    assert changes == ()
+    assert Design_Digest(repeated) == Design_Digest(reopened)
+    assert repeated.motor.source == reopened.motor.source
 
 
 def test_negative_samples_require_explicit_derived_policy():
