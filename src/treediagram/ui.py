@@ -1,4 +1,4 @@
-"""FLP 风格的最小中文 GUI 外壳；不启用业务计算或后台插件。"""
+"""Project navigation and file lifecycle for the offline engineering workbench."""
 from __future__ import annotations
 
 from dataclasses import replace
@@ -10,7 +10,8 @@ from PySide6.QtWidgets import (
     QAbstractItemView, QApplication, QComboBox, QFileDialog, QFormLayout, QFrame,
     QGroupBox, QHBoxLayout, QHeaderView, QLabel, QLineEdit, QListView, QListWidget,
     QMainWindow, QMessageBox, QPlainTextEdit, QScrollArea, QSizePolicy, QStackedWidget,
-    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget,
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QPushButton, QDialog,
+    QDialogButtonBox,
 )
 
 from . import __version__
@@ -24,6 +25,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.session = ProjectSession()
         self._loading = False
+        self._close_pending = False
         self.setWindowTitle("TreeDiagram")
         self.resize(1180, 780)
         self.setMinimumSize(920, 620)
@@ -138,17 +140,18 @@ class MainWindow(QMainWindow):
         form.addRow("保存位置", self.path_label)
         form.addRow("保存状态", self.file_state)
         layout.addWidget(basic)
-        modules = QGroupBox("工作区状态")
-        modules_layout = QVBoxLayout(modules)
-        self.module_table = self._Table_Create([
-            ("工程概览", "可用", "编辑名称、备注；新建、打开、保存工程"),
-            ("模型与装配", "可用", "离线示例、试车包、OpenRocket 几何子集；逐对象编辑"),
-            ("任务与算法", "可用", "RK4 六自由度、模拟传感器、真实 C 估计 / PID / LQR"),
-            ("结果", "可用", "轨迹、姿态、误差、执行器响应与独立运行快照"),
-        ], ["工作区", "状态", "当前范围"])
-        self.module_table.setFixedHeight(170)
-        modules_layout.addWidget(self.module_table)
-        layout.addWidget(modules)
+        status = QGroupBox("当前配置与下一步")
+        status_layout = QVBoxLayout(status)
+        self.readiness_label = QLabel()
+        self.readiness_label.setWordWrap(True)
+        status_layout.addWidget(self.readiness_label)
+        self.input_summary = QLabel()
+        self.input_summary.setWordWrap(True)
+        status_layout.addWidget(self.input_summary)
+        self.next_step_button = QPushButton()
+        self.next_step_button.clicked.connect(self._Overview_NextStep)
+        status_layout.addWidget(self.next_step_button)
+        layout.addWidget(status)
         layout.addStretch()
         self.project_name.textChanged.connect(self._Project_EditMetadata)
         self.description.textChanged.connect(self._Project_EditMetadata)
@@ -206,7 +209,62 @@ class MainWindow(QMainWindow):
         file_menu.addSeparator()
         file_menu.addAction("退出", self.close)
         help_menu = self.menuBar().addMenu("帮助")
+        help_menu.addAction("能力与适用范围…", self._Capabilities_Show)
         help_menu.addAction("关于 TreeDiagram", self._About_Show)
+
+    def Overview_Refresh(self, design, issues) -> None:
+        runs = self.session.project.flight_runs
+        if design is None:
+            self.readiness_label.setText("尚未建立模型")
+            self.input_summary.setText("先打开离线示例，或导入 OpenRocket 结构并补齐缺项。来源数据不会被修改。")
+            self.next_step_button.setText("建立或导入模型")
+            self.next_step_button.setProperty("destination", 1)
+            return
+        from .design import Design_Digest
+        from .workbench import LABELS
+        current = any(run["input_digest"] == Design_Digest(design) for run in runs)
+        self.readiness_label.setText(f"尚缺 {len(issues)} 项输入 · " + issues[0] if issues else
+                                    "当前配置已有完成结果" if current else "配置可运行 · 尚无当前配置结果")
+        motor = design.motor
+        source = "Underline 试车包" if motor and motor.source.get("package") else "工程声明的推力曲线" if motor else "尚未导入发动机"
+        history = f"{len(runs)} 次独立运行" + ("，已有结果属于历史配置" if runs and not current else "")
+        self.input_summary.setText(f"{len(design.parts)} 个零件 · {source}\n"
+            f"估计：{LABELS[design.control.estimator]} · 控制：{LABELS[design.control.controller]} · {design.scenario.duration_s:g} s\n"
+            f"{history}。单级刚体、小攻角亚声速近似；硬件资格独立验证。")
+        target = 1 if issues else 3 if current else 2
+        self.next_step_button.setText("补齐模型与输入" if issues else "查看当前结果" if current else "检查算法并运行")
+        self.next_step_button.setProperty("destination", target)
+
+    def _Overview_NextStep(self) -> None:
+        self.navigation.setCurrentRow(self.next_step_button.property("destination") or 1)
+        if self.workbench.issues.count():
+            self.workbench.issues.setCurrentRow(0)
+
+    def _Capabilities_Show(self) -> None:
+        from .algorithms.registry import AlgorithmRegistry_Get
+        dialog = QDialog(self)
+        dialog.setWindowTitle("能力与适用范围")
+        dialog.resize(650, 470)
+        layout = QVBoxLayout(dialog)
+        note = QLabel("固定 SilverStar C 数学核心在本机编译；没有算法回退或启动下载。\n"
+                      "单级刚体、小攻角亚声速模型；控制只请求 Body Y 力矩。四类执行机构均为仿真。")
+        note.setWordWrap(True)
+        layout.addWidget(note)
+        table = self._Table_Create([
+            (item.key.upper(), item.version, ", ".join(item.observations) or "IMU 预积分",
+             "按到达更新" if item.key in ("sf6", "kf6") else "严格同时间")
+            for item in AlgorithmRegistry_Get()
+        ], ["估计器", "版本", "观测", "量测时间"])
+        layout.addWidget(table)
+        limits = QLabel("PID / LQR：固定 C 数学核心，LQR 离线求解采用 SciPy。\n"
+                        "目标标量：INS / KF6；控制研究需在 SCG 显式选择，不含实物电气驱动。\n"
+                        "运行需要 GCC，可设置 CC 为编译器路径；缺依赖或编译失败保留原结果并报告原因。")
+        limits.setWordWrap(True)
+        layout.addWidget(limits)
+        buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+        dialog.exec()
 
     def _About_Show(self) -> None:
         QMessageBox.about(self, "关于 TreeDiagram", f"TreeDiagram v{__version__}\n\n离线六自由度工程工作台\n真实 C 算法、声明式文件、可追溯结果。\n工程近似与实机验证范围请参阅 README。")
@@ -315,10 +373,12 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event):
         if self.workbench.busy:
+            self._close_pending = True
             self.workbench.Run_Cancel()
-            self.statusBar().showMessage("正在安全取消运行，请结束后再次关闭。")
+            self.statusBar().showMessage("正在取消运行并关闭；结束后将检查未保存的更改。")
             event.ignore()
             return
+        self._close_pending = False
         if self._Changes_ConfirmDiscard():
             event.accept()
         else:

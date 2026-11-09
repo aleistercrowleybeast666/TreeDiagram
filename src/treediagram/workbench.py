@@ -20,6 +20,8 @@ from .design import (ACTUATORS, PART_KINDS, Assembly_Aggregate, Design_CreateExa
                      Design_Decode, Design_Digest, Design_Validate, Part)
 from .importers import Motor_Import, Ork_Import
 from .results import Run_Save
+from .editing import DecimalInput, IntegerInput
+from .algorithms.registry import AlgorithmRegistry_Get
 from .simulation import Simulation_Run, SimulationCancelled
 from .views import EngineeringView, SignalView
 
@@ -37,10 +39,13 @@ def _Button(text, callback, layout):
 
 
 def _Number(value, minimum=0., maximum=1e6, decimals=5):
-    widget = QDoubleSpinBox()
-    widget.setRange(minimum, maximum)
-    widget.setDecimals(decimals)
-    widget.setValue(value)
+    return DecimalInput(value, minimum, maximum, decimals)
+
+
+def _Field_Add(form, key, label, widget):
+    widget.setObjectName(key)
+    widget.setAccessibleName(label)
+    form.addRow(label, widget)
     return widget
 
 
@@ -51,8 +56,11 @@ class Workbench:
         self._cancel = threading.Event()
         self._lock = threading.Lock()
         self._job = None
+        self._job_project_id = None
         self._progress = 0
         self._refreshing = False
+        self._selected_project = None
+        self._status_design_digest = None
         self.model_page = self._Model_Create()
         self.task_page = self._Task_Create()
         self.result_page = self._Results_Create()
@@ -116,11 +124,14 @@ class Workbench:
         detail_layout.addWidget(self.assembly_info)
         _Button("发动机 / 质量模型…", self.Motor_Edit, detail_layout)
         _Button("推力曲线与来源…", self.Motor_SourceShow, detail_layout)
-        _Button("审核导入缺项…", self.Issues_Review, detail_layout)
+        self.review_button = _Button("审核导入缺项…", self.Issues_Review, detail_layout)
         detail_layout.addStretch()
         splitter.addWidget(details)
         splitter.setSizes([230, 420, 250])
         layout.addWidget(splitter, 1)
+        self.issue_summary = QLabel()
+        self.issue_summary.setWordWrap(True)
+        layout.addWidget(self.issue_summary)
         self.issues = QListWidget()
         self.issues.setMaximumHeight(130)
         self.issues.itemClicked.connect(self.Issue_Locate)
@@ -134,19 +145,25 @@ class Workbench:
         title.setObjectName("pageTitle")
         layout.addWidget(title)
         capsule_row = QHBoxLayout()
+        self.phase_buttons = {}
         for key, label in (("powered", "动力段"), ("coast", "滑行段"), ("descent", "下降段")):
             button = QPushButton(label)
             button.clicked.connect(lambda checked=False, value=key: self.Phase_Show(value))
             capsule_row.addWidget(button)
+            self.phase_buttons[key] = button
         layout.addLayout(capsule_row)
-        self.instances = QTableWidget(3, 4)
-        self.instances.setHorizontalHeaderLabels(["共享实例", "实现 / 输入", "开始", "结束（含）"])
-        self.instances.horizontalHeader().setStretchLastSection(True)
+        self.instances = QTableWidget(3, 5)
+        self.instances.setHorizontalHeaderLabels(["共享实例", "算法 / 输出", "实现状态", "开始", "结束（含）"])
+        header = self.instances.horizontalHeader()
+        for column in (0, 1, 3, 4):
+            header.setSectionResizeMode(column, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
+        self.instances.verticalHeader().setVisible(False)
         self.instances.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         self.instances.cellDoubleClicked.connect(lambda *_: self.Task_Edit())
         layout.addWidget(self.instances)
         actions = QHBoxLayout()
-        _Button("算法与范围…", self.Task_Edit, actions)
+        self.task_edit_button = _Button("算法与范围…", self.Task_Edit, actions)
         _Button("场景 / 气动…", self.Scenario_Edit, actions)
         _Button("传感器…", self.Sensors_Edit, actions)
         _Button("执行机构…", self.Actuator_Edit, actions)
@@ -180,12 +197,16 @@ class Workbench:
         self.compare = QComboBox()
         self.compare.currentIndexChanged.connect(self.Results_Refresh)
         row.addWidget(self.compare,1)
-        _Button("导出结果…", self.Result_Export, row)
-        _Button("导出参数…", self.Parameters_Export, row)
+        self.result_export_button = _Button("导出结果…", self.Result_Export, row)
+        self.parameter_export_button = _Button("导出参数…", self.Parameters_Export, row)
         layout.addLayout(row)
         self.result_info = QLabel("尚无运行结果。")
         self.result_info.setWordWrap(True)
         layout.addWidget(self.result_info)
+        self.parameter_info = QLabel()
+        self.parameter_info.setWordWrap(True)
+        layout.addWidget(self.parameter_info)
+        self.run_details_button = _Button("运行来源与实现详情…", self.Run_DetailsShow, layout)
         splitter = QSplitter()
         self.result_view = EngineeringView()
         splitter.addWidget(self.result_view)
@@ -212,10 +233,22 @@ class Workbench:
     def Refresh(self):
         self._refreshing = True
         design = self.design
+        current_part = self.parts.currentItem()
+        selected_part = current_part.data(0, Qt.ItemDataRole.UserRole) if current_part else None
+        project_id = self.window.session.project.project_id
+        same_project = self._selected_project == project_id
+        design_digest = Design_Digest(design) if design else None
+        configuration_changed = not same_project or self._status_design_digest != design_digest
+        self._status_design_digest = design_digest
+        selected_run = self.run_select.currentData() if same_project else None
+        comparison_run = self.compare.currentData() if same_project else None
+        self._selected_project = project_id
         self.parts.clear()
+        self.part_info.setText("选择对象查看属性，双击编辑。")
         self.model_view.design, self.model_view.rows = design, []
         self.model_view.update()
         self.issues.clear()
+        issues = ()
         if design:
             items = {}
             for _ in design.parts:
@@ -228,36 +261,57 @@ class Workbench:
                     (items[part.parent_id] if part.parent_id else self.parts.invisibleRootItem()).addChild(item)
                     items[part.id] = item
             self.parts.expandAll()
-            self.issues.addItems(Design_Validate(design,runnable=False) or ("输入齐备；仍需按假设解释仿真结果。",))
+            if selected_part in items:
+                self.parts.setCurrentItem(items[selected_part])
+            issues = Design_Validate(design, runnable=False)
+            self.issues.addItems(issues)
             try:
                 mass,cg,inertia = Assembly_Aggregate(design.parts)
                 self.assembly_info.setText(f"零件自身总质量 {mass:.4f} kg\n不含发动机及推进剂\n质心 Body {np.round(cg,4)} m\n主惯量 {np.round(np.linalg.eigvalsh(inertia),5)} kg·m²")
             except ValueError as exc:
                 self.assembly_info.setText(str(exc))
             c = design.control
-            rows = [("状态估计", LABELS[c.estimator]+" · 模拟传感器", "启动", "落地"),
-                    ("姿态控制", LABELS[c.controller]+" → "+LABELS[c.actuator], LABELS[c.start_phase],LABELS[c.end_phase]),
-                    ("结果记录", "真值 / 估计 / 输出", "启动","落地")]
+            rows = [("状态估计", LABELS[c.estimator], "实际 C 核心 / 模拟观测" if c.estimator != "none" else "未启用", "启动", "落地"),
+                    ("姿态控制", LABELS[c.controller], "仿真 → " + LABELS[c.actuator] if c.controller != "none" else "未启用", LABELS[c.start_phase],LABELS[c.end_phase]),
+                    ("结果记录", "真值 / 估计 / 输出", "独立运行快照", "启动","落地")]
             for i,row in enumerate(rows):
                 for j,value in enumerate(row):
                     self.instances.setItem(i,j,QTableWidgetItem(value))
-            self.instances.resizeColumnsToContents()
             self.scenario_info.setText(f"RK4 {design.scenario.step_us/1000:g} ms · 仿真 {design.scenario.duration_s:g} s · 随机种子 {design.scenario.seed}\n"
-                f"IMU {1e6/design.sensors.imu_us:g} Hz · GNSS {1e6/design.sensors.gnss_us:g} Hz / 延迟 {design.sensors.gnss_delay_us/1000:g} ms\n"+"\n".join(design.assumptions))
+                f"IMU {1e6/design.sensors.imu_us:g} Hz · GNSS {1e6/design.sensors.gnss_us:g} Hz / 延迟 {design.sensors.gnss_delay_us/1000:g} ms\n"
+                f"控制周期 {c.period_us} µs · 范围包含结束阶段；跨阶段保持同一实例状态。"+
+                (f"\nPID：Kp {c.kp:g} · Ki {c.ki:g} · Kd {c.kd:g} · 限幅 ±{c.torque_limit_nm:g} N·m" if c.controller=="pid" else
+                 f"\nLQR：Q角度 {c.lqr_q_angle:g} · Q角速度 {c.lqr_q_rate:g} · R {c.lqr_r:g} · 限幅 ±{c.torque_limit_nm:g} N·m" if c.controller=="lqr" else ""))
         else:
+            self.instances.clearContents()
             self.assembly_info.setText("尚未建立物理模型。")
             self.scenario_info.setText("请选择离线示例或导入模型。")
-        self.run_button.setEnabled(design is not None and not self.busy)
+        self.issues.setVisible(bool(issues))
+        self.issue_summary.setText(f"尚缺 {len(issues)} 项输入 · 点击下方条目定位。" if issues else
+                                  "输入齐备 · 单级刚体、小攻角亚声速工程近似。" if design else "先建立或导入模型。")
+        self.review_button.setEnabled(bool(design and design.import_issues))
+        self.task_edit_button.setEnabled(design is not None)
+        for button in self.phase_buttons.values():
+            button.setEnabled(design is not None)
+        self.run_button.setEnabled(design is not None and not issues and not self.busy)
+        self.run_button.setToolTip("\n".join(issues) if issues else "以已提交输入开始新的独立运行")
+        if not self.busy and (issues or not design):
+            self.run_status.setText("先补齐输入：" + issues[0] if issues else "先建立或导入物理模型。")
+        elif not self.busy and configuration_changed:
+            self.run_status.setText("配置已就绪 · 运行将使用当前已提交的输入；旧结果仍保留。")
         self.run_select.clear()
         self.compare.clear()
-        self.compare.addItem("不比较",-1)
+        self.compare.addItem("不比较", None)
         for index, run in enumerate(self.window.session.project.flight_runs):
             text = f"运行 {index+1} · {LABELS[run['design']['control']['controller']]} · {run['summary']['maximum_altitude_m']:.1f} m"
-            self.run_select.addItem(text,index)
-            self.compare.addItem(text,index)
-        self.run_select.setCurrentIndex(self.run_select.count()-1)
+            self.run_select.addItem(text,run["run_id"])
+            self.compare.addItem(text,run["run_id"])
+        selected_index = self.run_select.findData(selected_run)
+        self.run_select.setCurrentIndex(selected_index if selected_index >= 0 else self.run_select.count()-1)
+        self.compare.setCurrentIndex(max(0, self.compare.findData(comparison_run)))
         self._refreshing = False
         self.Results_Refresh()
+        self.window.Overview_Refresh(design, issues)
 
     def Example_Open(self):
         if self.design and QMessageBox.question(self.window,"打开示例","替换当前装配和场景？已有结果仍保留。") != QMessageBox.StandardButton.Yes:
@@ -276,7 +330,17 @@ class Workbench:
         for candidate in self.parts.findItems("*",Qt.MatchFlag.MatchWildcard|Qt.MatchFlag.MatchRecursive):
             if candidate.data(0,Qt.ItemDataRole.UserRole) == identity:
                 self.parts.setCurrentItem(candidate)
-                break
+                return
+        if identity == "motor":
+            self.Motor_Edit()
+        elif identity in ("sensors", "imu_us", "gnss_us"):
+            self.Sensors_Edit()
+        elif identity == "control":
+            self.Task_Edit()
+        elif identity in ("scenario", "aero_provenance"):
+            self.Scenario_Edit()
+        elif self.design and item.text() in self.design.import_issues:
+            self.Issues_Review()
 
     def Part_Add(self):
         if not self.design:
@@ -308,10 +372,10 @@ class Workbench:
                   ("length_m","长度 m",part.length_m,.000001),("radius_m","外半径 m",part.radius_m,.000001),
                   ("inner_radius_m","内半径 m",part.inner_radius_m,0.)):
             editors[key]=_Number(value,minimum)
-            form.addRow(label,editors[key])
+            _Field_Add(form,key,label,editors[key])
         xyz = [_Number(v,-1000,1000) for v in part.position_m]
         for key,widget in zip("XYZ",xyz):
-            form.addRow(f"相对父件 {key} / m",widget)
+            _Field_Add(form, "position_"+key, f"相对父件 {key} / m", widget)
         orientation=QLineEdit(json.dumps(part.rotation_wxyz))
         form.addRow("Local→Parent 四元数 wxyz",orientation)
         tensor = QLineEdit(json.dumps(part.inertia_kg_m2) if part.inertia_kg_m2 else "")
@@ -325,9 +389,9 @@ class Workbench:
         buttons.rejected.connect(dialog.reject)
         def apply():
             try:
-                values={key:widget.value() for key,widget in editors.items()}
+                values={key:widget.Value_Collect() for key,widget in editors.items()}
                 values["mass_kg"] = values["mass_kg"] or None
-                edited=replace(part,name=name.text(),parent_id=parent.currentData(),position_m=tuple(w.value() for w in xyz),rotation_wxyz=json.loads(orientation.text()),
+                edited=replace(part,name=name.text(),parent_id=parent.currentData(),position_m=tuple(w.Value_Collect() for w in xyz),rotation_wxyz=json.loads(orientation.text()),
                                inertia_kg_m2=json.loads(tensor.text()) if tensor.text().strip() else None,**values)
                 parts=(*self.design.parts,edited) if new else tuple(edited if p.id==part.id else p for p in self.design.parts)
                 self.Design_Commit(replace(self.design,parts=parts))
@@ -425,9 +489,9 @@ class Workbench:
         editors={}
         for key,label in (("propellant_mass_kg","推进剂质量 kg"),("dry_mass_kg","干质量 kg"),("length_m","长度 m"),("radius_m","半径 m")):
             editors[key]=_Number(getattr(motor,key) or 0.)
-            form.addRow(label,editors[key])
+            _Field_Add(form,key,label,editors[key])
         xyz=[_Number(v,-1000,1000) for v in motor.position_m]
-        for key,widget in zip("XYZ",xyz):form.addRow(key+" 安装 m",widget)
+        for key,widget in zip("XYZ",xyz):_Field_Add(form,"position_"+key,key+" 安装 m",widget)
         orientation=QLineEdit(json.dumps(motor.rotation_bm_wxyz))
         form.addRow("Motor→Body 四元数 wxyz",orientation)
         capable=QCheckBox("此仿真发动机明确具备推力偏转能力")
@@ -439,9 +503,9 @@ class Workbench:
         form.addRow(buttons);buttons.rejected.connect(dialog.reject)
         def apply():
             try:
-                values={k:w.value() for k,w in editors.items()}
+                values={k:w.Value_Collect() for k,w in editors.items()}
                 for key in ("propellant_mass_kg","dry_mass_kg"):values[key]=values[key] or None
-                edited=replace(motor,position_m=tuple(w.value() for w in xyz),rotation_bm_wxyz=json.loads(orientation.text()),gimbal_capable=capable.isChecked(),**values)
+                edited=replace(motor,position_m=tuple(w.Value_Collect() for w in xyz),rotation_bm_wxyz=json.loads(orientation.text()),gimbal_capable=capable.isChecked(),**values)
                 self.Design_Commit(replace(self.design,motor=edited));dialog.accept()
             except ValueError as exc:note.setText(str(exc))
         buttons.button(QDialogButtonBox.StandardButton.Apply).clicked.connect(apply)
@@ -479,13 +543,49 @@ class Workbench:
         dialog.exec()
 
     def Phase_Show(self,phase):
+        if not self.design:
+            return
         descriptions={"powered":"点火至燃尽。离轨是瞬时事件，不另建长期阶段。", "coast":"燃尽至顶点。跨阶段的共享控制实例不会重新初始化。", "descent":"顶点至落地。结束范围包含本阶段，落地终止计算。"}
-        QMessageBox.information(self.window,"阶段 · "+phase,descriptions[phase])
+        dialog = QDialog(self.window)
+        dialog.setWindowTitle("阶段属性 · " + LABELS[phase])
+        dialog.resize(520, 360)
+        layout = QVBoxLayout(dialog)
+        description = QLabel(descriptions[phase])
+        description.setWordWrap(True)
+        layout.addWidget(description)
+        summary = QLabel()
+        summary.setObjectName("phase_instances")
+        summary.setWordWrap(True)
+        layout.addWidget(summary)
+
+        def refresh():
+            control = self.design.control
+            phases = ("powered", "coast", "descent")
+            active = phases.index(control.start_phase) <= phases.index(phase) <= phases.index(control.end_phase)
+            rows = ["状态估计：" + (LABELS[control.estimator] + " · 持续运行" if control.estimator != "none" else "未启用"),
+                    "姿态控制：" + (LABELS[control.controller] + " · 本阶段运行" if active and control.controller != "none" else "本阶段未启用"),
+                    "结果记录：真值、观测、估计与输出 · 持续运行"]
+            summary.setText("\n\n".join(rows))
+
+        refresh()
+        note = QLabel("修改共享实例会影响它引用的全部阶段。范围包含结束阶段；范围退出时 Stop。\n"
+                      "每次新运行重新 Start；本窗口不触发 Reset，也不新建实例或任意阶段。")
+        note.setWordWrap(True)
+        layout.addWidget(note)
+        edit = QPushButton("编辑共享算法与范围…")
+        edit.setObjectName("phase_edit_shared")
+        layout.addWidget(edit)
+        edit.clicked.connect(lambda: (self.Task_Edit(), refresh()))
+        layout.addStretch()
+        buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+        dialog.exec()
 
     def Task_Edit(self):
         if not self.design:return
         dialog=QDialog(self.window);dialog.setWindowTitle("算法与连续范围")
-        dialog.resize(560,620)
+        dialog.resize(560,580)
         layout=QVBoxLayout(dialog);scroll=QScrollArea();scroll.setWidgetResizable(True)
         content=QWidget();form=QFormLayout(content);scroll.setWidget(content);layout.addWidget(scroll);combos={}
         c=self.design.control
@@ -494,22 +594,69 @@ class Workbench:
                 ("start_phase","开始",("powered","coast","descent")),("end_phase","结束（含）",("powered","coast","descent"))):
             box=QComboBox()
             for choice in choices:box.addItem(LABELS[choice],choice)
-            box.setCurrentIndex(box.findData(getattr(c,key)));form.addRow(label,box);combos[key]=box
+            box.setCurrentIndex(box.findData(getattr(c,key)));_Field_Add(form,key,label,box);combos[key]=box
         numbers={}
         for key,label in (("kp","PID Kp · Nm/rad"),("ki","PID Ki · Nm/(rad·s)"),("kd","PID Kd · Nm·s/rad"),("torque_limit_nm","力矩上限 N·m"),
                           ("period_us","控制周期 µs"),
                           ("lqr_q_angle","LQR Q角度"),("lqr_q_rate","LQR Q角速度"),("lqr_r","LQR R")):
-            widget=_Number(getattr(c,key));form.addRow(label,widget);numbers[key]=widget
-        note=QLabel("控制仅绕 Body Y；输入为真实C估计姿态+陀螺。\nKF6姿态来自INS，不是KF6自身输出。增强核要求同时间GNSS；迟到量测会拒绝。\n执行机构仅为仿真模型；未接实物驱动。")
+            if key == "period_us":
+                widget = IntegerInput(c.period_us, 1000, 1000000)
+            else:
+                widget = _Number(getattr(c,key), -1e6 if key in ("kp", "ki", "kd") else 0.)
+            _Field_Add(form,key,label,widget);numbers[key]=widget
+        capability=QLabel()
+        capability.setObjectName("algorithm_capability")
+        capability.setWordWrap(True)
+        form.addRow(capability)
+        def selection():
+            controller=combos["controller"].currentData()
+            for key in ("kp","ki","kd"):
+                form.setRowVisible(numbers[key], controller == "pid")
+            for key in ("lqr_q_angle","lqr_q_rate","lqr_r"):
+                form.setRowVisible(numbers[key], controller == "lqr")
+            for key in ("period_us","torque_limit_nm"):
+                form.setRowVisible(numbers[key], controller != "none")
+            for key in ("actuator","start_phase","end_phase"):
+                form.setRowVisible(combos[key], controller != "none")
+            estimator=combos["estimator"].currentData()
+            descriptor=next((item for item in AlgorithmRegistry_Get() if item.key==estimator),None)
+            if descriptor:
+                timing="按到达更新，保留真实年龄" if estimator in ("sf6","kf6") else "量测必须同时间"
+                text=f"{LABELS[estimator]} · 固定 C 实现 {descriptor.version} · {timing}。"
+                if estimator in ("sf6","kf6"):
+                    text+=" 姿态由同一 INS 提供。"
+                text+="\n目标参数：" + ("INS + KF6 标量" if estimator=="kf6" else "INS 标量" if estimator in ("ins","sf6") else "无目标标量 profile")
+            else:
+                text="状态估计未启用；闭环控制需要真实估计输出。"
+            if controller!="none":
+                text+="\n"+LABELS[controller]+" 为 Body Y 控制研究；仿真执行机构不含实物电气驱动。"
+            capability.setText(text)
+        combos["controller"].currentIndexChanged.connect(selection)
+        combos["estimator"].currentIndexChanged.connect(selection)
+        selection()
+        note=QLabel("未选算法的参数草稿保留；Apply 一次应用本窗口的全部有效修改。")
         note.setWordWrap(True);form.addRow(note)
+        error=QLabel();error.setWordWrap(True);error.setObjectName("draft_error");layout.addWidget(error)
         buttons=QDialogButtonBox(QDialogButtonBox.StandardButton.Apply|QDialogButtonBox.StandardButton.Cancel);layout.addWidget(buttons)
         buttons.rejected.connect(dialog.reject)
         def apply():
             try:
-                values={k:w.currentData() for k,w in combos.items()}|{k:w.value() for k,w in numbers.items()}
-                values["period_us"]=int(values["period_us"])
+                values={k:w.currentData() for k,w in combos.items()}
+                for key, widget in numbers.items():
+                    try:
+                        values[key]=widget.Value_Collect()
+                    except ValueError:
+                        if key in ("kp","ki","kd"):
+                            combos["controller"].setCurrentIndex(combos["controller"].findData("pid"))
+                        elif key.startswith("lqr_"):
+                            combos["controller"].setCurrentIndex(combos["controller"].findData("lqr"))
+                        elif combos["controller"].currentData()=="none":
+                            combos["controller"].setCurrentIndex(combos["controller"].findData(c.controller if c.controller!="none" else "pid"))
+                        scroll.ensureWidgetVisible(widget)
+                        widget.setFocus()
+                        raise
                 self.Design_Commit(replace(self.design,control=replace(c,**values)));dialog.accept()
-            except ValueError as exc:note.setText(str(exc))
+            except ValueError as exc:error.setText(str(exc))
         buttons.button(QDialogButtonBox.StandardButton.Apply).clicked.connect(apply);dialog.exec()
 
     def _Fields_Edit(self,attribute,title,labels):
@@ -524,18 +671,20 @@ class Workbench:
             if isinstance(value,(tuple,list)):
                 row=QWidget();row_layout=QHBoxLayout(row);row_layout.setContentsMargins(0,0,0,0)
                 widgets=[_Number(v,-1000000,1000000,10 if "rotation" in key else 6) for v in value]
-                for widget in widgets:row_layout.addWidget(widget)
+                for index,widget in enumerate(widgets):
+                    widget.setAccessibleName(f"{label} [{index+1}]")
+                    row_layout.addWidget(widget)
                 editors[key]=widgets;form.addRow(label,row)
             else:
-                widget=_Number(value,-1000000 if key=="launch_tilt_deg" else 0.,1000000,
-                               0 if type(value) is int else 12 if key=="magnetic_std_t" else 6)
-                editors[key]=widget;form.addRow(label,widget)
+                widget= IntegerInput(value) if type(value) is int else _Number(value,-1000000 if key=="launch_tilt_deg" else 0.,1000000,
+                               12 if key=="magnetic_std_t" else 6)
+                editors[key]=widget;_Field_Add(form,key,label,widget)
         error=QLabel();error.setWordWrap(True);layout.addWidget(error)
         buttons=QDialogButtonBox(QDialogButtonBox.StandardButton.Apply|QDialogButtonBox.StandardButton.Cancel)
         layout.addWidget(buttons);buttons.rejected.connect(dialog.reject)
         def apply():
             try:
-                values={k:tuple(item.value() for item in w) if isinstance(w,list) else int(w.value()) if type(getattr(original,k)) is int else w.value() for k,w in editors.items()}
+                values={k:tuple(item.Value_Collect() for item in w) if isinstance(w,list) else w.Value_Collect() for k,w in editors.items()}
                 self.Design_Commit(replace(self.design,**{attribute:replace(original,**values)}));dialog.accept()
             except ValueError as exc:error.setText(str(exc))
         buttons.button(QDialogButtonBox.StandardButton.Apply).clicked.connect(apply);dialog.exec()
@@ -577,6 +726,7 @@ class Workbench:
         if len(self.window.session.project.flight_runs)>=10:
             self.window._Error_Show("已保留10次运行，请导出结果并另建工程。");return
         snapshot=copy.deepcopy(self.design)
+        self._job_project_id=self.window.session.project.project_id
         self._cancel.clear();self._job=None;self._progress=0
         def progress(value):
             with self._lock:self._progress=value
@@ -600,29 +750,71 @@ class Workbench:
         if outcome is None or self._thread.is_alive():return
         self._thread.join();self._thread=None
         state,value=outcome
-        if state=="success" and not self._cancel.is_set():
+        if self.window.session.project.project_id!=self._job_project_id:
+            self.run_status.setText("运行所属工程已切换；未将旧结果发布到当前工程。")
+        elif state=="success" and not self._cancel.is_set():
             project=self.window.session.project
             self.window.session.Project_Set(replace(project,flight_runs=(*project.flight_runs,value)))
             self.run_status.setText(f"完成 · 最高 {value['summary']['maximum_altitude_m']:.2f} m · 已保存独立输入快照")
             self.window.navigation.setCurrentRow(3)
-        else:self.run_status.setText("已取消；已有结果保留。" if self._cancel.is_set() else str(value))
+        else:self.run_status.setText("已取消；已有结果保留。" if self._cancel.is_set() else "运行失败 · "+str(value))
         self.cancel_button.setEnabled(False)
         for action in self.window.file_actions[:2]:action.setEnabled(True)
         self.Refresh();self.window._View_RefreshStatus()
+        if self.window._close_pending:
+            QTimer.singleShot(0, self.window.close)
+
+    def Run_Selected(self, identity=None):
+        identity = self.run_select.currentData() if identity is None else identity
+        return next((run for run in self.window.session.project.flight_runs
+                     if run["run_id"] == identity), None)
+
+    def Run_DetailsShow(self):
+        run = self.Run_Selected()
+        if run is None:
+            return
+        dialog = QDialog(self.window)
+        dialog.setWindowTitle("运行来源与实现 · 只读")
+        dialog.resize(650, 430)
+        layout = QVBoxLayout(dialog)
+        details = QPlainTextEdit()
+        details.setReadOnly(True)
+        details.setPlainText(json.dumps({key: run[key] for key in
+            ("run_id", "input_digest", "backend", "algorithm_identity", "diagnostics")},
+            ensure_ascii=False, indent=2))
+        layout.addWidget(details)
+        buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+        dialog.exec()
 
     def Results_Refresh(self,*_):
         if self._refreshing:return
-        runs=self.window.session.project.flight_runs
-        index=self.run_select.currentData()
-        if index is None or not runs:
+        run = self.Run_Selected()
+        self.result_export_button.setEnabled(run is not None)
+        self.run_details_button.setEnabled(run is not None)
+        exportable = run is not None and run["design"]["control"]["estimator"] != "none"
+        self.parameter_export_button.setEnabled(exportable)
+        if run is None:
             self.result_view.design=None;self.result_view.rows=[];self.result_view.update()
-            self.signal_view.series=[];self.signal_view.update();return
-        run=runs[index];rows=run["rows"]
+            self.signal_view.series=[];self.signal_view.update()
+            self.result_info.setText("尚无完成的运行结果。先补齐输入并运行，再查看或导出。")
+            self.parameter_info.setText("参数导出需要完成的真实 C 算法运行。")
+            self.events.clear();self.timeline.setMaximum(0)
+            return
+        rows=run["rows"]
         self.result_view.design=Design_Decode(run["design"]);self.result_view.rows=rows
         self.timeline.setMaximum(len(rows)-1)
         self.Replay_Seek(self.timeline.value())
         stale=not self.design or Design_Digest(self.design)!=run["input_digest"]
         self.result_info.setText(f"{'历史配置 · 当前模型已改变' if stale else '当前配置结果'} | 最高 {run['summary']['maximum_altitude_m']:.2f} m | {run['summary']['duration_s']:.3f} s | {'已落地' if run['summary']['landed'] else '达到配置时长'}")
+        c=run["design"]["control"]
+        profiles="INS + KF6 标量" if c["estimator"]=="kf6" else "INS 标量" if c["estimator"] in ("ins","sf6") else "无目标标量 profile"
+        self.parameter_info.setText((f"参数来自选中运行：{profiles}；"+
+            (LABELS[c["controller"]]+" 研究记录（不可直接部署）。" if c["controller"]!="none" else "无控制研究记录。")+
+            "导出时核对实现身份，SCG 预览后应用支持的部分。") if exportable else
+            "此运行未启用真实 C 估计器；结果可导出，参数包不可用。")
+        self.parameter_export_button.setToolTip(self.parameter_info.text())
         signal=self.signal_select.currentIndex();times=[r["time_s"] for r in rows]
         series=[];unit="m"
         if signal==0:
@@ -649,8 +841,9 @@ class Workbench:
             key,unit={"wheel":("wheel_momentum_nms","N·m·s"),"rcs":("rcs_used_kg","kg")}.get(actuator,("deflection_rad","rad"))
             series=[(actuator,times,[r[key] for r in rows])]
         comparison=self.compare.currentData()
-        if comparison is not None and comparison>=0 and signal==0:
-            other=runs[comparison]["rows"]
+        other_run = self.Run_Selected(comparison) if comparison is not None else None
+        if other_run is not None and signal==0:
+            other=other_run["rows"]
             series.append(("对比真值高度",[r["time_s"] for r in other],[r["position_enu_m"][2] for r in other]))
         self.signal_view.series,self.signal_view.units=series,unit;self.signal_view.update()
         self.events.setPlainText("\n".join(f"{e['time_s']:.6f} s  {e['event']}" for e in run["events"])+"\n"+"\n".join(run["diagnostics"]))
@@ -659,19 +852,23 @@ class Workbench:
         self.result_view.index=value;self.result_view.update()
 
     def Result_Export(self):
-        index=self.run_select.currentData()
-        if index is None:return
+        run=self.Run_Selected()
+        if run is None:
+            self.window._Error_Show("尚无完成的运行结果；请先运行仿真。")
+            return
         path,_=QFileDialog.getSaveFileName(self.window,"导出结果","run.tdrun.json","Run (*.tdrun.json)")
         if path:
-            try:Run_Save(Path(path),self.window.session.project.flight_runs[index])
+            try:Run_Save(Path(path),run)
             except (ValueError,OSError) as exc:self.window._Error_Show(str(exc))
 
     def Parameters_Export(self):
-        index=self.run_select.currentData()
-        if index is None:return
+        run=self.Run_Selected()
+        if run is None or run["design"]["control"]["estimator"]=="none":
+            self.window._Error_Show("参数导出需要完成的真实 C 算法运行。")
+            return
         path,_=QFileDialog.getSaveFileName(self.window,"导出参数包","tuning.sstuning.json","Tuning (*.sstuning.json)")
         if path:
             try:
                 from .export import Parameters_ExportRun
-                Parameters_ExportRun(self.window.session.project.flight_runs[index],Path(path))
+                Parameters_ExportRun(run,Path(path))
             except (ValueError,OSError,RuntimeError) as exc:self.window._Error_Show(str(exc))

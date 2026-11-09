@@ -1,3 +1,9 @@
+"""Legacy mathematical demo API, retained for schema-1 clients only.
+
+The desktop workbench and CLI do not discover or execute these plugins.
+Actual flight algorithms are declared by algorithms.registry and run through
+the pinned native adapter; these two contracts are intentionally separate.
+"""
 from __future__ import annotations
 
 import math
