@@ -1,0 +1,10 @@
+[
+  {
+    "path": "tests/fixtures/*",
+    "reason": "Small immutable model and exchange regression inputs; workspace and size limits still apply."
+  },
+  {
+    "path": "src/treediagram/algorithms/sdk/*",
+    "reason": "Fixed owned upstream SDK inputs retain source identities and licenses; workspace and size limits still apply."
+  }
+]

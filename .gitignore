@@ -4,6 +4,9 @@ __pycache__/
 .pytest_cache/
 .test-tmp/
 .qa/
+.work/
+.ruff_cache/
+.codex-remote-attachments/
 *.tdproj
 *.tdproj.bak
 *.lock
