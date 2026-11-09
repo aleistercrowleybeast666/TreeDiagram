@@ -1,0 +1,50 @@
+{
+  "source_commit": "6a571d0d9c635c176d7046276547a1bafba1e702",
+  "baseline": "b1157260ee4faa8a625b48530e48f0f0ef93e50c",
+  "branch": "codex/gui-convergence-20261110",
+  "tests": {
+    "command": ".\\.venv\\Scripts\\python.exe -m pytest -q --basetemp=.test-tmp/gui-convergence-20261110/full-final",
+    "exit": 0,
+    "passed": 136,
+    "seconds": 31.92,
+    "scope": "One complete invocation on final implementation; earlier batches not added"
+  },
+  "integration": {
+    "command": ".\\.venv\\Scripts\\python.exe tools\\verify_motor_delivery.py D:\\python_software\\Underline_RETLDC\\.work\\gui-convergence-20261110\\integration\\motor.tdmotor.json .test-tmp\\gui-convergence-20261110\\delivery",
+    "exit": 0,
+    "scope": "Real new Underline output, CLI import/check, production Qt button import/run/export, completed run binding, persisted reopen. Qt dialogs/files selected by test doubles; not native desktop."
+  },
+  "source_boundary": "GUI/import comparison only; SDK, schema, units, physics, estimator and control kernels unchanged",
+  "hardware": "not performed",
+  "cleanup_owner": "root; preserve final delivery/run/project and wheel until integrated/archived",
+  "files": {
+    ".gitattributes": {
+      "bytes": 30,
+      "sha256": "f06202a408fef9b9ea69bb6b1cb8160dbb0378c5bb67a444d510d231813824c8"
+    },
+    "baseline-numeric.txt": {
+      "bytes": 251,
+      "sha256": "49c2f4b551292377d6b4ee0eda6ec5b0decbfed6fe444ec818b586d8d40f546d"
+    },
+    "environment.json": {
+      "bytes": 280,
+      "sha256": "4808d5edf99d62905f7410fba5fab63f17af61a463a83f2e542a04e451bdbc94"
+    },
+    "full-pytest.log": {
+      "bytes": 184,
+      "sha256": "4988fe2699d1c34c599d76cd2c3d085aa56bf41062487eb2d44b5b0d0a1c9c6b"
+    },
+    "motor-delivery.json": {
+      "bytes": 6667,
+      "sha256": "8e437d457fb33951a984f74ecb599813502de4510684418ab52a0e83f1c0a926"
+    },
+    "packaging.json": {
+      "bytes": 8998,
+      "sha256": "fac1519d57e9b2901cfe11431af161fe557880ffb878a1efcbbd8ec7c777d788"
+    },
+    "reimport-before-after.json": {
+      "bytes": 271,
+      "sha256": "c8ae7efacc3a8be5d4258383fa1567edd6352974ecb98d31206b54572a7151bb"
+    }
+  }
+}

@@ -1,0 +1,2 @@
+'0.75' {'before_apply': {'text': '0.75', 'value': 0.75, 'acceptable': True}, 'dialog_visible_after': False, 'after_mass': 0.75}
+'' {'before_apply': {'text': '', 'value': 0.75, 'acceptable': False}, 'dialog_visible_after': False, 'after_mass': 0.75}

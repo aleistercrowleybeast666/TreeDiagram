@@ -1,0 +1,12 @@
+{
+  "python": "3.14.0",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "packages": {
+    "PySide6": "6.10.1",
+    "numpy": "2.4.1",
+    "scipy": "1.16.3",
+    "pytest": "9.1.1",
+    "jsonschema": "4.26.0"
+  },
+  "compiler": "gcc (Rev5, Built by MSYS2 project) 16.1.0"
+}

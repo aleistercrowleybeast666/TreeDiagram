@@ -53,6 +53,7 @@ Underline 保持原 GUI，从原导出对话框选择 TreeDiagram motor-test 格
 - [C 算法、调参和目标能力](docs/ALGORITHMS.md)
 - [完整中文交付报告与未完成项](docs/DELIVERY_20261101_ZH.md)
 - [本次软件收尾与最新验证](docs/evidence/software_completion_20261101/README_ZH.md)
+- [2026-11-10 GUI收敛与新发动机包联调](docs/DELIVERY_20261110_ZH.md)
 - [第三方许可](docs/THIRD_PARTY.md)
 
 `.tdproj` schema 2 保存配置和最多 10 次结果；schema 1 旧外壳工程仍可读取。原子替换、上一版本 `.bak`、外部修改摘要检查与 `.lock` 保留。文件上限 32 MiB；大运行请单独导出再分工程保存。输入只作数据处理，不执行脚本或安装插件。结果/参数导出使用已完成运行的快照；源码身份改变后旧结果不能冒充新内核导出。
@@ -67,4 +68,4 @@ Underline 保持原 GUI，从原导出对话框选择 TreeDiagram motor-test 格
 
 本轮 Windows 桌面与 offscreen 的实际测试、失败历史、源身份和原始输出见 `docs/evidence/20261101/`。未执行的 Linux/macOS 桌面、真实硬件、全程序栈证明和全包线准确性不会从 Host 测试推定为通过。原创代码 Apache-2.0；固定上游来源保留原许可。
 
-本次 Windows 完整测试 **118 项通过**，15 个示例矩阵及三套新的 10 ms 参数实际 CLI 链路通过，见[最新验证](docs/evidence/software_completion_20261101/README_ZH.md)。历史 Windows 113 项、后续 GUI 5 项和首次推送的[Ubuntu核心/合同CI](https://github.com/aleistercrowleybeast666/TreeDiagram/actions/runs/41229254520)104 项保留其原始范围；不能把不同批次相加，或据此认定 Linux 桌面已验收。
+2026-11-10 当前完整测试 **136 项通过**，新 Underline 包实际运行与参数交付见[本轮报告](docs/DELIVERY_20261110_ZH.md)。2026-11-01 Windows 完整测试118项、15个示例矩阵及三套10ms参数链路见[历史软件收尾](docs/evidence/software_completion_20261101/README_ZH.md)。更早 Windows113项、后续GUI5项和首次推送的[Ubuntu核心/合同CI](https://github.com/aleistercrowleybeast666/TreeDiagram/actions/runs/41229254520)104项保留其原始范围，不能将不同批次相加或据此认定Linux桌面已验收。
