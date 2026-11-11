@@ -68,4 +68,4 @@ Underline 保持原 GUI，从原导出对话框选择 TreeDiagram motor-test 格
 
 本轮 Windows 桌面与 offscreen 的实际测试、失败历史、源身份和原始输出见 `docs/evidence/20261101/`。未执行的 Linux/macOS 桌面、真实硬件、全程序栈证明和全包线准确性不会从 Host 测试推定为通过。原创代码 Apache-2.0；固定上游来源保留原许可。
 
-2026-11-10 当前完整测试 **136 项通过**，新 Underline 包实际运行与参数交付见[本轮报告](docs/DELIVERY_20261110_ZH.md)。2026-11-01 Windows 完整测试118项、15个示例矩阵及三套10ms参数链路见[历史软件收尾](docs/evidence/software_completion_20261101/README_ZH.md)。更早 Windows113项、后续GUI5项和首次推送的[Ubuntu核心/合同CI](https://github.com/aleistercrowleybeast666/TreeDiagram/actions/runs/41229254520)104项保留其原始范围，不能将不同批次相加或据此认定Linux桌面已验收。
+2026-11-11 当前完整测试 **139 项通过**；默认首屏已在原生 125% / 150% 验证。新 Underline 包实际运行、参数交付及新 wheel 身份见[本轮报告](docs/DELIVERY_20261110_ZH.md)。此前 2026-11-10 完整136项和2026-11-01 Windows完整118项保留各自源码范围；15个示例矩阵及三套10ms参数链路见[历史软件收尾](docs/evidence/software_completion_20261101/README_ZH.md)。更早 Windows113项、后续GUI5项和首次推送的[Ubuntu核心/合同CI](https://github.com/aleistercrowleybeast666/TreeDiagram/actions/runs/41229254520)104项保留其原始范围，不能将不同批次相加或据此认定Linux桌面已验收。

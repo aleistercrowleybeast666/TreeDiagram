@@ -1,9 +1,10 @@
 # GUI 收敛与本轮发动机包联调
 
 本轮沿用 `b1157260ee4faa8a625b48530e48f0f0ef93e50c`，工作分支为
-`codex/gui-convergence-20261110`。GUI 提交 `05d1c33`；最终受测实现提交
+`codex/gui-convergence-20261110`。GUI 提交 `05d1c33`；首批受测实现提交
 `6a571d0d9c635c176d7046276547a1bafba1e702`。主分支、产品版本、工程 schema、
-交换合同与固定 SDK 没有因界面调整而改写。推送由三仓主负责人统一完成。
+交换合同与固定 SDK 没有因界面调整而改写。2026-11-11 的默认首屏补充修复、当前源码散列和
+新 wheel 见下文；沿用同一候选分支正常推送。
 
 ## 用户路径
 
@@ -25,7 +26,7 @@ PID/LQR 只显示所选算法的字段，另一算法草稿保留并受同次 Ap
 ## 实际验证
 
 Windows 11、Python 3.14.0、PySide6 6.10.1、NumPy 2.4.1、SciPy 1.16.3、
-pytest 9.1.1、GCC 16.1.0。最终源码一次完整执行 **136 passed / 31.92 s**：
+pytest 9.1.1、GCC 16.1.0。首批源码一次完整执行 **136 passed / 31.92 s**：
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q --basetemp=.test-tmp/gui-convergence-20261110/full-final
@@ -44,7 +45,8 @@ Qt offscreen 在 920×620 逻辑尺寸、150% 深色检查了任务页和属性�
 点击结果页并导出参数，界面明确显示历史配置、18 s 达到时长、461.48 m 和当前消费范围。
 原生导出的字节与下述 run 参数包完全相同，正常关闭没有未保存提示。
 较早设置 `QT_SCALE_FACTOR=1.25` 的运行叠加系统缩放后实为 DPR 1.5625，不能称为 125%。
-本应用仍仅有中文，未虚构英文支持；本轮没有另外证明实际 125% 桌面场景。
+本应用仍仅有中文，未虚构英文支持；首批没有另外证明实际 125% 桌面场景，
+下面的默认首屏补充已执行原生 125% 与 150% 测量。
 原生代表图由 SilverStar 正式证据唯一保存：
 [历史结果截图](https://github.com/aleistercrowleybeast666/SilverStar/blob/18058cae6fbd2f861fc05081b9fed8a8b101d7be/docs/evidence/gui_convergence_20261110/gui_native/treediagram-result-150.png)，
 [原生操作与范围](https://github.com/aleistercrowleybeast666/SilverStar/blob/18058cae6fbd2f861fc05081b9fed8a8b101d7be/docs/evidence/gui_convergence_20261110/GUI_NATIVE.md)。
@@ -54,6 +56,34 @@ Qt offscreen 在 920×620 逻辑尺寸、150% 深色检查了任务页和属性�
 逐字节匹配受测源码；wheel 为 192473 B，SHA-256：
 `e85b75d15c3f6805e0937fe9a8b05ab4b03976783f0d8fba458cb0c18a3c666c`。
 这是 Python 包与现有依赖环境验证，不是新增独立 Windows EXE 或目标 ARM 验证。
+
+### 默认首屏补充（2026-11-11）
+
+直接运行生产 `App_Main`、不手动缩放或最大化：125% 原外框1180×810可完整放入1536×816；
+150% 原外框1180×728超出1280×680可用区48个逻辑像素，状态栏不可达。
+只在入口首次显示后按屏幕可用区和实际边框校正，再排队一次带窗口 receiver 的校正。
+合法位置、最大化状态、后续主题及导航保持原语义；未改变科学计算、保存或任务模型。
+
+修复后生产入口125%仍为1180×810，150%为1180×680，两者外框和状态栏完整可见；
+主题/导航不重复适屏或修改工程，快速关闭正常，三次 stderr 均为空。
+新增3个几何回归后重新完整执行 **139 passed / 48.66 s**，不是把旧通过数拼接。
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -q --basetemp=.test-tmp/gui-initial-frame-20261111/full
+.\.venv\Scripts\python.exe -m pip wheel . --no-deps --no-build-isolation --wheel-dir dist/gui-initial-frame-20261111
+```
+
+当前 wheel 位于 `dist/gui-initial-frame-20261111/treediagram_workbench-0.1.0-py3-none-any.whl`，
+**192914 B**，SHA-256 `d26d396759eecd40e710b9ea032f989c42e66af10683760f000f87b830e3db99`。
+实际隔离安装并用 `python -I` 运行该包：67个源码/SDK文件与受测源码逐字节一致，
+新的独立缓存真正执行GCC编译，安装包自身 `App_Main` 在原生150%完整显示并正常退出。
+仍使用已有Python依赖环境，不冒称独立EXE。详见[完整收据](evidence/gui_initial_frame_20261111/receipt.json)、
+[前后几何](evidence/gui_initial_frame_20261111/geometry.json)和[安装包验证](evidence/gui_initial_frame_20261111/packaging.json)。
+
+旧192473 B wheel已迁到 `D:/SilverStar_Archive/20261111/task/treediagram/TreeDiagram_GUI_20261110_PreFit.whl`；
+实际解压75个成员并逐项核验路径/大小/SHA、核对访问范围和owner一致后才移除旧dist副本。
+其余15份持久交付文件全部散列未变，工程、完成run、参数包未修改。
+见[归档回执](evidence/gui_initial_frame_20261111/old-wheel-archive.json)。新wheel目录有明确保护标记。
 
 ## 本轮真实跨仓输入
 
@@ -87,7 +117,8 @@ GUI/CLI 同样拒绝、缺干质量可预览但两端同样阻止运行，以及
 [新链路 receipt](evidence/gui_convergence_20261110/motor-delivery.json)、
 [重导入前后](evidence/gui_convergence_20261110/reimport-before-after.json)、
 [安装包身份](evidence/gui_convergence_20261110/packaging.json)。
-最终 wheel 位于 `dist/gui-convergence-20261110/`。迁移的14个文件共5,837,270字节，
+首批 wheel 原位于 `dist/gui-convergence-20261110/`，现已按上述回执归档；当前 wheel 另放新目录。
+迁移的14个文件共5,837,270字节，
 逐件SHA-256完全一致；从迁移后的完成run重新执行CLI导出仍得到上面的同一摘要。
 详见 [持久交付位置与复验](evidence/gui_convergence_20261110/durable-delivery.json)。
 这些文件不再依赖pytest默认会清除的 `.test-tmp`；该交付目录有明确保护标记。

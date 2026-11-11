@@ -1,0 +1,22 @@
+{
+  "unchanged_existing_delivery_files": 15,
+  "archived_previous_wheel": "dist/gui-convergence-20261110/treediagram_workbench-0.1.0-py3-none-any.whl",
+  "protected_sha256": {
+    "dist\\gui-convergence-20261110\\.cleanup-active": "0eb51bd2adf437050722848b7f0f86ee20b962a4a21f229821ee92fe86580664",
+    "dist\\gui-convergence-20261110\\treediagram_workbench-0.1.0-py3-none-any.whl": "e85b75d15c3f6805e0937fe9a8b05ab4b03976783f0d8fba458cb0c18a3c666c",
+    "dist\\gui-convergence-20261110\\delivery\\after-cleanup.sstuning.json": "ab27c43327d51c0c26988c26c3a2d5699c10ce7872592276d24750c95f6580b8",
+    "dist\\gui-convergence-20261110\\delivery\\base.json": "b8a601ea7e39a5ffc7d3e8cfe9092726e9201d6a093504da17321312f36216cc",
+    "dist\\gui-convergence-20261110\\delivery\\cli.sstuning.json": "ab27c43327d51c0c26988c26c3a2d5699c10ce7872592276d24750c95f6580b8",
+    "dist\\gui-convergence-20261110\\delivery\\completed.tdrun.json": "f160ec6fd60ae77557faf2bf52e4c0c0ce320cc4e798e55b91076da10a3170a8",
+    "dist\\gui-convergence-20261110\\delivery\\CurrentAndHistorical.tdproj": "13e898642383cc13e487bd6113ec5c2f60ceb5b6db66a758370055f55101e1ba",
+    "dist\\gui-convergence-20261110\\delivery\\imported.json": "48656176063b3f3f95996a788bc5ab9b70de2232de40790f1fa995e9dc6c15f1",
+    "dist\\gui-convergence-20261110\\delivery\\invalid-digest.tdmotor.json": "de06909fab54006aec1b2f3dbc31627de507e0255f71f00848fc85ad999bff93",
+    "dist\\gui-convergence-20261110\\delivery\\invalid-version.tdmotor.json": "fbeafdb1a045851a90377bf8b62f7eddfcc64890e049937c5d19e9f3e7ecfa8a",
+    "dist\\gui-convergence-20261110\\delivery\\missing-mass.tdmotor.json": "ec4eb4d5b8fe1a3b4e2ac06c6c4388539a9d804ffe742ca208d7b410a241f35c",
+    "dist\\gui-convergence-20261110\\delivery\\missing-model.json": "89762afba697fb0d4c2fa454a9d283f035507aef97d527caea576e31bfcdce88",
+    "dist\\gui-convergence-20261110\\delivery\\native-run.sstuning.json": "ab27c43327d51c0c26988c26c3a2d5699c10ce7872592276d24750c95f6580b8",
+    "dist\\gui-convergence-20261110\\delivery\\receipt.json": "8e437d457fb33951a984f74ecb599813502de4510684418ab52a0e83f1c0a926",
+    "dist\\gui-convergence-20261110\\delivery\\run.sstuning.json": "ab27c43327d51c0c26988c26c3a2d5699c10ce7872592276d24750c95f6580b8",
+    "dist\\gui-convergence-20261110\\delivery\\synthetic-update.tdmotor.json": "d29681e7d8a7b2ce48b2ae2f6686a25fa208f159b1b32b1efc367914177d8245"
+  }
+}

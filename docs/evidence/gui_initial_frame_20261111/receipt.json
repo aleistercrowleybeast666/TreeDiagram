@@ -1,0 +1,331 @@
+{
+  "base_head": "768c0a52bdc154e023582a12db56dc23e303ca76",
+  "source_identity_scope": "Exact working bytes after startup fix; source hashes identify the tested dirty snapshot before delivery commit.",
+  "python": "3.14.0",
+  "packages": {
+    "PySide6": "6.10.1",
+    "numpy": "2.4.1",
+    "scipy": "1.16.3",
+    "pytest": "9.1.1",
+    "setuptools": "80.9.0"
+  },
+  "source_sha256": {
+    "pyproject.toml": "878d76c035405c19ae4174381259790db125fc0973d7a37d5ef8c25675bfcdf1",
+    "src/treediagram/__init__.py": "3c78506c22bfde69cb1dd8f35d3d0baa6b1a5181d88b9035e2002076d937949d",
+    "src/treediagram/__main__.py": "cb2f15962589401e1a7f60c5930a7d1d49b6723b9369b04f11f5003c8fc8d565",
+    "src/treediagram/algorithms/__init__.py": "2bfa567120dc6f2c3fbda7b15878e02a7c55cb4c6ce657415a0c019fba0f0a60",
+    "src/treediagram/algorithms/bundle.py": "f49676c9645b3c53d413b330ef057b1b971ea5a267bdd6a77af74d2dca4b2e22",
+    "src/treediagram/algorithms/control.py": "71d9aa915709850b196e01e37ba4cc86f61f52a5306cc8ce2c5eb2a5d0cc6b23",
+    "src/treediagram/algorithms/native/host_assert.c": "c00602f9d23e53691fa4b3c39b1959fbd549a55fe0c482d02eebf271a89921e6",
+    "src/treediagram/algorithms/native/host_navigation.c": "c3649e168363c0dd2ecb2e799d6e6f9545db0a285a32d4cf2aee18dafc0e2045",
+    "src/treediagram/algorithms/native/system_user_config.h": "00cfc14bb65737d978a72a71b0be6f135ca15e3364acc68ed27aeec8b5697ea4",
+    "src/treediagram/algorithms/native.py": "97a69884bfe0d80c1a3fc7965a47c918ed58be5dc3c11179088864b04ba71115",
+    "src/treediagram/algorithms/navigation.py": "6f08919c8b9d1eb461e5362f4650f1f2e16c6cdce47077622b44d98ef3075d97",
+    "src/treediagram/algorithms/registry.py": "58a87bc6c9a627592fbbc4aaea45c7fd08b2ef759a4a4c354bd6aac8351dc320",
+    "src/treediagram/algorithms/sdk/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "src/treediagram/algorithms/sdk/manifest.json": "82c2bd7a41350aadae5311134d4fc5c97ce5c1960d638670ff72851ee3e21f4a",
+    "src/treediagram/algorithms/sdk/reference_config.h": "a5667ac200718acd1d65b8c003f98410a753629cfcb0bf180c98d4ef7a76ab34",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_augmented_common/navigation_bounded.c": "7d5591c3a87ce301099f10088ea8a20b5dee3092142821e6f58c1e97751f44b7",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_augmented_common/navigation_bounded.h": "194ea399e852ed3593ae9cc10b39accb4caa9500fdc3a9188764a40caeaf07ee",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_augmented_common/plugin.json": "e846939e7c6a57148094ef60792d5e8f9d5b5d43b77049ffd66a6b61a89f32a6",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_common/attitude_frame.c": "5357a6d087d64c94658c924249b6364bc6aee79ad4301c0b4b4a51e040a17b25",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_common/attitude_frame.h": "a4bfa5772d2b007966842ad064168c1f091ca11cab5271bf42cad51e6dc3c36a",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_common/plugin.json": "e098a4812f5a0005b7c4465d11401b91ce98d31ac2791de64892929671827864",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_control_lqr/control_lqr.c": "93bed3be6176df9672cbf42c3f99831c164625978296dca1aa3f86f29a7c32c5",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_control_lqr/control_lqr.h": "31216be5da05329e2bd40fa3ba99d6308595aff1f44aecab71bccbbf691b55c4",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_control_lqr/plugin.json": "8cd7344d27bc1c33c2fbcfdb905bc45a536d45c3a381e98653b058ca8a9e39d4",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_control_pid/control_pid.c": "a4f98b5c938022acca859567e72cd9d9e5f13b128f96aec2e43b8ff95156c37c",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_control_pid/control_pid.h": "ccfb93c3d3482f6d7412ccb8c496822f6e23249e3dce4de1dcef37fd7c5ae0e5",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_control_pid/plugin.json": "b3b99ec45ca7aec8eafc6aaf8954d60ed50309a57a604383e6999de058f12d31",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_eskf15/navigation_eskf.c": "bd72b2869857d0c4c02fddd55c081cda505ddf73dd395f41420a3a3d0cb8111e",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_eskf15/navigation_eskf.h": "54157e4d017d75ebb0df957630f036603ce6803dcb6fc99e68d0d037d546ddcd",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_eskf15/plugin.json": "dcf9f1695e95f2cac2c2786b31c61a7a2c8c0a5e2d3d7aa4fbd478a3f2d66796",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_eskf20/plugin.json": "a06b80e02156b98d3c247019ca0266bfe2f47e47f6452d7ab8b613833ed3ad95",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_inekf15/plugin.json": "5caa5d40a6712ee08f08864b2503c44bb4e2d56be21b5740e4911055840c8c7f",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_inekf20/plugin.json": "ec483cb9ba149671c44d935f46de22c44438d4bff0dc6796bdf36ff8553b0153",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_kf6/navigation_kf.c": "eb27260dd8ae7043a147c1d35f61133a13620f28f14055860299f64f9888805c",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_kf6/navigation_kf.h": "bc5b736e09e39b0e5caadf0139c68a46b9ec67e6f85a21c4c9982b23dabc15c9",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_kf6/plugin.json": "e0d75bfc19decfbdfc0098671cb679c4320952b0e49a74dedf1f9f43f567466c",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_sf6/navigation_sf6.c": "3115c97a2aa98cdf5243c9759755d8ef03edfd35c9c51e138d6ca71f4f97b2af",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_sf6/navigation_sf6.h": "7ac0b7e6e9e92f336dbd428d1b6a8ab054391f48552864119c859b8f66a24bb5",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_estimator_sf6/plugin.json": "79c853a62740cb0137bd42c0dbed042d5806e80f14e8e4948edbee629b4ecbbc",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_ins_coning2_sculling2/ins_mechanization.c": "61045decd91bf70cc2d61ebaf2e45a701e8e13db5e2a4bf191706e68746b9880",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_ins_coning2_sculling2/ins_mechanization.h": "adc1e90465641029b1203b3fd746395df3350ebb878092338b1dfae48aac7ace",
+    "src/treediagram/algorithms/sdk/silverstar_algorithm_ins_coning2_sculling2/plugin.json": "eb3feaf055c8dc1e6e26d455b6ffd35d08be0f86a765d71f37102043696a4af0",
+    "src/treediagram/algorithms/sdk/silverstar_assert.h": "aa35382c4395e5a71bc80a71944498c6aaefe4bf4fa65a63fa00bc2c67cb0452",
+    "src/treediagram/algorithms/sdk/silverstar_compiler.h": "3d66165f468e3e7263ebb6d72b6c217a042dd337be39e170ffb83487815ffd57",
+    "src/treediagram/algorithms/sdk/tuning_bundle_v1.schema.json": "2cc8c87f6c9cd946fac97b911c776b3d1a9be2859ffe2e57e35d568e5539af9b",
+    "src/treediagram/app.py": "c33f73a66e0884256c8817b1defa15ca49c35b99a6093ad9f54983ada2929576",
+    "src/treediagram/cli.py": "89ce0ea470eb163be1e47285f1d79525e5aa4cc58774004999de5bd1ddb2b03a",
+    "src/treediagram/core/__init__.py": "15e2a275dc76bf91e09639fcb4bcb3b1959dc1ad0bfd4f366c27bd2ab26ed9fc",
+    "src/treediagram/core/jobs.py": "001149435c913c0b9680682729b77cbd65cd96c4209b6ab9f9e2a270ec3a1603",
+    "src/treediagram/core/model.py": "170f53316dd46b9f4db82e3b120dbf9ff0b6bdee6719e5344b9b8a53d63b4af2",
+    "src/treediagram/core/plugins.py": "60824ade2e5905ee64b5474370cbd176026d7a947a492159474c6de3fe394de0",
+    "src/treediagram/core/session.py": "212f248b6c05cae1b77701fad1897fcf5e7a6254a119ed73d0fa9bcabce4c32d",
+    "src/treediagram/core/storage.py": "015b3ed9e3547a87f6eef97824a3b4addc83bcf05ab282d1db69030aca8323a0",
+    "src/treediagram/design.py": "e90e1a3a15efc0ac170bd9f630d5fb0309123c0c336fc7c691ecaca295606ee1",
+    "src/treediagram/editing.py": "d582cd5f28a866a270dec22313405d70406bb8bcd1a792440e23599e914c7cb2",
+    "src/treediagram/export.py": "df2d00d57b2e20c0672a9e2e2efc5618b671c88bb3a86a61ae8c858914b5ded0",
+    "src/treediagram/geometry.py": "5f49705936c586c60710358377189c9dbb7b9150edeaf7eccb9d3f61ef554dc2",
+    "src/treediagram/importers.py": "39bd43826526a4c6909f3993d43f73154773472b01d41494ba19eb0fce705705",
+    "src/treediagram/io.py": "0a630f859333b71279637e1049848df2952f8e39a761b5847957e9c0b2eb7901",
+    "src/treediagram/physics.py": "9812fd0c4f63677cbf42d0066b83ec9350dad9ff25a2423e2a5d56cf05a76669",
+    "src/treediagram/results.py": "ae1608fd08ddf2360f59b8797391e184f51ec3a0aa75afaf2961e096e8b48341",
+    "src/treediagram/simulation.py": "f4627202fdb97b4c6ee2344c611556ad7fb6bda5b6c71841e7122da1f87faee2",
+    "src/treediagram/theme.py": "50f565c83fa11024a94e1f2c531bab5be55be690186a79f7357b9e0b49480250",
+    "src/treediagram/ui.py": "fb8d68bebbd94bbdd4142a40eebd8d7d71b9cb5c5cb660881e275a9188b12dba",
+    "src/treediagram/vendor_motor/__init__.py": "3133965d01d913a1a87e446302a1bf2dd53cda7ebdc4177f26f6eff2e13f5dab",
+    "src/treediagram/vendor_motor/contract.py": "ea4eaaf4e38587e44678a3bd05fef476fda2329c49596ce7201cbbbba0479988",
+    "src/treediagram/views.py": "8802c145f2b7478ed7c1c1bee5f44ba5dea6fcd2e56b539f2c5baebcf3da9bbd",
+    "src/treediagram/workbench.py": "14955eb5bdf311c7b92b3945df4dcb4cff9aada094a791795d8e4be36b6eb545",
+    "tests/conftest.py": "8c159ad7a1daea96811214a4cd33d3e648f0319541ef4bf45865e4f93ba6464f",
+    "tests/fixtures/algorithms/fixture-provenance.json": "5bdc4e61947e7c5a466161323f655a4f387e36f8280e070aaec447d4e30681d4",
+    "tests/fixtures/algorithms/fixture-sdk-manifest.json": "be346b62b727608864e5e2c389a4852adc9c24edb04ed755ddd06faeffa13967",
+    "tests/fixtures/algorithms/kf6-lqr.sstuning.json": "cf33e96fcb60a95d7339b231e72c9565d3f62672ec14a2ea9bae4969c133a936",
+    "tests/fixtures/algorithms/kf6-pid.sstuning.json": "5186baef85ba262d390bba6c1189722689a8edb23e32a479dd9623bb002ee68e",
+    "tests/fixtures/motor/invalid_bool_mass.tdmotor.json": "56b0a8082abc3567dca40b6740dc3baa621885d4b268bc501a9d86c50c57cda4",
+    "tests/fixtures/motor/invalid_clock.tdmotor.json": "5a8324e13196dd4a314547a1cc77f880682fa632c1daa38917ad499bd8cad116",
+    "tests/fixtures/motor/invalid_digest.tdmotor.json": "9d50448559b3454004cba2834f55bcf5f872f1568e5baf143e949ae4e5a56cf6",
+    "tests/fixtures/motor/invalid_length.tdmotor.json": "9cedfb2d410d687c68f16eb302ec77cde5a1e40df2893b1e21daf0fed5ea4f11",
+    "tests/fixtures/motor/invalid_mass.tdmotor.json": "d536c5d9ca467ef195753bf8479a888888a42ce6732abeff34ea7d12b62eb81f",
+    "tests/fixtures/motor/invalid_version.tdmotor.json": "1ea69347de7f02df4cb84d9f7faaa286a8aaa92e91e3b549d132125bc644888c",
+    "tests/fixtures/motor/valid_positive.tdmotor.json": "66c6232d0ccec6ceaabdec9186e9059a2f16dc9eeedea0c94221f06a8ceaed96",
+    "tests/fixtures/motor/valid_synthetic.tdmotor.json": "6b8ea90658017c9419c4344022ed41d7d8ab90f6dfeb52fa608893ccf976467a",
+    "tests/fixtures/motor/vectors.json": "55287d865bd817c34099c47820f6213bafa51ef884d7f69edbf93a183581ec96",
+    "tests/fixtures/single-stage.ork": "453f619a88e3a7baff8537e56bb91460abad896c2c508b68be4190341087e020",
+    "tests/fixtures/unknown-component.ork": "55474d1ce65da0fb43df7e763e42f143de80cc103ec100055f291b80ed32cdf5",
+    "tests/test_algorithms.py": "b7d78fc09a597dc45a81470919284a37a468cf049d00d2c4e4b151307b371c5f",
+    "tests/test_cli.py": "cbefe0fc9629fe43fbfa4355bcaad33696dec8fd6f0728e0b3b1b11ec2a8a6ad",
+    "tests/test_gui.py": "f39c5a27fe4ae071bf8ef023a8981412aee0bf4b4f1506d4c7292ac9685456fb",
+    "tests/test_gui_workflow.py": "63ec9cc04b8c939c21d6726af5b764d3d96fdeb440234a726a72bde98971e59c",
+    "tests/test_imports.py": "b8e40291049784fa4c5f0e4c41104e3cc1c11c395f0dcc7baf1ba215394dce75",
+    "tests/test_initial_geometry.py": "f965a09ccf41d68735b066574358d41d900dc56b3c64c5e7c53c264dd75f8b75",
+    "tests/test_physics.py": "caa779bc860217dbf504cbf233abeda1a500d540a16bc8d9e1eb2a6df1a2275e",
+    "tests/test_storage.py": "dfc6bb724fea7e6de3898da061e661f44ba6f4b32940dcbb73259f5f6a78b77e",
+    "tests/test_workbench.py": "453db02960deab75e6dcb088fc87defcc1935b7575494f848d976c8536469740",
+    "tools/verify_initial_geometry.py": "b9810861d40810b14957916f36efa64fafa79df5ba7c92abeacd165f43f84794"
+  },
+  "commands": [
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--basetemp=.test-tmp/gui-initial-frame-20261111/full"
+      ],
+      "exit": 0,
+      "result": "139 passed",
+      "seconds": 48.66,
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen",
+        "QT_QPA_FONTDIR": "C:/Windows/Fonts"
+      }
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-m",
+        "pip",
+        "wheel",
+        ".",
+        "--no-deps",
+        "--no-build-isolation",
+        "--wheel-dir",
+        "dist/gui-initial-frame-20261111"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-m",
+        "pip",
+        "install",
+        "--no-index",
+        "--no-deps",
+        "--target",
+        ".test-tmp/gui-initial-frame-20261111/installed",
+        "dist/gui-initial-frame-20261111/treediagram_workbench-0.1.0-py3-none-any.whl"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-I",
+        ".test-tmp/gui-initial-frame-20261111/installed_smoke.py"
+      ],
+      "exit": 0,
+      "environment": {
+        "QT_QPA_PLATFORM": "windows",
+        "QT_SCALE_FACTOR": "1.2"
+      }
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "tools/verify_initial_geometry.py",
+        ".test-tmp/gui-initial-frame-20261111/before125"
+      ],
+      "exit": 0,
+      "environment": {
+        "QT_QPA_PLATFORM": "windows",
+        "QT_SCALE_FACTOR": "1"
+      }
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "tools/verify_initial_geometry.py",
+        ".test-tmp/gui-initial-frame-20261111/before150"
+      ],
+      "exit": 0,
+      "environment": {
+        "QT_QPA_PLATFORM": "windows",
+        "QT_SCALE_FACTOR": "1.2"
+      }
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "tools/verify_initial_geometry.py",
+        ".test-tmp/gui-initial-frame-20261111/after125",
+        "--expect-fit"
+      ],
+      "exit": 0,
+      "environment": {
+        "QT_QPA_PLATFORM": "windows",
+        "QT_SCALE_FACTOR": "1"
+      }
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "tools/verify_initial_geometry.py",
+        ".test-tmp/gui-initial-frame-20261111/after150",
+        "--expect-fit"
+      ],
+      "exit": 0,
+      "environment": {
+        "QT_QPA_PLATFORM": "windows",
+        "QT_SCALE_FACTOR": "1.2"
+      }
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "tools/verify_initial_geometry.py",
+        ".test-tmp/gui-initial-frame-20261111/rapid",
+        "--expect-fit",
+        "--rapid-close"
+      ],
+      "exit": 0,
+      "environment": {
+        "QT_QPA_PLATFORM": "windows",
+        "QT_SCALE_FACTOR": "1.2"
+      }
+    }
+  ],
+  "scope": "Native Windows production App_Main first show and separate complete offscreen suite; installed wheel own App_Main + fresh GCC host C. No hardware, user input changes, new languages or new simulation capability.",
+  "artifacts": {
+    ".gitattributes": {
+      "bytes": 36,
+      "sha256": "f28b31fd7121e96d175f373beddde0ba26ad926f4da07ae3b90fef5dd8af6342"
+    },
+    "delivery-unchanged.json": {
+      "bytes": 2401,
+      "sha256": "b551c95c1a29e669671feec5f600cfce5346ef880ea49c71f29666aa3788b7ee"
+    },
+    "focused-pytest.log": {
+      "bytes": 98,
+      "sha256": "f36c172e4affb02226dee29970eaff0f4e5b7d12ae8c6c385d17a13c7e711b4c"
+    },
+    "full-pytest.log": {
+      "bytes": 181,
+      "sha256": "777948a40d23952a5dda7603b23c1b2f4888070bb61c11dc46c49b478158ff3a"
+    },
+    "geometry.json": {
+      "bytes": 14731,
+      "sha256": "fa59b00ccfe584a280d4c9df90b00a94c82295a0f7b2405de3522252fb9553a7"
+    },
+    "installed-smoke.log": {
+      "bytes": 260,
+      "sha256": "1b93b1d3c091ccfd94b5a40e57e63fab23a821f5291412d05b537fa7736acf7f"
+    },
+    "installed_smoke.py": {
+      "bytes": 3500,
+      "sha256": "400674f68c22d521e7c1ae2f5967685eba616cbfb688dc4907d36b027a83894f"
+    },
+    "old-wheel-archive.json": {
+      "bytes": 1257,
+      "sha256": "e708dbbdff7267cbb2090415333993c2c82418a8159e08471d5faa174432cc13"
+    },
+    "packaging.json": {
+      "bytes": 14205,
+      "sha256": "1758df27c2efe304ca21c53c5d23f49a77b8d647d10d5c3d13520a940eb9440a"
+    },
+    "wheel-build.log": {
+      "bytes": 982,
+      "sha256": "d618e64356ece54499f4f1d2b32c3ce410fc929681ae83a0211f158e4dd6a080"
+    },
+    "wheel-install.log": {
+      "bytes": 223,
+      "sha256": "2b16fb82feae1eec162609a7558a6ceb47692240c8a0edf6d1507b3b11032479"
+    }
+  },
+  "artifact_line_endings": "New formal copies normalized to LF after strict whitespace check; original bytes preserved externally, no gate changes.",
+  "original_formal_snapshot": {
+    "path": "D:\\SilverStar_Archive\\20261111\\task\\treediagram\\initial-frame-evidence-original",
+    "files": {
+      ".gitattributes": {
+        "bytes": 39,
+        "sha256": "c99ad52e3279386ba99aac15fe9e93b0b067a489bfc5550a133a83def25f6e01"
+      },
+      "delivery-unchanged.json": {
+        "bytes": 2423,
+        "sha256": "8adf5d9277187e5d21b9965d348102ebf73ec29726ec2433cde2c95b2feb4911"
+      },
+      "focused-pytest.log": {
+        "bytes": 100,
+        "sha256": "02a72b9797eb3505616004eacdb4963aa7c993182e88a16d0b6eec798f825f4a"
+      },
+      "full-pytest.log": {
+        "bytes": 184,
+        "sha256": "dcb59c7a3af6c4dd1a7208001f06fd34f78fbf219be4fd3dcd6e07d05ef49a34"
+      },
+      "geometry.json": {
+        "bytes": 15518,
+        "sha256": "cdafa03828d163edcf4e4e300af600bb16045c9b4414c1c4ad20fa94c068c8b0"
+      },
+      "installed-smoke.log": {
+        "bytes": 261,
+        "sha256": "0310325f2bfa885335a70b116afb9d7820ba1d54f1216d55f22a3917206d4f51"
+      },
+      "installed_smoke.py": {
+        "bytes": 3500,
+        "sha256": "400674f68c22d521e7c1ae2f5967685eba616cbfb688dc4907d36b027a83894f"
+      },
+      "old-wheel-archive.json": {
+        "bytes": 1282,
+        "sha256": "8f5e1424ed3cc741a5e43eefbbb9542dd08090d52a4d375f4af83119b24b0a5c"
+      },
+      "packaging.json": {
+        "bytes": 14355,
+        "sha256": "a6c702abcf850ff1ccb5da0d9ffeb933e6c40547b5c412a5ecec52bc1c7d45a6"
+      },
+      "receipt.json": {
+        "bytes": 16916,
+        "sha256": "e3822dd65d404cfda78b031c930b4d2318903ef16286219f4b7376e2c76df201"
+      },
+      "wheel-build.log": {
+        "bytes": 995,
+        "sha256": "b93c172073ec5fe2a58419da39faa7686db9476deb10cfd694a260b1202ca4bd"
+      },
+      "wheel-install.log": {
+        "bytes": 226,
+        "sha256": "97a939cd110349c4cd5b9193f1c25babcdc9089e2008abf2be4b9e3cb475cfd2"
+      }
+    }
+  }
+}

@@ -1,0 +1,787 @@
+{
+  "before125": {
+    "source_sha256": "f5baef8f6b3587c71eaf6af1070d159d768f87286e69e079d36bab514af999f7",
+    "qt": "6.10.1",
+    "python": "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+    "entry": "treediagram.app.App_Main",
+    "fit_calls": [],
+    "errors": [],
+    "initial_geometry_changed_by_probe": false,
+    "user_project_opened": false,
+    "settings": "The application has no persisted GUI settings; empty default project",
+    "platform": "windows",
+    "before_show": {
+      "dpr": 1.25,
+      "available": [
+        0,
+        0,
+        1536,
+        816
+      ],
+      "frame": [
+        7,
+        0,
+        1180,
+        810
+      ],
+      "client": [
+        7,
+        30,
+        1180,
+        780
+      ],
+      "contained": true,
+      "maximized": false,
+      "status_contained": true,
+      "overflow": {
+        "right": 0,
+        "bottom": 0
+      }
+    },
+    "first_show": {
+      "dpr": 1.25,
+      "available": [
+        0,
+        0,
+        1536,
+        816
+      ],
+      "frame": [
+        7,
+        0,
+        1180,
+        810
+      ],
+      "client": [
+        7,
+        30,
+        1180,
+        780
+      ],
+      "contained": true,
+      "maximized": false,
+      "status_contained": true,
+      "overflow": {
+        "right": 0,
+        "bottom": 0
+      }
+    },
+    "after_view": {
+      "dpr": 1.25,
+      "available": [
+        0,
+        0,
+        1536,
+        816
+      ],
+      "frame": [
+        7,
+        0,
+        1180,
+        810
+      ],
+      "client": [
+        7,
+        30,
+        1180,
+        780
+      ],
+      "contained": true,
+      "maximized": false,
+      "status_contained": true,
+      "overflow": {
+        "right": 0,
+        "bottom": 0
+      }
+    },
+    "normal_close_accepted": true,
+    "exit_code": 0
+  },
+  "before150": {
+    "source_sha256": "f5baef8f6b3587c71eaf6af1070d159d768f87286e69e079d36bab514af999f7",
+    "qt": "6.10.1",
+    "python": "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+    "entry": "treediagram.app.App_Main",
+    "fit_calls": [],
+    "errors": [],
+    "initial_geometry_changed_by_probe": false,
+    "user_project_opened": false,
+    "settings": "The application has no persisted GUI settings; empty default project",
+    "platform": "windows",
+    "before_show": {
+      "dpr": 1.5,
+      "available": [
+        0,
+        0,
+        1280,
+        680
+      ],
+      "frame": [
+        6,
+        0,
+        1180,
+        728
+      ],
+      "client": [
+        6,
+        25,
+        1180,
+        703
+      ],
+      "contained": false,
+      "maximized": false,
+      "status_contained": false,
+      "overflow": {
+        "right": 0,
+        "bottom": 48
+      }
+    },
+    "first_show": {
+      "dpr": 1.5,
+      "available": [
+        0,
+        0,
+        1280,
+        680
+      ],
+      "frame": [
+        6,
+        0,
+        1180,
+        728
+      ],
+      "client": [
+        6,
+        25,
+        1180,
+        703
+      ],
+      "contained": false,
+      "maximized": false,
+      "status_contained": false,
+      "overflow": {
+        "right": 0,
+        "bottom": 48
+      }
+    },
+    "after_view": {
+      "dpr": 1.5,
+      "available": [
+        0,
+        0,
+        1280,
+        680
+      ],
+      "frame": [
+        6,
+        0,
+        1180,
+        728
+      ],
+      "client": [
+        6,
+        25,
+        1180,
+        703
+      ],
+      "contained": false,
+      "maximized": false,
+      "status_contained": false,
+      "overflow": {
+        "right": 0,
+        "bottom": 48
+      }
+    },
+    "normal_close_accepted": true,
+    "exit_code": 0
+  },
+  "after125": {
+    "source_sha256": "c33f73a66e0884256c8817b1defa15ca49c35b99a6093ad9f54983ada2929576",
+    "qt": "6.10.1",
+    "python": "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+    "entry": "treediagram.app.App_Main",
+    "fit_calls": [
+      {
+        "before": {
+          "dpr": 1.25,
+          "available": [
+            0,
+            0,
+            1536,
+            816
+          ],
+          "frame": [
+            7,
+            0,
+            1180,
+            810
+          ],
+          "client": [
+            7,
+            30,
+            1180,
+            780
+          ],
+          "contained": true,
+          "maximized": false,
+          "status_contained": true,
+          "overflow": {
+            "right": 0,
+            "bottom": 0
+          }
+        },
+        "after": {
+          "dpr": 1.25,
+          "available": [
+            0,
+            0,
+            1536,
+            816
+          ],
+          "frame": [
+            7,
+            0,
+            1180,
+            810
+          ],
+          "client": [
+            7,
+            30,
+            1180,
+            780
+          ],
+          "contained": true,
+          "maximized": false,
+          "status_contained": true,
+          "overflow": {
+            "right": 0,
+            "bottom": 0
+          }
+        }
+      },
+      {
+        "before": {
+          "dpr": 1.25,
+          "available": [
+            0,
+            0,
+            1536,
+            816
+          ],
+          "frame": [
+            7,
+            0,
+            1180,
+            810
+          ],
+          "client": [
+            7,
+            30,
+            1180,
+            780
+          ],
+          "contained": true,
+          "maximized": false,
+          "status_contained": true,
+          "overflow": {
+            "right": 0,
+            "bottom": 0
+          }
+        },
+        "after": {
+          "dpr": 1.25,
+          "available": [
+            0,
+            0,
+            1536,
+            816
+          ],
+          "frame": [
+            7,
+            0,
+            1180,
+            810
+          ],
+          "client": [
+            7,
+            30,
+            1180,
+            780
+          ],
+          "contained": true,
+          "maximized": false,
+          "status_contained": true,
+          "overflow": {
+            "right": 0,
+            "bottom": 0
+          }
+        }
+      }
+    ],
+    "errors": [],
+    "initial_geometry_changed_by_probe": false,
+    "user_project_opened": false,
+    "settings": "The application has no persisted GUI settings; empty default project",
+    "platform": "windows",
+    "before_show": {
+      "dpr": 1.25,
+      "available": [
+        0,
+        0,
+        1536,
+        816
+      ],
+      "frame": [
+        7,
+        0,
+        1180,
+        810
+      ],
+      "client": [
+        7,
+        30,
+        1180,
+        780
+      ],
+      "contained": true,
+      "maximized": false,
+      "status_contained": true,
+      "overflow": {
+        "right": 0,
+        "bottom": 0
+      }
+    },
+    "first_show": {
+      "dpr": 1.25,
+      "available": [
+        0,
+        0,
+        1536,
+        816
+      ],
+      "frame": [
+        7,
+        0,
+        1180,
+        810
+      ],
+      "client": [
+        7,
+        30,
+        1180,
+        780
+      ],
+      "contained": true,
+      "maximized": false,
+      "status_contained": true,
+      "overflow": {
+        "right": 0,
+        "bottom": 0
+      }
+    },
+    "after_view": {
+      "dpr": 1.25,
+      "available": [
+        0,
+        0,
+        1536,
+        816
+      ],
+      "frame": [
+        7,
+        0,
+        1180,
+        810
+      ],
+      "client": [
+        7,
+        30,
+        1180,
+        780
+      ],
+      "contained": true,
+      "maximized": false,
+      "status_contained": true,
+      "overflow": {
+        "right": 0,
+        "bottom": 0
+      }
+    },
+    "normal_close_accepted": true,
+    "exit_code": 0
+  },
+  "after150": {
+    "source_sha256": "c33f73a66e0884256c8817b1defa15ca49c35b99a6093ad9f54983ada2929576",
+    "qt": "6.10.1",
+    "python": "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+    "entry": "treediagram.app.App_Main",
+    "fit_calls": [
+      {
+        "before": {
+          "dpr": 1.5,
+          "available": [
+            0,
+            0,
+            1280,
+            680
+          ],
+          "frame": [
+            6,
+            0,
+            1180,
+            728
+          ],
+          "client": [
+            6,
+            25,
+            1180,
+            703
+          ],
+          "contained": false,
+          "maximized": false,
+          "status_contained": false,
+          "overflow": {
+            "right": 0,
+            "bottom": 48
+          }
+        },
+        "after": {
+          "dpr": 1.5,
+          "available": [
+            0,
+            0,
+            1280,
+            680
+          ],
+          "frame": [
+            6,
+            0,
+            1180,
+            680
+          ],
+          "client": [
+            6,
+            25,
+            1180,
+            655
+          ],
+          "contained": true,
+          "maximized": false,
+          "status_contained": true,
+          "overflow": {
+            "right": 0,
+            "bottom": 0
+          }
+        }
+      },
+      {
+        "before": {
+          "dpr": 1.5,
+          "available": [
+            0,
+            0,
+            1280,
+            680
+          ],
+          "frame": [
+            6,
+            0,
+            1180,
+            680
+          ],
+          "client": [
+            6,
+            25,
+            1180,
+            655
+          ],
+          "contained": true,
+          "maximized": false,
+          "status_contained": true,
+          "overflow": {
+            "right": 0,
+            "bottom": 0
+          }
+        },
+        "after": {
+          "dpr": 1.5,
+          "available": [
+            0,
+            0,
+            1280,
+            680
+          ],
+          "frame": [
+            6,
+            0,
+            1180,
+            680
+          ],
+          "client": [
+            6,
+            25,
+            1180,
+            655
+          ],
+          "contained": true,
+          "maximized": false,
+          "status_contained": true,
+          "overflow": {
+            "right": 0,
+            "bottom": 0
+          }
+        }
+      }
+    ],
+    "errors": [],
+    "initial_geometry_changed_by_probe": false,
+    "user_project_opened": false,
+    "settings": "The application has no persisted GUI settings; empty default project",
+    "platform": "windows",
+    "before_show": {
+      "dpr": 1.5,
+      "available": [
+        0,
+        0,
+        1280,
+        680
+      ],
+      "frame": [
+        6,
+        0,
+        1180,
+        728
+      ],
+      "client": [
+        6,
+        25,
+        1180,
+        703
+      ],
+      "contained": false,
+      "maximized": false,
+      "status_contained": false,
+      "overflow": {
+        "right": 0,
+        "bottom": 48
+      }
+    },
+    "first_show": {
+      "dpr": 1.5,
+      "available": [
+        0,
+        0,
+        1280,
+        680
+      ],
+      "frame": [
+        6,
+        0,
+        1180,
+        680
+      ],
+      "client": [
+        6,
+        25,
+        1180,
+        655
+      ],
+      "contained": true,
+      "maximized": false,
+      "status_contained": true,
+      "overflow": {
+        "right": 0,
+        "bottom": 0
+      }
+    },
+    "after_view": {
+      "dpr": 1.5,
+      "available": [
+        0,
+        0,
+        1280,
+        680
+      ],
+      "frame": [
+        6,
+        0,
+        1180,
+        680
+      ],
+      "client": [
+        6,
+        25,
+        1180,
+        655
+      ],
+      "contained": true,
+      "maximized": false,
+      "status_contained": true,
+      "overflow": {
+        "right": 0,
+        "bottom": 0
+      }
+    },
+    "normal_close_accepted": true,
+    "exit_code": 0
+  },
+  "rapid": {
+    "source_sha256": "c33f73a66e0884256c8817b1defa15ca49c35b99a6093ad9f54983ada2929576",
+    "qt": "6.10.1",
+    "python": "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+    "entry": "treediagram.app.App_Main",
+    "fit_calls": [
+      {
+        "before": {
+          "dpr": 1.5,
+          "available": [
+            0,
+            0,
+            1280,
+            680
+          ],
+          "frame": [
+            6,
+            0,
+            1180,
+            728
+          ],
+          "client": [
+            6,
+            25,
+            1180,
+            703
+          ],
+          "contained": false,
+          "maximized": false,
+          "status_contained": false,
+          "overflow": {
+            "right": 0,
+            "bottom": 48
+          }
+        },
+        "after": {
+          "dpr": 1.5,
+          "available": [
+            0,
+            0,
+            1280,
+            680
+          ],
+          "frame": [
+            6,
+            0,
+            1180,
+            680
+          ],
+          "client": [
+            6,
+            25,
+            1180,
+            655
+          ],
+          "contained": true,
+          "maximized": false,
+          "status_contained": true,
+          "overflow": {
+            "right": 0,
+            "bottom": 0
+          }
+        }
+      },
+      {
+        "before": {
+          "dpr": 1.5,
+          "available": [
+            0,
+            0,
+            1280,
+            680
+          ],
+          "frame": [
+            6,
+            0,
+            1180,
+            680
+          ],
+          "client": [
+            6,
+            25,
+            1180,
+            655
+          ],
+          "contained": true,
+          "maximized": false,
+          "status_contained": true,
+          "overflow": {
+            "right": 0,
+            "bottom": 0
+          }
+        },
+        "after": {
+          "dpr": 1.5,
+          "available": [
+            0,
+            0,
+            1280,
+            680
+          ],
+          "frame": [
+            6,
+            0,
+            1180,
+            680
+          ],
+          "client": [
+            6,
+            25,
+            1180,
+            655
+          ],
+          "contained": true,
+          "maximized": false,
+          "status_contained": true,
+          "overflow": {
+            "right": 0,
+            "bottom": 0
+          }
+        }
+      }
+    ],
+    "errors": [],
+    "initial_geometry_changed_by_probe": false,
+    "user_project_opened": false,
+    "settings": "The application has no persisted GUI settings; empty default project",
+    "platform": "windows",
+    "before_show": {
+      "dpr": 1.5,
+      "available": [
+        0,
+        0,
+        1280,
+        680
+      ],
+      "frame": [
+        6,
+        0,
+        1180,
+        728
+      ],
+      "client": [
+        6,
+        25,
+        1180,
+        703
+      ],
+      "contained": false,
+      "maximized": false,
+      "status_contained": false,
+      "overflow": {
+        "right": 0,
+        "bottom": 48
+      }
+    },
+    "normal_close_accepted": true,
+    "exit_code": 0
+  }
+}

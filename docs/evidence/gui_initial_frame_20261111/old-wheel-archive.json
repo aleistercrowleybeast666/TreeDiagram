@@ -1,0 +1,25 @@
+{
+  "old_path": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\treediagram_workbench-0.1.0-py3-none-any.whl",
+  "old_identity": {
+    "Size": 192473,
+    "MtimeNs": "1794246177813132400",
+    "Device": "15190911442371306337",
+    "Inode": "1125899906912756",
+    "Sha256": "e85b75d15c3f6805e0937fe9a8b05ab4b03976783f0d8fba458cb0c18a3c666c"
+  },
+  "archive": "D:\\SilverStar_Archive\\20261111\\task\\treediagram\\TreeDiagram_GUI_20261110_PreFit.whl",
+  "sha256": "e85b75d15c3f6805e0937fe9a8b05ab4b03976783f0d8fba458cb0c18a3c666c",
+  "actual_extracted_and_verified": 75,
+  "old_wheel_removed": true,
+  "old_wheel_logical_bytes": 192473,
+  "restore_files_removed": 75,
+  "same_access_and_owner": true,
+  "acl_modified": false,
+  "free_before": 54028300288,
+  "free_after": 54049378304,
+  "free_scope": "Observed interval only; other repositories may write concurrently.",
+  "full_receipt": "D:\\SilverStar_Archive\\20261111\\task\\treediagram\\old-wheel-archive.json",
+  "full_receipt_sha256": "65aa89ea6570470e96f48a0e7054befac56f8ae4510a1640aab1657cb03e9b3f",
+  "script": "D:\\SilverStar_Archive\\20261111\\task\\treediagram\\archive_old_wheel.ps1",
+  "script_sha256": "96cef466821b3595084a9db22fd42c8b0ba70ece35ff8d01718599c55308c893"
+}
