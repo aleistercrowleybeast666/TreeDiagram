@@ -85,6 +85,15 @@ Qt offscreen 在 920×620 逻辑尺寸、150% 深色检查了任务页和属性�
 其余15份持久交付文件全部散列未变，工程、完成run、参数包未修改。
 见[归档回执](evidence/gui_initial_frame_20261111/old-wheel-archive.json)。新wheel目录有明确保护标记。
 
+主负责人随后从正常 `run.py` 在125%桌面直接启动，未手动调整窗口；通过“文件→打开工程”
+和原生文件对话框打开持久联调工程，再进入“结果”。顶部导出入口、曲线、状态栏完整可见，
+明确显示历史配置、461.48 m、18 s及达到配置时长。关闭时未保存，工程SHA与原交付清单一致，
+stderr为空，并已退出computer use。该项为实际鼠标/键盘操作；对话框可访问控件索引失效后，
+通过新截图确认文件名光标再输入，没有后台注入工程。
+见[首屏](evidence/gui_convergence_20261110/native-fit-125-first.png)、
+[结果](evidence/gui_convergence_20261110/native-fit-125-result.png)和
+[原生操作收据](evidence/gui_convergence_20261110/native-fit-125.json)。
+
 ## 本轮真实跨仓输入
 
 输入为 Underline 本轮实际导入、处理、分析并导出的合成试验包，不是旧 golden 拷贝。

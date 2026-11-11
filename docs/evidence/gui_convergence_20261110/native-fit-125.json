@@ -1,0 +1,38 @@
+{
+  "source_commit": "af54cd199fcbfaa5619b4d69d5a841a2c6fd8bae",
+  "entry": "D:/python_software/TreeDiagram/.venv/Scripts/pythonw.exe -B run.py",
+  "cwd": "D:\\python_software\\TreeDiagram",
+  "environment": {
+    "QT_SCALE_FACTOR": "1",
+    "QT_QPA_PLATFORM": "unset (native Windows)"
+  },
+  "native_scale_scope": "125% Windows desktop; no manual resize/move/maximize. Actual Qt DPR/geometry is independently recorded by the production-entry probes, not inferred from screenshot pixels.",
+  "application_sha256": "c33f73a66e0884256c8817b1defa15ca49c35b99a6093ad9f54983ada2929576",
+  "opened_project": "D:\\python_software\\TreeDiagram\\dist\\gui-convergence-20261110\\delivery\\CurrentAndHistorical.tdproj",
+  "project_sha256_before_manifest_and_after": "13e898642383cc13e487bd6113ec5c2f60ceb5b6db66a758370055f55101e1ba",
+  "actions": [
+    "Ordinary production run.py startup",
+    "File > Open project through native dialog",
+    "Read filename caret and enter durable CurrentAndHistorical.tdproj",
+    "Open Results workspace",
+    "Observe historical configuration, 461.48m,18s,configured-duration end and nondeployable PID record",
+    "Alt+F4 without saving; target window and owned PID absent",
+    "Reset computer-use session"
+  ],
+  "manual_geometry_change": false,
+  "manual_model_edit": false,
+  "screenshots": [
+    {
+      "file": "native-fit-125-first.png",
+      "bytes": 69156,
+      "sha256": "1c2f8c98d51216b91825163409c843879f80e98540bd89d02e35ad2dc657ab00"
+    },
+    {
+      "file": "native-fit-125-result.png",
+      "bytes": 89505,
+      "sha256": "8c382e183b6b4b549aff4d09edcf548078f3fa3982a936a23011f406612f919a"
+    }
+  ],
+  "stderr_bytes": 0,
+  "tool_limitation": "Native file dialog accessibility indexes were unavailable and focused_element incorrectly remained SearchEditBox; stopped before typing, reobserved screenshot and confirmed filename caret, then used screenshot-backed click/text. Successful load was verified from application saved path and Results. No injected backend load or UI code helper was used."
+}
