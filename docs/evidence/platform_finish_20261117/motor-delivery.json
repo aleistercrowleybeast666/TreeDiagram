@@ -1,0 +1,169 @@
+{
+  "source_path": "D:\\python_software\\Underline_RETLDC\\.work\\platform-finish-20261116\\new-motor.tdmotor.json",
+  "source_sha256": "66c6232d0ccec6ceaabdec9186e9059a2f16dc9eeedea0c94221f06a8ceaed96",
+  "scope": "Synthetic source; real CLI and Qt offscreen button consumers, not native desktop or hardware",
+  "source_unchanged": true,
+  "run_id": "b0797d0e-9229-4212-901d-3048ad8b53de",
+  "input_digest": "974545bc565aa54b2785c4c17c7847c43dac598864ae7861d5d29c82678b082c",
+  "algorithm_identity": {
+    "estimator": "kf6",
+    "controller": "pid",
+    "initialization": "configured launcher orientation, zero position/velocity; simulated source",
+    "source": "8d8349725dcb0b4795dc6b626346578eb356b3be75d2df04406852df24e8ec23"
+  },
+  "summary": {
+    "maximum_altitude_m": 382.7618963456715,
+    "duration_s": 18.0,
+    "landed": false,
+    "total_impulse_ns": 200.00000000000003,
+    "hardware_validation": "not performed"
+  },
+  "rejected": {
+    "version": "VERSION at $.schema_id: Unsupported motor package version",
+    "digest": "DIGEST at $.content_sha256: Content digest mismatch"
+  },
+  "readiness_issues": [
+    "motor.dry_mass_kg: 请补充已声明质量"
+  ],
+  "commands": [
+    {
+      "command": [
+        "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+        "-m",
+        "treediagram",
+        "import-motor",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\base.json",
+        "D:\\python_software\\Underline_RETLDC\\.work\\platform-finish-20261116\\new-motor.tdmotor.json",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\imported.json"
+      ],
+      "exit": 0,
+      "stdout": "changed: time_s, thrust_n, propellant_mass_kg, dry_mass_kg, source\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+        "-m",
+        "treediagram",
+        "check",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\imported.json"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"structurally_valid\": true,\n  \"runnable\": true,\n  \"issues\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+        "-m",
+        "treediagram",
+        "import-motor",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\base.json",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\invalid-version.tdmotor.json",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\rejected-version.json"
+      ],
+      "exit": 2,
+      "stdout": "ERROR: VERSION at $.schema_id: Unsupported motor package version\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+        "-m",
+        "treediagram",
+        "import-motor",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\base.json",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\invalid-digest.tdmotor.json",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\rejected-digest.json"
+      ],
+      "exit": 2,
+      "stdout": "ERROR: DIGEST at $.content_sha256: Content digest mismatch\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+        "-m",
+        "treediagram",
+        "import-motor",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\base.json",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\missing-mass.tdmotor.json",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\missing-model.json"
+      ],
+      "exit": 0,
+      "stdout": "changed: time_s, thrust_n, propellant_mass_kg, dry_mass_kg, source\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+        "-m",
+        "treediagram",
+        "check",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\missing-model.json"
+      ],
+      "exit": 2,
+      "stdout": "{\n  \"structurally_valid\": true,\n  \"runnable\": false,\n  \"issues\": [\n    \"motor.dry_mass_kg: 请补充已声明质量\"\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "D:\\python_software\\TreeDiagram\\.venv\\Scripts\\python.exe",
+        "-m",
+        "treediagram",
+        "export-parameters",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\completed.tdrun.json",
+        "D:\\python_software\\TreeDiagram\\.test-tmp\\platform-finish-20261116\\wheel-delivery\\cli.sstuning.json"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "files": {
+    "base.json": {
+      "bytes": 5116,
+      "sha256": "341fdf9683e66797c0e17a17650cccd0471910f60ba6b94135fdb34d03a07968"
+    },
+    "cli.sstuning.json": {
+      "bytes": 10254,
+      "sha256": "aec2e1b6d488c490f72f0956ffee0ceb942e8fdea5e7e4ac24272c38895a245b"
+    },
+    "completed.tdrun.json": {
+      "bytes": 2407212,
+      "sha256": "d08fb91ebb7a70b1f40232fecd2b8149d4bb030fbcd0f5dbb1063e15d06ba126"
+    },
+    "CurrentAndHistorical.tdproj": {
+      "bytes": 3096850,
+      "sha256": "1eb48f683ef1ebb0b02003f01ea8924622f0bd77d70f062e413c90c05f6072af"
+    },
+    "imported.json": {
+      "bytes": 15783,
+      "sha256": "dff255ceea4d3dffdaa280e62c4dba58eb07dcd293be992d5529e742be5e7a16"
+    },
+    "invalid-digest.tdmotor.json": {
+      "bytes": 7087,
+      "sha256": "6583c127d6fd867b756091b9c4b3ec861a1ab0c843cc6532eee14a51a0725727"
+    },
+    "invalid-version.tdmotor.json": {
+      "bytes": 7089,
+      "sha256": "c9476a31f3f98d1548301d6d954d8895241f65432e5789a681e6e6c8fac965bb"
+    },
+    "missing-mass.tdmotor.json": {
+      "bytes": 7088,
+      "sha256": "e528da3f0bb5dc0d2a67467681dbebf90ff9dd4fedd5ed5c1af0fca431a05e33"
+    },
+    "missing-model.json": {
+      "bytes": 15784,
+      "sha256": "4e71118f376b26aabbcb30b5e47fbd08d0bf76b274f1bac6792283d6404c6ba9"
+    },
+    "run.sstuning.json": {
+      "bytes": 10254,
+      "sha256": "aec2e1b6d488c490f72f0956ffee0ceb942e8fdea5e7e4ac24272c38895a245b"
+    },
+    "synthetic-update.tdmotor.json": {
+      "bytes": 7103,
+      "sha256": "7a7fbc27efd4cb912511c2bdbe825f173b6a0ae3546ff26b1993e38d25bbff18"
+    }
+  }
+}
