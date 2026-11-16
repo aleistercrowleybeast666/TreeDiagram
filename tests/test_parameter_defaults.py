@@ -116,6 +116,7 @@ def test_restore_replaces_invalid_numeric_text_and_direct_apply(window, key, tex
         assert dialog.isVisible() and window.session.project == before
         assert widget.lineEdit().text() == text
         assert "尚未应用" in dialog.findChild(QLabel, "draft_error").text()
+        assert "默认状态待确认" in dialog.findChild(QLabel, "draft_status").text()
         click(dialog, QDialogButtonBox.StandardButton.RestoreDefaults)
         assert not dialog.findChild(QLabel, "draft_error").text()
         assert widget.Draft_Value() == getattr(Scenario(), key)

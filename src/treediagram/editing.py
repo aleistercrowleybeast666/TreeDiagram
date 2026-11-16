@@ -146,7 +146,10 @@ class ParameterDraft(QObject):
             state = f"待应用 · {len(changed)} 项已修改；应用后再运行或保存。"
         else:
             state = "与已应用配置一致 · 取消可关闭。"
-        parameters = (f"{len(custom)} 项参数偏离默认" if custom else "可恢复的参数均为默认值")
+        if set(invalid).intersection(self.reset_keys):
+            parameters = "默认状态待确认 · 可恢复参数默认或补全输入。"
+        else:
+            parameters = (f"{len(custom)} 项参数偏离默认" if custom else "可恢复的参数均为默认值")
         self.status.setText(state + "\n" + parameters)
         self.status.setToolTip("\n".join(self._Label_Read(key) for key in custom))
         self.reset_button.setEnabled(bool(custom or set(invalid).intersection(self.reset_keys)))
