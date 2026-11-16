@@ -256,6 +256,58 @@ def test_unchanged_default_apply_is_not_a_configuration_change(window, tmp_path)
     assert window.session.project == before and not window.session.dirty
 
 
+@pytest.mark.parametrize("focus", ["input", "restore"])
+@pytest.mark.parametrize("entry,attribute,key,text", [
+    ("Task_Edit", "control", "kp", "6.75"),
+    ("Scenario_Edit", "scenario", "gravity_mps2", "9.73"),
+    ("Sensors_Edit", "sensors", "pressure_std_pa", "2.5"),
+    ("Actuator_Edit", "control", "angle_limit_rad", "0.25"),
+])
+def test_return_never_restores_parameters_implicitly(window, entry, attribute, key, text, focus):
+    design = Design_CreateExample("pid")
+    window.workbench.Design_Commit(replace(
+        design, control=replace(design.control, kp=8., angle_limit_rad=.3),
+        scenario=replace(design.scenario, gravity_mps2=9.5),
+        sensors=replace(design.sensors, pressure_std_pa=3.5)))
+
+    def edit(dialog):
+        value = dialog.findChild(QDoubleSpinBox, key)
+        type_value(value, text)
+        target = value.lineEdit() if focus == "input" else dialog.findChild(QPushButton, "restore_defaults")
+        target.setFocus()
+        QTest.keyClick(target, Qt.Key.Key_Return)
+        assert value.Draft_Value() == float(text)
+        if dialog.isVisible():
+            click(dialog, QDialogButtonBox.StandardButton.Apply)
+        assert not dialog.isVisible()
+
+    interact(getattr(window.workbench, entry), edit)
+    assert getattr(getattr(window.workbench.design, attribute), key) == float(text)
+
+
+def test_return_keeps_invalid_text_and_space_can_explicitly_restore(window):
+    design = Design_CreateExample("pid")
+    window.workbench.Design_Commit(replace(design, control=replace(design.control, kp=8.)))
+    before = window.session.project
+
+    def edit(dialog):
+        period = dialog.findChild(QSpinBox, "period_us")
+        type_value(period, "10000.5")
+        QTest.keyClick(period.lineEdit(), Qt.Key.Key_Return)
+        assert dialog.isVisible() and window.session.project == before
+        assert period.lineEdit().text() == "10000.5"
+        reset = dialog.findChild(QPushButton, "restore_defaults")
+        assert not reset.autoDefault() and not reset.isDefault()
+        reset.setFocus()
+        QTest.keyClick(reset, Qt.Key.Key_Space)
+        assert dialog.findChild(QDoubleSpinBox, "kp").Draft_Value() == ControlConfig().kp
+        assert period.Draft_Value() == ControlConfig().period_us
+        assert window.session.project == before
+
+    interact(window.workbench.Task_Edit, edit)
+    assert window.session.project == before
+
+
 @pytest.mark.parametrize("actuator,key,value", [
     ("gimbal", "angle_limit_rad", .3), ("fin", "fin_area_m2", .01),
     ("wheel", "wheel_inertia_kg_m2", .004), ("rcs", "rcs_force_n", 3.),

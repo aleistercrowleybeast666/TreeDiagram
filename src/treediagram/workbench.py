@@ -292,7 +292,7 @@ class Workbench:
                 count = sum(value != defaults[key] for key, value in values.items())
                 if count:
                     counts.append(f"{label} {count} 项")
-            self.defaults_info.setText("偏离模型默认：" + " · ".join(counts) + "。在对应属性窗口查看与恢复参数。" if counts else
+            self.defaults_info.setText("偏离模型默认：" + " · ".join(counts) + "。恢复范围见各属性窗口说明。" if counts else
                                        "场景、传感器和控制设置均为模型默认；请按实际模型确认后运行。")
         else:
             self.instances.clearContents()
