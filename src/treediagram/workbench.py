@@ -11,7 +11,7 @@ from uuid import uuid4
 import numpy as np
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtWidgets import (QCheckBox, QComboBox, QDialog, QDialogButtonBox, QDoubleSpinBox,
-    QFileDialog, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QListWidget, QPlainTextEdit,
+    QFileDialog, QFormLayout, QGridLayout, QGroupBox, QHBoxLayout, QLabel, QListWidget, QPlainTextEdit,
     QProgressBar, QPushButton, QScrollArea, QSlider, QSplitter, QTableWidget,
     QTableWidgetItem, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget, QLineEdit,
     QMessageBox, QInputDialog, QHeaderView, QMenu, QTabWidget)
@@ -20,7 +20,7 @@ from .design import (ACTUATORS, PART_KINDS, Assembly_Aggregate, Design_CreateExa
                      Design_Decode, Design_Digest, Design_Validate, Part)
 from .importers import Motor_Import, Ork_Import
 from .results import Run_Save
-from .editing import DecimalInput, IntegerInput
+from .editing import DecimalInput, IntegerInput, ParameterDraft
 from .algorithms.registry import AlgorithmRegistry_Get
 from .simulation import Simulation_Run, SimulationCancelled
 from .views import EngineeringView, SignalView
@@ -171,6 +171,9 @@ class Workbench:
         self.scenario_info = QLabel()
         self.scenario_info.setWordWrap(True)
         layout.addWidget(self.scenario_info)
+        self.defaults_info = QLabel()
+        self.defaults_info.setWordWrap(True)
+        layout.addWidget(self.defaults_info)
         self.run_button = _Button("运行六自由度仿真", self.Run_Start, layout)
         row = QHBoxLayout()
         self.progress = QProgressBar()
@@ -282,10 +285,20 @@ class Workbench:
                 f"控制周期 {c.period_us} µs · 范围包含结束阶段；跨阶段保持同一实例状态。"+
                 (f"\nPID：Kp {c.kp:g} · Ki {c.ki:g} · Kd {c.kd:g} · 限幅 ±{c.torque_limit_nm:g} N·m" if c.controller=="pid" else
                  f"\nLQR：Q角度 {c.lqr_q_angle:g} · Q角速度 {c.lqr_q_rate:g} · R {c.lqr_r:g} · 限幅 ±{c.torque_limit_nm:g} N·m" if c.controller=="lqr" else ""))
+            counts = []
+            for label, config in (("场景", design.scenario), ("传感器", design.sensors), ("控制与执行机构", c)):
+                defaults = json.loads(json.dumps(asdict(type(config)())))
+                values = json.loads(json.dumps(asdict(config)))
+                count = sum(value != defaults[key] for key, value in values.items())
+                if count:
+                    counts.append(f"{label} {count} 项")
+            self.defaults_info.setText("偏离模型默认：" + " · ".join(counts) + "。在对应属性窗口查看与恢复参数。" if counts else
+                                       "场景、传感器和控制设置均为模型默认；请按实际模型确认后运行。")
         else:
             self.instances.clearContents()
             self.assembly_info.setText("尚未建立物理模型。")
             self.scenario_info.setText("请选择离线示例或导入模型。")
+            self.defaults_info.clear()
         self.issues.setVisible(bool(issues))
         self.issue_summary.setText(f"尚缺 {len(issues)} 项输入 · 点击下方条目定位。" if issues else
                                   "输入齐备 · 单级刚体、小攻角亚声速工程近似。" if design else "先建立或导入模型。")
@@ -589,6 +602,9 @@ class Workbench:
         layout=QVBoxLayout(dialog);scroll=QScrollArea();scroll.setWidgetResizable(True)
         content=QWidget();form=QFormLayout(content);scroll.setWidget(content);layout.addWidget(scroll);combos={}
         c=self.design.control
+        description = "恢复默认会重置本窗口的 PID、LQR 参数、力矩上限和控制周期；保留算法选择、执行机构与阶段范围。"
+        description += "已启动运行使用原快照，修改只影响下一次运行。" if self.busy else "应用修改不会自动计算或保存文件。"
+        note=QLabel(description);note.setWordWrap(True);form.addRow(note)
         for key,label,choices in (("estimator","状态估计",("none","ins","sf6","kf6","eskf15","eskf20","inekf15","inekf20")),
                 ("controller","控制器",("none","pid","lqr")),("actuator","执行机构",ACTUATORS),
                 ("start_phase","开始",("powered","coast","descent")),("end_phase","结束（含）",("powered","coast","descent"))):
@@ -634,11 +650,11 @@ class Workbench:
         combos["controller"].currentIndexChanged.connect(selection)
         combos["estimator"].currentIndexChanged.connect(selection)
         selection()
-        note=QLabel("未选算法的参数草稿保留；Apply 一次应用本窗口的全部有效修改。")
-        note.setWordWrap(True);form.addRow(note)
+        status=QLabel();status.setWordWrap(True);layout.addWidget(status)
         error=QLabel();error.setWordWrap(True);error.setObjectName("draft_error");layout.addWidget(error)
         buttons=QDialogButtonBox(QDialogButtonBox.StandardButton.Apply|QDialogButtonBox.StandardButton.Cancel);layout.addWidget(buttons)
         buttons.rejected.connect(dialog.reject)
+        ParameterDraft(dialog,c,{**combos,**numbers},buttons,status,error,reset_keys=numbers)
         def apply():
             try:
                 values={k:w.currentData() for k,w in combos.items()}
@@ -659,32 +675,66 @@ class Workbench:
             except ValueError as exc:error.setText(str(exc))
         buttons.button(QDialogButtonBox.StandardButton.Apply).clicked.connect(apply);dialog.exec()
 
-    def _Fields_Edit(self,attribute,title,labels):
+    def _Fields_Edit(self,attribute,title,labels,preserved=()):
         if not self.design:return
         original=getattr(self.design,attribute)
         dialog=QDialog(self.window);dialog.setWindowTitle(title)
         layout=QVBoxLayout(dialog);scroll=QScrollArea();scroll.setWidgetResizable(True)
         content=QWidget();form=QFormLayout(content);scroll.setWidget(content);layout.addWidget(scroll)
+        form.setRowWrapPolicy(QFormLayout.RowWrapPolicy.WrapLongRows)
         dialog.resize(560,600);editors={}
+        description = "恢复默认只替换本窗口的参数草稿；应用后才修改工程，不会自动计算或保存。"
+        if attribute == "scenario":
+            description += "改动气动参数会标为工程近似；默认值仍需按实际模型确认，导入缺项需另行审核。"
+        if preserved:
+            description += "保留" + "、".join(label for key,label in labels if key in preserved) + "。"
+        if self.busy:
+            description += "当前运行继续使用启动快照，修改只影响下一次运行。"
+        note=QLabel(description);note.setWordWrap(True);form.addRow(note)
         for key,label in labels:
             value=getattr(original,key)
             if isinstance(value,(tuple,list)):
-                row=QWidget();row_layout=QHBoxLayout(row);row_layout.setContentsMargins(0,0,0,0)
+                row=QWidget();row_layout=QGridLayout(row);row_layout.setContentsMargins(0,0,0,0)
                 widgets=[_Number(v,-1000000,1000000,10 if "rotation" in key else 6) for v in value]
+                components = "wxyz" if "rotation" in key else "ENU" if key in ("wind_enu_mps", "wind_shear_per_s") else "XYZ"
                 for index,widget in enumerate(widgets):
+                    widget.setObjectName(f"{key}_{index}")
                     widget.setAccessibleName(f"{label} [{index+1}]")
-                    row_layout.addWidget(widget)
+                    row_layout.addWidget(QLabel(components[index]),index//2,(index%2)*2)
+                    row_layout.addWidget(widget,index//2,(index%2)*2+1)
                 editors[key]=widgets;form.addRow(label,row)
             else:
                 widget= IntegerInput(value) if type(value) is int else _Number(value,-1000000 if key=="launch_tilt_deg" else 0.,1000000,
                                12 if key=="magnetic_std_t" else 6)
                 editors[key]=widget;_Field_Add(form,key,label,widget)
-        error=QLabel();error.setWordWrap(True);layout.addWidget(error)
+        status=QLabel();status.setWordWrap(True);layout.addWidget(status)
+        error=QLabel();error.setWordWrap(True);error.setObjectName("draft_error");layout.addWidget(error)
         buttons=QDialogButtonBox(QDialogButtonBox.StandardButton.Apply|QDialogButtonBox.StandardButton.Cancel)
         layout.addWidget(buttons);buttons.rejected.connect(dialog.reject)
+        ParameterDraft(dialog,original,editors,buttons,status,error,
+                       reset_keys=tuple(key for key in editors if key not in preserved))
         def apply():
             try:
-                values={k:tuple(item.Value_Collect() for item in w) if isinstance(w,list) else w.Value_Collect() for k,w in editors.items()}
+                values={}
+                for key,editor in editors.items():
+                    widgets=editor if isinstance(editor,list) else [editor]
+                    collected=[]
+                    for widget in widgets:
+                        try:
+                            collected.append(widget.Value_Collect())
+                        except ValueError:
+                            scroll.ensureWidgetVisible(widget)
+                            widget.setFocus()
+                            raise
+                    values[key]=tuple(collected) if isinstance(editor,list) else collected[0]
+                if attribute == "scenario":
+                    aero_keys=("cp_body_m","reference_area_m2","reference_length_m",
+                               "drag_coefficient","normal_slope_per_rad","damping_coefficient")
+                    for key in aero_keys:
+                        previous=getattr(original,key)
+                        if values[key] != (tuple(previous) if isinstance(previous,list) else previous):
+                            values["aero_provenance"]=type(original)().aero_provenance
+                            break
                 self.Design_Commit(replace(self.design,**{attribute:replace(original,**values)}));dialog.accept()
             except ValueError as exc:error.setText(str(exc))
         buttons.button(QDialogButtonBox.StandardButton.Apply).clicked.connect(apply);dialog.exec()
@@ -705,7 +755,8 @@ class Workbench:
             ("rotation_bs_wxyz","传感器 → Body 四元数 wxyz"),
             ("accel_bias_mps2","加速度偏置 m/s²"),("gyro_bias_radps","陀螺偏置 rad/s"),
             ("accel_noise_std_mps2","离散加速度噪声标准差 m/s²"),("gyro_noise_std_radps","离散陀螺噪声标准差 rad/s"),
-            ("position_std_m","GNSS 位置标准差 m"),("velocity_std_mps","GNSS 速度标准差 m/s")))
+            ("position_std_m","GNSS 位置标准差 m"),("velocity_std_mps","GNSS 速度标准差 m/s")),
+            preserved=("rotation_bs_wxyz",))
 
     def Actuator_Edit(self):
         if not self.design:return
@@ -717,7 +768,8 @@ class Workbench:
             "fin":(("fin_area_m2","舵面积 m²"),("fin_slope_per_rad","法向系数斜率 /rad"),("angle_limit_rad","偏转上限 rad"),("rate_limit_radps","变化率 rad/s")),
             "wheel":(("wheel_inertia_kg_m2","轮轴惯量 kg·m²"),("wheel_speed_limit_radps","轮速上限 rad/s")),
             "rcs":(("rcs_force_n","单只推力 N"),("rcs_propellant_kg","气体资源 kg"),("rcs_isp_s","比冲 s"),("minimum_pulse_s","最小脉冲 s"))}
-        self._Fields_Edit("control",LABELS[kind]+" · 仿真模型",tuple(common)+options[kind])
+        self._Fields_Edit("control",LABELS[kind]+" · 仿真模型",tuple(common)+options[kind],
+                          preserved=("actuator_position_m",))
 
     def Run_Start(self):
         if self.busy or not self.design:return
@@ -738,7 +790,7 @@ class Workbench:
         self._thread=threading.Thread(target=work,name="TreeDiagram-6DoF",daemon=False)
         self._thread.start();self.run_button.setEnabled(False);self.cancel_button.setEnabled(True)
         for action in self.window.file_actions[:2]:action.setEnabled(False)
-        self.run_status.setText("运行中 · 使用已提交快照；可继续查看模型。")
+        self.run_status.setText("运行中 · 使用启动时的配置快照；继续编辑只影响下一次运行。")
 
     def Run_Cancel(self):
         self._cancel.set();self.run_status.setText("正在取消；等待当前有界计算步结束。")
