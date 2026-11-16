@@ -13,3 +13,5 @@
 运行源码：`.venv\Scripts\treediagram.exe`。安装交付 wheel 后运行 `treediagram`。无界面流程可用 `treediagram-cli example model.json --controller pid --control-period-us 10000`，随后 `treediagram-cli run model.json result.tdrun.json` 和 `treediagram-cli export-parameters result.tdrun.json parameters.sstuning.json`。
 
 未完成项：Computer Use 原生抓屏辅助进程阻断，本轮未完成原生桌面视觉复验；Qt offscreen 检查不能替代它。硬件待测：模型参数、控制输出及仿真精度的物理验证、硬件时序和飞行资格均未完成，也没有自动部署或实物驱动操作。旧发布包与历史证据保留，本轮临时文件仅使用 `.test-tmp`；正式交付已经迁到上述独立 `dist` 目录。
+
+本轮清理已执行：逐项核对绝对路径、无链接/联接、文件数和 SHA256 后，仅删除上述新任务的可再生产物，共 113 个文件、1531813 字节。Underline 对应本次 PyInstaller 中间目录；TreeDiagram 对应本次独立 wheel 安装验证副本。正式 dist、验证输入/结果、完整日志和历史输出保留。完整记录见 [清理清单](cleanup-inventory.json) 与 [执行结果](cleanup-result.json)。
