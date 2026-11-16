@@ -1,0 +1,179 @@
+{
+  "scope": "TreeDiagram parameter defaults and private-draft UX, 2026-11-16",
+  "baseline_commit": "38a6ccf23ca24b2ca60956b7365780ec1eb5fe39",
+  "source_commit": "0a39879829ad3aecd851a2bf71cbe9713136ae05",
+  "branch": "codex/gui-convergence-20261110",
+  "environment": {
+    "os": "Windows",
+    "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+    "pyside6": "6.10.1",
+    "pytest": "9.1.1",
+    "gcc": "16.1.0"
+  },
+  "source_files": [
+    {
+      "path": "src/treediagram/editing.py",
+      "bytes": 7762,
+      "sha256": "42b71fcd377f69739634d07e3425dd28b371bc52e32087adab4c8b2e5c07eee8"
+    },
+    {
+      "path": "src/treediagram/workbench.py",
+      "bytes": 54730,
+      "sha256": "8daab0279aca4b556039d44be456e057ef5427b96e3d450eacae89b3324d8225"
+    },
+    {
+      "path": "src/treediagram/design.py",
+      "bytes": 18785,
+      "sha256": "e90e1a3a15efc0ac170bd9f630d5fb0309123c0c336fc7c691ecaca295606ee1"
+    },
+    {
+      "path": "tests/test_parameter_defaults.py",
+      "bytes": 19182,
+      "sha256": "69e2041960c067b4e8e04dacd0c8b95c1a197d17e5cfb08fbc5eb9e9dcae6d29"
+    },
+    {
+      "path": "docs/GUI_STYLE_GUIDE.md",
+      "bytes": 2746,
+      "sha256": "c96824eeed47b5be558ec2f8bb2fe9629f930d36d723cd7cbd88f85466097f26"
+    }
+  ],
+  "validation": [
+    {
+      "command": ".\\.venv\\Scripts\\python.exe -m pytest -q --basetemp=.test-tmp/defaults-ux-20261116/keyboard-final",
+      "source_commit": "0a39879829ad3aecd851a2bf71cbe9713136ae05",
+      "exit_code": 0,
+      "passed": 173,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 53.51,
+      "output": {
+        "path": "docs/evidence/defaults_ux_20261116/full.log",
+        "bytes": 265,
+        "sha256": "96dbc3f3066c569b1eb7aa9ecd909501c1dc86db2912dd7ba9ea71f3a2173aa1"
+      }
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    },
+    {
+      "command": ".\\.venv\\Scripts\\python.exe tools/check_repository_artifacts.py --base 38a6ccf23ca24b2ca60956b7365780ec1eb5fe39",
+      "exit_code": 0,
+      "changed_blobs": 4
+    }
+  ],
+  "offscreen": {
+    "source_commit": "0a39879829ad3aecd851a2bf71cbe9713136ae05",
+    "native_desktop": false,
+    "scenario_count": 16,
+    "requested_factors": [
+      1.25,
+      1.5
+    ],
+    "actual_dpr": [
+      1.25,
+      1.5
+    ],
+    "main_logical_size": [
+      920,
+      620
+    ],
+    "dialog_logical_size": [
+      520,
+      460
+    ],
+    "entries": [
+      "Task_Edit",
+      "Scenario_Edit",
+      "Sensors_Edit",
+      "Actuator_Edit"
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "horizontal_scroll_maximum": 0,
+    "checks": [
+      {
+        "path": ".qa/defaults-ux-20261116/offscreen-1.25.json",
+        "bytes": 2796,
+        "sha256": "6ebf0d053f277b484161b85a03869c10a10b28d3d871a7cbd9a3f76d8dab39f2"
+      },
+      {
+        "path": ".qa/defaults-ux-20261116/offscreen-1.5.json",
+        "bytes": 2782,
+        "sha256": "ac286ab645d8c19de8253820a0ce0c1f49af01cac7a835ceb4f799ec3bcf207f"
+      }
+    ],
+    "screenshots_visually_inspected": [
+      {
+        "path": ".qa/defaults-ux-20261116/offscreen-Sensors_Edit-1.5.png",
+        "bytes": 103304,
+        "sha256": "db1f57407ac25f46187f2e588d92b64f4b57a28dfc420859aaa8aa8cf865ff72"
+      },
+      {
+        "path": ".qa/defaults-ux-20261116/offscreen-Task_Edit-1.25.png",
+        "bytes": 78184,
+        "sha256": "3d0836cb89b95166c563ccb5665ca3da677f4bf601335984a0fe3470d1f84fc1"
+      }
+    ],
+    "reproduction_script": {
+      "path": ".test-tmp/defaults-ux-20261116/capture.py",
+      "bytes": 3502,
+      "sha256": "adcbb6619824e8a82a0fa87e8b530f603a692cea807f5dcf73740131cc761e3a"
+    }
+  },
+  "development_failures": [
+    {
+      "scope": "new fixture setup/comparison",
+      "failed": 5,
+      "errors": 1,
+      "reason": "New assertions compared JSON vectors (lists) to dataclass tuples; basetemp parent initially absent.",
+      "product_gate_relaxed": false
+    },
+    {
+      "scope": "narrow dialogs",
+      "failed": 4,
+      "passed": 19,
+      "observed_horizontal_overflow_logical_pixels": {
+        "Scenario_Edit": 94,
+        "Sensors_Edit": 395
+      },
+      "fix": "Two-column named vector components and WrapLongRows; final tests unchanged.",
+      "output": {
+        "path": ".test-tmp/defaults-ux-20261116/layout-check.log",
+        "bytes": 16919,
+        "sha256": "9303402cd599fce43c1fa1c78dee5410adaedded2dfd0384d52d86d9252ee225"
+      }
+    },
+    {
+      "scope": "aerodynamic provenance",
+      "failed": 2,
+      "passed": 1,
+      "fix": "Changed aerodynamic parameters use model-owned engineering approximation source; other scenario edits preserve source.",
+      "output": {
+        "path": ".test-tmp/defaults-ux-20261116/provenance-before.log",
+        "bytes": 4095,
+        "sha256": "abead507610eb1a076e65a9a9fe55a336e5d083d4351221585476a9ee4831905"
+      }
+    },
+    {
+      "scope": "Return implicitly activating restore defaults",
+      "failed": 8,
+      "product_source_commit": "025e3e65fbb1621dbfdd2e7c0d1f2a0e9fdb4ae0",
+      "fix": "Restore is neither auto-default nor default; Apply is explicit default; Space remains an intentional restore action.",
+      "output": {
+        "path": ".test-tmp/defaults-ux-20261116/return-before.log",
+        "bytes": 23293,
+        "sha256": "0c81449c9339da5ac5dcdaa2fceb3cadaa6b0f3d0828ab9af39cfa0611a53eee"
+      }
+    }
+  ],
+  "limitations": [
+    "No new native desktop interaction",
+    "No package rebuild",
+    "No hardware operation",
+    "Ruff unavailable in current environment; no Ruff pass claimed",
+    "Push coordinated by parent agent"
+  ]
+}
