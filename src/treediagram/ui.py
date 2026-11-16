@@ -17,6 +17,7 @@ from PySide6.QtWidgets import (
 from . import __version__
 from .core.session import ProjectSession
 from .core.storage import ProjectIoOutcome, ProjectIoResult, Project_Load
+from .dialog_geometry import CenteredMessageBox
 from .theme import Caption_Apply, Theme_Apply
 
 
@@ -307,7 +308,7 @@ class MainWindow(QMainWindow):
     def _Changes_ConfirmDiscard(self) -> bool:
         if not self.session.dirty:
             return True
-        dialog = QMessageBox(self)
+        dialog = CenteredMessageBox(self)
         dialog.setWindowTitle("尚有未保存的更改")
         dialog.setText("是否先保存当前工程？")
         save = dialog.addButton("保存", QMessageBox.ButtonRole.AcceptRole)

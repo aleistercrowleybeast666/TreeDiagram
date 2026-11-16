@@ -8,7 +8,6 @@ import math
 from typing import Sequence
 
 import numpy as np
-from scipy.linalg import solve_discrete_are
 
 from .native import Native_Load
 
@@ -125,6 +124,9 @@ def Lqr_Solve(a: Sequence, b: Sequence, q: Sequence, r: Sequence, *, dt_s: float
             if np.linalg.matrix_rank(np.concatenate((shift, c), axis=0)) != 2:
                 raise ValueError("LQR pair (sqrt(Q),A) is not detectable")
     try:
+        # The LQR solver is needed only for an explicit design operation. Loading
+        # its LAPACK dependencies must not delay an empty engineering workspace.
+        from scipy.linalg import solve_discrete_are
         p = solve_discrete_are(a, b, q, r)
         denominator = r + b.T @ p @ b
         if np.linalg.cond(denominator) > 1e10:
